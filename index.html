@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Vger</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="apple-touch-icon-precomposed" href="favicon-152.png">
+		<meta name="msapplication-TileColor" content="#FFFFFF">
+		<meta name="msapplication-TileImage" content="favicon-144.png">
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+		<link rel="stylesheet" href="style.css" />
+		<!--[if lte IE 8]>
+			<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+		<![endif]-->
+		<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+ 		<script src="script.js"></script>
+	</head>
+	
+	<body ng-app="vger">
+		
+		<div id="view"  ng-controller="ListCtrl">
+
+			<div id="menu">
+				<span id="buttonMenu" class="option">
+					<i class="icon-menu"></i>
+				</span>
+				<span id="buttonCurrentLocation" class="option" ng-click='currentLocation()'>
+					<i class="icon-mark"></i>
+					<span class="menu-title">My current location</span>
+				</span>
+				<span id="buttonReload" class="option" ng-click='reload()'>
+					<i class="icon-reload"></i>
+					<span class="menu-title">Load Wikipedia entries</span>
+				</span>
+				<span id="buttonMap" class="option inactive">
+					<i class="icon-map"></i>
+					<span class="menu-title">Map</span>
+				</span>
+				<span id="buttonList" class="option active">
+					<i class="icon-list"></i>
+					<span class="menu-title">List of entries</span>
+				</span>
+			</div>
+			
+			<div id="logo" class="loading">
+				<i class="icon-logo"></i>
+			</div>
+
+			<div id="container">
+				<div id="map"></div>
+				
+				<div id="list" class="inactive">
+					<div ng-repeat="entry in entries" ng-click='openPopUp($index)' class="entry">
+						<div class="entryImg">
+							<img src="img.png" ng-src="{{ entry.thumbnail.source }}" />
+						</div>
+						<div class="entryTitle">
+							{{ entry.title }}
+						</div>
+					</div>
+				</div>
+				
+				<div id="message" class="inactive">
+					<p id="location-not-loaded">{{ message }}</p>
+					<div id="developed-by" class="inactive">
+						<p>Vger is being designed and developed as a weekend project by Fran López.</p>
+						<p><a href="mailto:fran@fran-lopez.com" class="loading">fran@fran-lopez.com</a></p>
+					</div>
+					<br/><br/><br/>
+					<div id="message-ok" class="button-link">Ok</div>
+				</div>
+			</div>
+			
+		</div>
+
+	</body>
+
+</html>

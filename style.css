@@ -1,0 +1,513 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+@font-face {
+	font-family: 'vger';
+	src: url('font/vger.eot?37332630');
+	src: url('font/vger.eot?37332630#iefix') format('embedded-opentype'),
+			 url('font/vger.woff?37332630') format('woff'),
+			 url('font/vger.ttf?37332630') format('truetype'),
+			 url('font/vger.svg?37332630#vger') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family: "vger";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	margin-right: .2em;
+	text-align: center;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1em;
+	margin-left: .2em;
+}
+
+.icon-list:before { content: '\e800'; } /* '' */
+.icon-logo:before { content: '\e801'; } /* '' */
+.icon-map:before { content: '\e802'; } /* '' */
+.icon-mark:before { content: '\e803'; } /* '' */
+.icon-menu:before { content: '\e804'; } /* '' */
+.icon-reload:before { content: '\e805'; } /* '' */
+
+
+html {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 62.5%;
+} 
+
+body {
+	background: #000000;
+	color: #FFFFFF;
+	font-size: 1.3em;
+}
+
+@-webkit-keyframes loading {
+	0%   {color: #FF00FF;}
+	33%  {color: #00FFFF;}
+	66%  {color: #FFFF00;}
+	100%   {color: #FF00FF;}
+}
+@-moz-keyframes loading {
+	0%   {color: #FF00FF;}
+	33%  {color: #00FFFF;}
+	66%  {color: #FFFF00;}
+	100%   {color: #FF00FF;}
+}
+@-o-keyframes loading {
+	0%   {color: #FF00FF;}
+	33%  {color: #00FFFF;}
+	66%  {color: #FFFF00;}
+	100%   {color: #FF00FF;}
+}
+@keyframes loading {
+	0%   {color: #FF00FF;}
+	33%  {color: #00FFFF;}
+	66%  {color: #FFFF00;}
+	100%   {color: #FF00FF;}
+}
+
+.loading {
+	-webkit-animation: loading 4s linear infinite;
+	-moz-animation: loading 4s linear infinite;
+	-o-animation: loading 4s linear infinite;
+	animation: loading 4s linear infinite;
+}
+
+a {
+	text-decoration: none;
+}
+
+#menu {
+	-webkit-transition: height 0.35s linear;
+	-moz-transition: height 0.35s linear;
+	-o-transition: height 0.35s linear;
+	transition: height 0.35s linear;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 11700;
+	height: 2.3em;
+	background: #000000;
+	margin-top: 0.2em;
+}
+
+#menu span.option {
+	-webkit-transition: color 0.3s linear;
+	-moz-transition: color 0.3s linear;
+	-o-transition: color 0.3s linear;
+	transition: color 0.3s linear;
+	display: inline-block;
+	vertical-align: text-top;
+	height: 2.5em;
+	cursor: pointer;
+}
+
+#menu span.option:hover {
+	-webkit-animation: loading 2s linear infinite;
+	-moz-animation: loading 2s linear infinite;
+	-o-animation: loading 2s linear infinite;
+	animation: loading 2s linear infinite;
+}
+
+#menu span.option i {
+	margin: 0.1em 0;
+	font-size: 2em;
+}
+
+#menu span.option span.menu-title {
+	-webkit-transition: opacity 0.1s linear 0.45s;
+	-moz-transition: opacity 0.1s linear 0.45s;
+	-o-transition: opacity 0.1s linear 0.45s;
+	transition: opacity 0.1s linear 0.45s;
+	width: 0%;
+	opacity: 0;
+	display: inline-block;
+	position: absolute;
+	overflow: hidden;
+}
+
+#menu.spread {
+	width: 100%;
+	height: 10em;
+}
+
+#menu #buttonCurrentLocation {
+	-webkit-transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
+	-moz-transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
+	-o-transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
+	transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
+	z-index: 10003;
+}
+#menu.spread #buttonCurrentLocation {
+	margin-top: 2.5em;
+	margin-left: -3em;
+}
+
+#menu #buttonReload {
+	-webkit-transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
+	-moz-transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
+	-o-transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
+	transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
+	z-index: 10002;
+}
+#menu.spread #buttonReload {
+	margin-top: 5em;
+	margin-left: -3em;
+}
+
+#menu #buttonMap, #menu #buttonList {
+	-webkit-transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
+	-moz-transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
+	-o-transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
+	transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
+	z-index: 10001;
+}
+#menu.spread #buttonMap, #menu.spread #buttonList {
+	margin-top: 7.5em;
+	margin-left: -3em;
+}
+
+#menu.spread span.option span.menu-title {
+	display: inline-block;
+	opacity: 1.0;
+	width: 12em;
+	left: 3.5em;
+}
+
+#menu.spread #buttonCurrentLocation.option span.menu-title {
+	top: 3em;
+}
+#menu.spread #buttonReload.option span.menu-title {
+	top: 5.5em;
+}
+#menu.spread #buttonMap.option span.menu-title,
+#menu.spread #buttonList.option span.menu-title {
+	top: 8em;
+}
+
+
+#buttonMap.option.active, #buttonList.option.active {
+	display: inline-block;
+}
+
+#buttonMap.option.inactive, #buttonList.option.inactive {
+	display: none;
+}
+
+#logo {
+	right: 2em;
+	position: absolute;
+	top: 0;
+	z-index: 11499;
+	height: 2.3em;
+	margin-top: 0.2em;
+	z-index: 11700;
+	cursor: pointer;
+}
+#logo i {
+	margin: 0.1em 0;
+	font-size: 2em;
+}
+
+#container {
+	position: absolute;
+	top: 2.5em;
+	bottom: 0.5em;
+	left: 0.5em;
+	right: 0.5em;
+}
+
+#map, #list {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: margin 0.3s linear;
+	-moz-transition: margin 0.3s linear;
+	-o-transition: margin 0.3s linear;
+	transition: margin 0.3s linear;
+}
+
+#map.active {
+	margin-left: 0;
+}
+#list.active {
+	margin-left: 0;
+	overflow: visible;
+}
+
+#map.inactive {
+	margin-left: -110%;
+	overflow: hidden;
+}
+
+#list {
+	background: #000000;
+	z-index: 11500;
+}
+
+#list.inactive {
+	margin-left: -110%;
+	overflow: hidden;
+}
+
+#map {
+	color: #000000;
+}
+
+div.entry {
+	-webkit-transition: all 0.3s linear;
+	-moz-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+	height: 3em;
+	background: #FFFFFF;
+	color: #000000;
+	margin-bottom: 0.5em;
+	position: relative;
+	cursor: pointer;
+}
+
+div.entry:hover {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+div.entry div.entryImg {
+	height: 100%;
+	width: 2.5em;
+	display: inline-block;
+	overflow: hidden;
+	background: #000000;
+	padding-right: 0.5em;
+}
+
+div.entry div.entryImg img {
+	width: 100%;
+	margin: auto 0;
+}
+
+div.entry div.entryTitle {
+	position: absolute;
+	left: 3.5em;
+	top: 0.2em;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.button-link {
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+    float: right;
+    margin-top: -2em;
+    color: #FFFFFF;
+    background: #000000;
+    text-decoration: none;
+    padding: 0.4em 0.7em;
+    cursor: pointer;
+}
+
+.button-link:hover {
+	color: #000000;
+	background: #FFFFFF;
+}
+
+
+#message {
+	position: absolute;
+	z-index: 12000;
+	width: 90%;
+	margin: 2%;
+	padding: 3%;
+	text-align: center;
+	color: #000000;
+	background: #FFFFFF;
+	box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.65);
+}
+#message.inactive, #developed-by.inactive,
+#location-not-loaded.inactive {
+	display: none; 
+}
+
+
+.leaflet-bar a:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.leaflet-bar a:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.leaflet-popup-content-wrapper {
+	border-radius: 0;
+}
+
+.leaflet-popup-content {
+	margin: 0.6em 1em;
+}
+
+.leaflet-container {
+	font: 0.7em 'Ubuntu', sans-serif;
+	background: #555555;
+}
+.leaflet-container a.leaflet-popup-close-button {
+	color: #000000;
+}
+.leaflet-container a.leaflet-popup-close-button:hover {
+    color: #000000;
+}
+.leaflet-container .leaflet-popup a {
+    color: #FFFFFF;
+}
+
+@media screen and (min-height: 16em) {
+	body {
+		font-size: 1.4em;
+	}
+}
+
+@media screen and (min-height: 28em) {
+	body {
+		font-size: 1.7em;
+	}
+}
+
+@media screen and (min-height: 50em) {
+	body {
+		font-size: 2.1em;
+	}
+}
+
+@media screen and (min-height: 70em) {
+	body {
+		font-size: 2.8em;
+	}
+}
+
+@media screen and (min-height: 100em) {
+	body {
+		font-size: 3.4em;
+	}
+}
+
+
+@media screen and (min-width: 57em) {
+
+	#menu.spread {
+		left: 0.5em;
+		position: fixed;
+		width: 100%;
+		z-index: 10000;
+		height: 2.5em;
+		background: #000000;
+	}
+	#menu #buttonMenu.option, #menu.spread #buttonMenu.option, #buttonMap.option, #buttonList.option,
+	#buttonMap.option.active, #buttonList.option.active,
+	#buttonMap.option.inactive, #buttonList.option.inactive {
+		display: none;
+	}
+	
+	#menu #buttonCurrentLocation,
+	#menu.spread #buttonCurrentLocation,
+	#menu #buttonCurrentLocation i,
+	#menu.spread #buttonCurrentLocation i,
+	#menu #buttonCurrentLocation span.menu-title,
+	#menu.spread #buttonCurrentLocation span.menu-title {
+		position: fixed;
+		top: 0;
+	}
+	#menu #buttonCurrentLocation i,
+	#menu.spread #buttonCurrentLocation i {
+		left: 0em;
+	}
+	#menu #buttonCurrentLocation span.menu-title,
+	#menu.spread #buttonCurrentLocation span.menu-title {
+		left: 3em;
+		opacity: 1.0;
+		width: 13em;
+	}
+
+	#menu #buttonReload,
+	#menu.spread #buttonReload,
+	#menu #buttonReload i,
+	#menu.spread #buttonReload i,
+	#menu #buttonReload span.menu-title,
+	#menu.spread #buttonReload span.menu-title {
+		position: fixed;
+		top: 0;
+	}
+	#menu #buttonReload i,
+	#menu.spread #buttonReload i {
+		left: 7em;
+	}
+	#menu #buttonReload span.menu-title,
+	#menu.spread #buttonReload span.menu-title {
+		left: 17em;
+		opacity: 1.0;
+		width: 13em;
+	}
+	
+	#menu #buttonReload.option span.menu-title,
+	#menu #buttonCurrentLocation.option span.menu-title,
+	#menu.spread #buttonReload.option span.menu-title,
+	#menu.spread #buttonCurrentLocation.option span.menu-title {
+		top: 0.5em;
+	}
+
+	#map {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 60%;
+		height: 100%;
+	}
+	
+	#message {
+		width: 50%;
+		margin: 2%;
+		padding: 3%;
+	}
+
+	
+	#logo {
+		right: 40%;
+		margin-right: 2.2em;
+		width: 2em;
+		position: fixed;
+		z-index: 20000;
+		height: 2.5em;
+	}
+
+	
+	#list {
+		position: absolute;
+		top: 0;
+		left: 61%;
+		width: 39%;
+		height: 100%;
+	}
+
+	#map.active, #map.inactive {
+		margin: 0;
+		overflow: hidden;
+	}
+	
+	#list.active, #list.inactive {
+		margin-left: 0;
+		overflow: auto;
+	}
+
+}
