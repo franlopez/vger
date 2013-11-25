@@ -1,37 +1,21 @@
 var vger =  angular.module('vger', []);
 
-var screenMap;
-
-vger.config(['$routeProvider', function($routeProvider) {
-	$routeProvider.
-		when('/', {controller: 'ListCtrl', reloadOnSearch: false }).
-		otherwise({redirectTo: '/'});
-}]);
-
-vger.run(['Map', function(Map) {
-	Map.setScreenMap();
-		
-	document.getElementById("buttonMap").onclick = function() {
-		showMap();
-	}
-	document.getElementById("buttonList").onclick = function() {
-		showList();
-	}
-	document.getElementById("buttonMenu").onclick = function() {
-		toggleMenu();
-	}
-	document.getElementById("message-ok").onclick = function() {
-		var messageBox = document.getElementById('message');
-		removeClass(messageBox, 'active');
-		addClass(messageBox, 'inactive');
-	}
-	
-
-}]);
-
-
 vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
-		
+	
+	// set visibility state for elements
+	$scope.loading = true;
+	$scope.messageVisible = false;
+	$scope.mapVisible = true;
+	$scope.spreadMenu = false;
+	
+	// set map on screen
+	var screenMap;
+	screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 17});
+	L.control.zoom({position: 'bottomleft'}).addTo(screenMap);
+	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(screenMap);
+
 	var markIcon = L.icon({
 		iconUrl: 'mark.png',
 		shadowUrl: 'shadow.png',
@@ -41,16 +25,14 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 		shadowAnchor: [1, 48],  // the same for the shadow
 		popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
 	});
-	
-	$scope.currentLocationMarkers = new Array();
-	
+		
+	// get wikipedia entries for given position
 	var getWikipediaEntries = function(lat, lng) {
+			$scope.loading = true;
 			angular.forEach($scope.entries, function(value, index) {
 				value.marker.closePopup().unbindPopup().setOpacity(0);
 			});
 			$scope.entries = [];
-			var logo = document.getElementById('logo');
-			addClass(logo, 'loading');
 			//get list of closer entries
 			$http.jsonp('http://en.wikipedia.org/w/api.php?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + lat + '|' + lng + '&gslimit=20&callback=JSON_CALLBACK').success(function(data) {
 				$scope.entries = data.query.geosearch;
@@ -69,40 +51,42 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 					});
 					//get excerpts
 					$http.jsonp('http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exchars=250&exlimit=20&exintro=&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
-						var logo = document.getElementById('logo');
-						removeClass(logo, 'loading');
 						angular.forEach($scope.entries, function(value, index) {
 							value.popUp.setContent('<h4>' + value.title + '</h4>' +
 												   data.query.pages[value.pageid].extract + '<br/>' +
 												   '<a href="http://en.m.wikipedia.org/w/index.php?title=' + value.title + '" class="button-link">Read more</a>');
 						});
+						$scope.loading = false;
 					});
 				});
 			});
 	};
 	
+	// load wikipedia entries for current location
 	$scope.reload = function() {
 		$rootScope.localization = screenMap.getCenter();
 		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
 	};
 	
+	// set map to current location
 	$scope.currentLocation = function() {
 		screenMap.locate({setView: true, zoom: 14, maxZoom: 17});
-		// $rootScope.localization = screenMap.getCenter();
-		// getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
 	};
 
+	// open pop-up of a selected entry
 	$scope.openPopUp = function(index) {
 		$scope.entries[index].marker.openPopup();
 		showMap();
 	};
 
+	// locations to visit if current location not available
 	var visitLocations = [
 		{ name: 'La Habana', position: [23.13986, -82.38445] },
 		{ name: 'Pompeii', position: [40.7512, 14.4869] },
 		{ name: 'Tiananmen Square', position: [39.9021, 116.3917] },
 	];
 	
+	// set the map to any of the visitLocations
 	$scope.visitLocation = function() {
 		var location = visitLocations[Math.floor(Math.random() * visitLocations.length)];
 		$scope.message = "Sorry, Vger couldn't find the current location... You've been redirected to "
@@ -110,21 +94,13 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 		screenMap.setView(location.position, 14);
 		$rootScope.localization = screenMap.getCenter();
 		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
-		var messageBox = document.getElementById('message');
-		removeClass(messageBox, 'inactive');
-		addClass(messageBox, 'active');
-		var developedBy = document.getElementById('developed-by');
-		removeClass(developedBy, 'active');
-		addClass(developedBy, 'inactive');
-		var locationNotLoaded = document.getElementById('location-not-loaded');
-		removeClass(locationNotLoaded, 'inactive');
-		addClass(locationNotLoaded, 'active');
+		$scope.messageVisible = true;
 	}
-	
 	screenMap.on('locationerror', function() {
 		$scope.visitLocation();
 	});
 
+	// set the current location on the map
 	var personIcon = L.icon({
 		iconUrl: 'person.png',
 		shadowUrl: 'shadow.png',
@@ -134,9 +110,9 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 		shadowAnchor: [1, 48],  // the same for the shadow
 		popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
 	});
-	
 	screenMap.on('locationfound', function() {
 		$rootScope.localization = screenMap.getCenter();
+		// make the previous markers invisible
 		if ($scope.currentLocationMarkers.length > 0) {
 			$scope.currentLocationMarkers[$scope.currentLocationMarkers.length - 1].setOpacity(0);
 		}
@@ -146,88 +122,20 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 		screenMap.setZoom(14);
 		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
 	});
-
-	document.getElementById("logo").onclick = function() {
-		var messageBox = document.getElementById('message');
-		removeClass(messageBox, 'inactive');
-		addClass(messageBox, 'active');
-		var developedBy = document.getElementById('developed-by');
-		removeClass(developedBy, 'inactive');
-		addClass(developedBy, 'active');
-		var locationNotLoaded = document.getElementById('location-not-loaded');
-		removeClass(locationNotLoaded, 'active');
-		addClass(locationNotLoaded, 'inactive');
+	
+	$scope.showMap = function() {
+		window.scrollTo(0,0);
+		$scope.mapVisible = true;
+	}
+	
+	$scope.showList = function() {
+		window.scrollTo(0,0);
+		$scope.mapVisible = false;
+	}
+	
+	$scope.logo = function() {
+		$scope.message = "<p>Vger is being designed and developed as a weekend project by Fran López.</p><p><a href='mailto:fran@fran-lopez.com' class='loading'><h4>fran@fran-lopez.com</h4></a></p>";
+		$scope.messageVisible = true;
 	}
 
 }]);
-
-
-vger.factory('Map', ['$rootScope', function($rootScope) {
-	return {
-		setScreenMap: function() {
-			screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 17});
-			L.control.zoom({position: 'bottomleft'}).addTo(screenMap);
-
-			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(screenMap);
-		}
-	}
-}]);
-
-
-var hasClass = function (elem, className) {
-    return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-}
-
-function addClass(ele,cls) {
-  if (!hasClass(ele,cls)) ele.className += " "+cls;
-}
-
-function removeClass(ele,cls) {
-  if (hasClass(ele,cls)) {
-      var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
-      ele.className=ele.className.replace(reg,' ');
-  }
-}
-
-function showMap() {
-	window.scrollTo(0,0);
-	var map = document.getElementById('map');
-	removeClass(map, 'inactive');
-	addClass(map, 'active');
-	var list = document.getElementById('list');
-	removeClass(list, 'active');
-	addClass(list, 'inactive');
-	var buttonMap = document.getElementById('buttonMap');
-	removeClass(buttonMap, 'active');
-	addClass(buttonMap, 'inactive');
-	var buttonList = document.getElementById('buttonList');
-	removeClass(buttonList, 'inactive');
-	addClass(buttonList, 'active');
-}
-
-function showList() {
-	window.scrollTo(0,0);
-	var list = document.getElementById('list');
-	removeClass(list, 'inactive');
-	addClass(list, 'active');
-	var map = document.getElementById('map');
-	removeClass(map, 'active');
-	addClass(map, 'inactive');
-	var buttonList = document.getElementById('buttonList');
-	removeClass(buttonList, 'active');
-	addClass(buttonList, 'inactive');
-	var buttonMap = document.getElementById('buttonMap');
-	removeClass(buttonMap, 'inactive');
-	addClass(buttonMap, 'active');
-}
-
-function toggleMenu() {
-	var menu = document.getElementById('menu');
-	if (hasClass(menu, 'spread')) {
-		removeClass(menu, 'spread');
-	} else {
-		addClass(menu, 'spread');
-	}
-}

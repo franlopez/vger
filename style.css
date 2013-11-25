@@ -196,13 +196,14 @@ a {
 }
 
 
-#buttonMap.option.active, #buttonList.option.active {
+#menu #buttonMap.option, #menu #buttonList.option {
+	display: none;
+}
+
+#menu #buttonMap.option.active, #menu #buttonList.option.active {
 	display: inline-block;
 }
 
-#buttonMap.option.inactive, #buttonList.option.inactive {
-	display: none;
-}
 
 #logo {
 	right: 2em;
@@ -238,28 +239,25 @@ a {
 	transition: margin 0.3s linear;
 }
 
+#map {
+	margin-left: -110%;
+	overflow: hidden;
+}
 #map.active {
 	margin-left: 0;
+}
+
+#list {
+	background: #000000;
+	z-index: 11500;
+	margin-left: -110%;
+	overflow: hidden;
 }
 #list.active {
 	margin-left: 0;
 	overflow: visible;
 }
 
-#map.inactive {
-	margin-left: -110%;
-	overflow: hidden;
-}
-
-#list {
-	background: #000000;
-	z-index: 11500;
-}
-
-#list.inactive {
-	margin-left: -110%;
-	overflow: hidden;
-}
 
 #map {
 	color: #000000;
@@ -335,10 +333,10 @@ div.entry div.entryTitle {
 	color: #000000;
 	background: #FFFFFF;
 	box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.65);
-}
-#message.inactive, #developed-by.inactive,
-#location-not-loaded.inactive {
 	display: none; 
+}
+#message.active {
+	display: block;
 }
 
 
@@ -414,9 +412,9 @@ div.entry div.entryTitle {
 		height: 2.5em;
 		background: #000000;
 	}
-	#menu #buttonMenu.option, #menu.spread #buttonMenu.option, #buttonMap.option, #buttonList.option,
-	#buttonMap.option.active, #buttonList.option.active,
-	#buttonMap.option.inactive, #buttonList.option.inactive {
+	#menu #buttonMenu.option, #menu.spread #buttonMenu.option,
+	#menu #buttonMap.option, #menu #buttonMap.option.active,
+	#menu #buttonList.option, #menu #buttonList.option.active {
 		display: none;
 	}
 	
@@ -500,12 +498,12 @@ div.entry div.entryTitle {
 		height: 100%;
 	}
 
-	#map.active, #map.inactive {
+	#map {
 		margin: 0;
 		overflow: hidden;
 	}
 	
-	#list.active, #list.inactive {
+	#list {
 		margin-left: 0;
 		overflow: auto;
 	}
