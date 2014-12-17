@@ -79,7 +79,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 	// open pop-up of a selected entry
 	$scope.openPopUp = function(index) {
 		$scope.entries[index].marker.openPopup();
-		showMap();
+		$scope.showMap();
 	};
 
 	// locations to visit if current location not available
