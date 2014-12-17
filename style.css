@@ -223,9 +223,9 @@ a {
 #container {
 	position: absolute;
 	top: 2.5em;
-	bottom: 0.5em;
-	left: 0.5em;
-	right: 0.5em;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 #map, #list {
@@ -288,6 +288,7 @@ div.entry div.entryImg {
 	overflow: hidden;
 	background: #000000;
 	padding-right: 0.5em;
+    padding-left: 0.5em;
 }
 
 div.entry div.entryImg img {
@@ -404,6 +405,12 @@ div.entry div.entryTitle {
 
 @media screen and (min-width: 57em) {
 
+    #container {
+        bottom: 0.5em;
+        left: 0.5em;
+        right: 0.5em;;
+    }
+    
 	#menu.spread {
 		left: 0.5em;
 		position: fixed;
@@ -471,7 +478,17 @@ div.entry div.entryTitle {
 		left: 0;
 		width: 60%;
 		height: 100%;
+        margin: 0;
+		overflow: hidden;
 	}
+    
+    div.entry {
+        margin-right: 0.5em;
+    }
+    
+    div.entry div.entryImg {
+        padding-left: 0;
+    }
 	
 	#message {
 		width: 50%;
@@ -496,14 +513,6 @@ div.entry div.entryTitle {
 		left: 61%;
 		width: 39%;
 		height: 100%;
-	}
-
-	#map {
-		margin: 0;
-		overflow: hidden;
-	}
-	
-	#list {
 		margin-left: 0;
 		overflow: auto;
 	}
