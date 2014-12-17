@@ -28,41 +28,41 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 	});
     
     $scope.currentLocationMarkers = new Array();
-		
+
 	// get wikipedia entries for given position
 	var getWikipediaEntries = function(lat, lng) {
-			$scope.loading = true;
-			angular.forEach($scope.entries, function(value, index) {
-				value.marker.closePopup().unbindPopup().setOpacity(0);
-			});
-			$scope.entries = [];
-			//get list of closer entries
-			$http.jsonp('http://en.wikipedia.org/w/api.php?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + lat + '|' + lng + '&gslimit=20&callback=JSON_CALLBACK').success(function(data) {
-				$scope.entries = data.query.geosearch;
-				var ids = "";
-				angular.forEach($scope.entries, function(value, index) {
-					ids += value.pageid + "|";
-					value.popUp = L.popup().setContent('<h4>' + value.title + '</h4>');
-					value.marker = L.marker([value.lat, value.lon], {icon: markIcon});
-					value.marker.addTo($rootScope.screenMap).bindPopup(value.popUp);
-				});
-				ids = ids.slice(0, - 1);
-				// get thumbnails
-				$http.jsonp('http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=thumbnail&pithumbsize=60&pilimit=20&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
-					angular.forEach($scope.entries, function(value, index) {
-						value.thumbnail = data.query.pages[value.pageid].thumbnail;
-					});
-					//get excerpts
-					$http.jsonp('http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exchars=250&exlimit=20&exintro=&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
-						angular.forEach($scope.entries, function(value, index) {
-							value.popUp.setContent('<h4>' + value.title + '</h4>' +
-												   data.query.pages[value.pageid].extract + '<br/>' +
-												   '<a href="http://en.m.wikipedia.org/w/index.php?title=' + value.title + '" class="button-link">Read more</a>');
-						});
-						$scope.loading = false;
-					});
-				});
-			});
+        $scope.loading = true;
+        angular.forEach($scope.entries, function(value, index) {
+            value.marker.closePopup().unbindPopup().setOpacity(0);
+        });
+        $scope.entries = [];
+        //get list of closer entries
+        $http.jsonp('http://en.wikipedia.org/w/api.php?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + lat + '|' + lng + '&gslimit=20&callback=JSON_CALLBACK').success(function(data) {
+            $scope.entries = data.query.geosearch;
+            var ids = "";
+            angular.forEach($scope.entries, function(value, index) {
+                ids += value.pageid + "|";
+                value.popUp = L.popup().setContent('<h4>' + value.title + '</h4>');
+                value.marker = L.marker([value.lat, value.lon], {icon: markIcon});
+                value.marker.addTo($rootScope.screenMap).bindPopup(value.popUp);
+            });
+            ids = ids.slice(0, - 1);
+            // get thumbnails
+            $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=thumbnail&pithumbsize=60&pilimit=20&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
+                angular.forEach($scope.entries, function(value, index) {
+                    value.thumbnail = data.query.pages[value.pageid].thumbnail;
+                });
+                //get excerpts
+                $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exchars=250&exlimit=20&exintro=&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
+                    angular.forEach($scope.entries, function(value, index) {
+                        value.popUp.setContent('<h4>' + value.title + '</h4>' +
+                                               data.query.pages[value.pageid].extract + '<br/>' +
+                                               '<a href="http://en.m.wikipedia.org/w/index.php?title=' + value.title + '" class="button-link">Read more</a>');
+                    });
+                    $scope.loading = false;
+                });
+            });
+        });
 	};
 	
 	// load wikipedia entries for current location
