@@ -26,6 +26,8 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 		shadowAnchor: [1, 48],  // the same for the shadow
 		popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
 	});
+    
+    $scope.currentLocationMarkers = new Array();
 		
 	// get wikipedia entries for given position
 	var getWikipediaEntries = function(lat, lng) {
