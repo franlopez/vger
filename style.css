@@ -248,7 +248,7 @@ a {
 }
 
 #list {
-	background: #000000;
+	background: #FFFFFF;
 	z-index: 11500;
 	margin-left: -110%;
 	overflow: hidden;
@@ -268,11 +268,9 @@ div.entry {
 	-moz-transition: all 0.3s linear;
 	-o-transition: all 0.3s linear;
 	transition: all 0.3s linear;
-	height: 3em;
 	background: #FFFFFF;
 	color: #000000;
-	margin-bottom: 0.5em;
-	position: relative;
+	padding: 0.8em 0;
 	cursor: pointer;
 }
 
@@ -282,26 +280,25 @@ div.entry:hover {
 }
 
 div.entry div.entryImg {
-	height: 100%;
-	width: 2.5em;
+	width: 20%;
 	display: inline-block;
 	overflow: hidden;
-	background: #000000;
-	padding-right: 0.5em;
-    padding-left: 0.5em;
+	padding: 0 2%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
 }
 
 div.entry div.entryImg img {
 	width: 100%;
+    max-width: 60px;
 	margin: auto 0;
 }
 
 div.entry div.entryTitle {
-	position: absolute;
-	left: 3.5em;
-	top: 0.2em;
-	overflow: hidden;
 	display: inline-block;
+    vertical-align: middle;
+    width: 76%;
 }
 
 .button-link {
@@ -403,8 +400,31 @@ div.entry div.entryTitle {
 }
 
 
-@media screen and (min-width: 57em) {
 
+
+@media screen and (min-width: 27em) {
+    div.entry div.entryImg {
+        width: 26%;
+        padding: 0 2%;
+    }
+
+    div.entry div.entryTitle {
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 37em) {
+    div.entry div.entryImg {
+        width: 7%;
+        padding: 0 2%;
+    }
+    
+    div.entry div.entryTitle {
+        width: 89%;
+    }
+}
+
+@media screen and (min-width: 57em) {
     #container {
         bottom: 0.5em;
         left: 0.5em;
@@ -483,13 +503,9 @@ div.entry div.entryTitle {
 	}
     
     div.entry {
-        margin-right: 0.5em;
+        padding-right: 0.5em;
     }
-    
-    div.entry div.entryImg {
-        padding-left: 0;
-    }
-	
+    	
 	#message {
 		width: 50%;
 		margin: 2%;
@@ -516,5 +532,13 @@ div.entry div.entryTitle {
 		margin-left: 0;
 		overflow: auto;
 	}
-
+    
+    div.entry div.entryImg {
+        width: 10%;
+        padding: 0 2%;
+    }
+    
+    div.entry div.entryTitle {
+        width: 86%;
+    }
 }

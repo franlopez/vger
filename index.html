@@ -72,9 +72,8 @@
 				<div id="list" ng-class="{active: !mapVisible}">
 					<div ng-repeat="entry in entries" ng-click='openPopUp($index)' class="entry">
 						<div class="entryImg">
-							<img src="img.png" ng-src="{{ entry.thumbnail.source }}" />
-						</div>
-						<div class="entryTitle">
+							<img ng-display="entry.thumbnail.source" ng-src="{{ entry.thumbnail.source }}" />
+						</div><div class="entryTitle">
 							{{ entry.title }}
 						</div>
 					</div>
