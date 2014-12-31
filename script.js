@@ -18,12 +18,10 @@ vger.run(['$rootScope', function ($rootScope) {
 vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 	
 	var markIcon = L.icon({
-		iconUrl: 'mark.png',
-		shadowUrl: 'shadow.png',
+		iconUrl: 'icon.svg',
 		iconSize:     [32, 48], // size of the icon
 		shadowSize:   [40, 48], // size of the shadow
 		iconAnchor:   [16, 48], // point of the icon which will correspond to marker's location
-		shadowAnchor: [1, 48],  // the same for the shadow
 		popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
 	});
     
@@ -105,12 +103,9 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 
 	// set the current location on the map
 	var personIcon = L.icon({
-		iconUrl: 'person.png',
-		shadowUrl: 'shadow.png',
+		iconUrl: 'person.svg',
 		iconSize:     [32, 48], // size of the icon
-		shadowSize:   [40, 48], // size of the shadow
 		iconAnchor:   [16, 48], // point of the icon which will correspond to marker's location
-		shadowAnchor: [1, 48],  // the same for the shadow
 		popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
 	});
 	$rootScope.screenMap.on('locationfound', function() {
