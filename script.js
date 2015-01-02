@@ -89,10 +89,9 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 	
 	// set the map to any of the visitLocations
 	$scope.visitLocation = function() {
-		var location = visitLocations[Math.floor(Math.random() * visitLocations.length)];
-		$scope.message = "Sorry, Vger couldn't find the current location... You've been redirected to "
-							+ location.name + ".";
-		$rootScope.screenMap.setView(location.position, 14);
+		$scope.location = visitLocations[Math.floor(Math.random() * visitLocations.length)];
+		$scope.messages.redirect = true;
+		$rootScope.screenMap.setView($scope.location.position, 14);
 		$rootScope.localization = $rootScope.screenMap.getCenter();
 		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
 		$scope.messageVisible = true;
@@ -132,8 +131,21 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 	}
 	
 	$scope.logo = function() {
-		$scope.message = "<p>Vger is being designed and developed as a weekend project by Fran López.</p><p><a href='mailto:fran@fran-lopez.com' class='loading'><h4>fran@fran-lopez.com</h4></a></p>";
+        $scope.messages.about = true;
 		$scope.messageVisible = true;
 	}
+    
+    // user facing messages
+    $scope.messages = {
+        redirect: false,
+        about: false
+    };
+    
+    $scope.clearMessage = function() {
+        $scope.messageVisible = false;
+        angular.forEach($scope.messages, function(message){
+            message = false;
+        });
+    }
 
 }]);

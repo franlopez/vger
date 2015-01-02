@@ -79,9 +79,15 @@
 				</div>
 				
 				<div id="message" ng-class="{active: messageVisible}">
-					<div id="location-not-loaded" ng-bind-html-unsafe="message"></div>
+                    <div ng-show="messages.redirect">
+                        <p>Sorry, Vger couldn't find the current location... You've been redirected to {{location.name}}.</p>
+                    </div>
+                    <div ng-show="messages.about">
+                        <p>Vger is being designed and developed as a weekend project by Fran López.</p>
+                        <p><a href='mailto:fran@fran-lopez.com' class='loading'><h4>fran@fran-lopez.com</h4></a></p>
+                    </div>
 					<br/><br/><br/>
-					<div id="message-ok" class="button-link" ng-click="messageVisible = false">Ok</div>
+					<div id="message-ok" class="button-link" ng-click="clearMessage()">Ok</div>
 				</div>
 			</div>
 			
