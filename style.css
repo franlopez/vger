@@ -38,9 +38,20 @@
 .icon-menu:before { content: '\e804'; } /* '' */
 .icon-reload:before { content: '\e805'; } /* '' */
 
+@font-face {
+    font-family: 'ubunfont';
+    src: url('font/ubunfont-webfont.eot');
+    src: url('font/ubunfont-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/ubunfont-webfont.woff2') format('woff2'),
+         url('font/ubunfont-webfont.woff') format('woff'),
+         url('font/ubunfont-webfont.ttf') format('truetype'),
+         url('font/ubunfont-webfont.svg#ubunturegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 html {
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'ubunfont', sans-serif;
 	font-size: 62.5%;
 } 
 
