@@ -60,6 +60,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
                     $scope.loading = false;
                 });
             });
+            $rootScope.screenMap.setZoom(14);
         });
 	};
 	
@@ -116,7 +117,6 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 		var currentLocationMark = L.marker([$rootScope.localization.lat, $rootScope.localization.lng], {icon: personIcon});
 		currentLocationMark.addTo($rootScope.screenMap);
 		$scope.currentLocationMarkers.push(currentLocationMark);
-		$rootScope.screenMap.setZoom(14);
 		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
 	});
 	
