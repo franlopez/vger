@@ -29,6 +29,10 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 
 	// get wikipedia entries for given position
 	var getWikipediaEntries = function(lat, lng) {
+        // store bound limits to zoom the map and show all entries
+        var southWestBound = [0, 0],
+            northEastBound = [0, 0];
+        
         $scope.loading = true;
         angular.forEach($scope.entries, function(value, index) {
             value.marker.closePopup().unbindPopup().setOpacity(0);
@@ -43,6 +47,18 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
                 value.popUp = L.popup().setContent('<h4>' + value.title + '</h4>');
                 value.marker = L.marker([value.lat, value.lon], {icon: markIcon});
                 value.marker.addTo($rootScope.screenMap).bindPopup(value.popUp);
+                // update bound limits
+                if (index == 0) {
+                    southWestBound[0] = value.lat;
+                    southWestBound[1] = value.lon;
+                    northEastBound[0] = value.lat;
+                    northEastBound[1] = value.lon;
+                } else {
+                    southWestBound[0] = value.lat < southWestBound[0] ? value.lat : southWestBound[0];
+                    southWestBound[1] = value.lon < southWestBound[1] ? value.lon : southWestBound[1];
+                    northEastBound[0] = value.lat > northEastBound[0] ? value.lat : northEastBound[0];
+                    northEastBound[1] = value.lon > northEastBound[1] ? value.lon : northEastBound[1];
+                }
             });
             ids = ids.slice(0, - 1);
             // get thumbnails
@@ -60,7 +76,8 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
                     $scope.loading = false;
                 });
             });
-            $rootScope.screenMap.setZoom(14);
+            // set inital zoom to show all entries
+            $rootScope.screenMap.fitBounds([southWestBound, northEastBound], {padding: [16, 24]});
         });
 	};
 	
