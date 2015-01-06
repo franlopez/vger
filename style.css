@@ -367,6 +367,12 @@ div.entry div.entryTitle {
     max-width: 86vw;
 }
 
+.leaflet-popup-content img {
+    float: left;
+    max-width: 60px !important;
+    margin: 0.5em 1em 0.5em 0;
+}
+
 .leaflet-container {
 	font: 0.7em 'Ubuntu', sans-serif;
 	background: #555555;

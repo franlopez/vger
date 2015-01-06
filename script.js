@@ -68,10 +68,14 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
                 });
                 //get excerpts
                 $http.jsonp('http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exchars=250&exlimit=20&exintro=&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
-                    angular.forEach($scope.entries, function(value, index) {
-                        value.popUp.setContent('<h4>' + value.title + '</h4>' +
-                                               data.query.pages[value.pageid].extract + '<br/>' +
-                                               '<a href="http://en.m.wikipedia.org/w/index.php?title=' + value.title + '" class="button-link">Read more</a>');
+                    angular.forEach($scope.entries, function(entry, index) {
+                        var content = '<h4>' + entry.title + '</h4>'
+                                      + data.query.pages[entry.pageid].extract + '<br/>'
+                                      + '<a href="http://en.m.wikipedia.org/w/index.php?title=' + entry.title + '" class="button-link">Read more</a>';
+                        if (entry.thumbnail) {
+                            content = '<img src="' + entry.thumbnail.source + '" />' + content;
+                        }
+                        entry.popUp.setContent(content);
                     });
                     $scope.loading = false;
                 });
