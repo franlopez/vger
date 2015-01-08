@@ -12,7 +12,21 @@ vger.run(['$rootScope', function ($rootScope) {
 	L.control.zoom({position: 'bottomleft'}).addTo($rootScope.screenMap);
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo($rootScope.screenMap);	
+	}).addTo($rootScope.screenMap);
+
+    // check if running as phonegap app
+    var phonegapApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+    if (phonegapApp) {
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        function onDeviceReady() {
+            document.addEventListener("menubutton", onMenuKeyDown, false);
+        }
+        
+        function onMenuKeyDown() {
+            $rootScope.spreadMenu = !$rootScope.spreadMenu;
+        }
+    }
 }]);
 
 vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
