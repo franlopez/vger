@@ -39,8 +39,8 @@
 		
 		<div id="view" ng-controller="ListCtrl">
 
-			<div id="menu" ng-class="{spread: spreadMenu}">
-				<span id="buttonMenu" class="option" ng-click='spreadMenu = !spreadMenu'>
+			<div id="menu" ng-class="{spread: $root.spreadMenu}">
+				<span id="buttonMenu" class="option" ng-click='$root.spreadMenu = !$root.spreadMenu'>
 					<i class="icon-menu"></i>
 				</span>
 				<span id="buttonCurrentLocation" class="option" ng-click='currentLocation()'>
