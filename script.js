@@ -97,7 +97,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
             // set inital zoom to show all entries
             $rootScope.screenMap.fitBounds([southWestBound, northEastBound], {padding: [16, 24]});
         });
-	};
+    };
 	
 	// load wikipedia entries for current location
 	$scope.reload = function() {
