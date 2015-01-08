@@ -71,7 +71,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
                     angular.forEach($scope.entries, function(entry, index) {
                         var content = '<h4>' + entry.title + '</h4>'
                                       + data.query.pages[entry.pageid].extract + '<br/>'
-                                      + '<a href="http://en.m.wikipedia.org/w/index.php?title=' + entry.title + '" class="button-link">Read more</a>';
+                                      + '<a href="http://en.m.wikipedia.org/w/index.php?title=' + entry.title + '" class="button-link" target="_blank">Read more</a>';
                         if (entry.thumbnail) {
                             content = '<img src="' + entry.thumbnail.source + '" />' + content;
                         }
