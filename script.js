@@ -33,7 +33,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
         var southWestBound = [0, 0],
             northEastBound = [0, 0];
         
-        $scope.loading = true;
+        $rootScope.loading = true;
         angular.forEach($scope.entries, function(value, index) {
             value.marker.closePopup().unbindPopup().setOpacity(0);
         });
@@ -77,7 +77,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
                         }
                         entry.popUp.setContent(content);
                     });
-                    $scope.loading = false;
+                    $rootScope.loading = false;
                 });
             });
             // set inital zoom to show all entries
@@ -116,7 +116,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 		$rootScope.screenMap.setView($scope.location.position, 14);
 		$rootScope.localization = $rootScope.screenMap.getCenter();
 		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
-		$scope.messageVisible = true;
+		$rootScope.messageVisible = true;
 	}
 	$rootScope.screenMap.on('locationerror', function() {
 		$scope.visitLocation();
@@ -143,17 +143,17 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 	
 	$scope.showMap = function() {
 		window.scrollTo(0,0);
-		$scope.mapVisible = true;
+		$rootScope.mapVisible = true;
 	}
 	
 	$scope.showList = function() {
 		window.scrollTo(0,0);
-		$scope.mapVisible = false;
+		$rootScope.mapVisible = false;
 	}
 	
 	$scope.logo = function() {
         $scope.messages.about = true;
-		$scope.messageVisible = true;
+		$rootScope.messageVisible = true;
 	}
     
     // user facing messages
@@ -163,7 +163,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
     };
     
     $scope.clearMessage = function() {
-        $scope.messageVisible = false;
+        $rootScope.messageVisible = false;
         angular.forEach($scope.messages, function(message){
             message = false;
         });

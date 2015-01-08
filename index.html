@@ -51,24 +51,24 @@
 					<i class="icon-reload"></i>
 					<span class="menu-title">Load Wikipedia entries</span>
 				</span>
-				<span id="buttonMap" class="option" ng-class="{active: !mapVisible}" ng-click='showMap()'>
+				<span id="buttonMap" class="option" ng-class="{active: !$root.mapVisible}" ng-click='showMap()'>
 					<i class="icon-map"></i>
 					<span class="menu-title">Map</span>
 				</span>
-				<span id="buttonList" class="option" ng-class="{active: mapVisible}" ng-click='showList()'>
+				<span id="buttonList" class="option" ng-class="{active: $root.mapVisible}" ng-click='showList()'>
 					<i class="icon-list"></i>
 					<span class="menu-title">List of entries</span>
 				</span>
 				
-				<div id="logo" ng-class="{loading: loading}" ng-click='logo()'>
+				<div id="logo" ng-class="{loading: $root.loading}" ng-click='logo()'>
 					<i class="icon-logo"></i>
 				</div>
 			</div>
 
 			<div id="container">
-				<div id="map" ng-class="{active: mapVisible}"></div>
+				<div id="map" ng-class="{active: $root.mapVisible}"></div>
 				
-				<div id="list" ng-class="{active: !mapVisible}">
+				<div id="list" ng-class="{active: !$root.mapVisible}">
 					<div ng-repeat="entry in entries" ng-click='openPopUp($index)' class="entry">
 						<div class="entryImg">
 							<img ng-display="entry.thumbnail.source" ng-src="{{ entry.thumbnail.source }}" />
@@ -78,7 +78,7 @@
 					</div>
 				</div>
 				
-				<div id="message" ng-class="{active: messageVisible}">
+				<div id="message" ng-class="{active: $root.messageVisible}">
                     <div ng-show="messages.redirect">
                         <p>Sorry, Vger couldn't find the current location... You've been redirected to {{location.name}}.</p>
                     </div>
