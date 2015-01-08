@@ -8,7 +8,7 @@ vger.run(['$rootScope', function ($rootScope) {
 	$rootScope.spreadMenu = false;
 	
 	// set map on screen
-	$rootScope.screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 17});
+	$rootScope.screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 15});
 	L.control.zoom({position: 'bottomleft'}).addTo($rootScope.screenMap);
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -107,7 +107,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 	
 	// set map to current location
 	$scope.currentLocation = function() {
-		$rootScope.screenMap.locate({setView: true, zoom: 14, maxZoom: 17});
+		$rootScope.screenMap.locate({setView: true, zoom: 14, maxZoom: 15});
 	};
 
 	// open pop-up of a selected entry
