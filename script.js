@@ -1,18 +1,18 @@
 var vger =  angular.module('vger', []);
 
 vger.run(['$rootScope', function ($rootScope) {
-	// set visibility state for elements
-	$rootScope.loading = true;
-	$rootScope.messageVisible = false;
-	$rootScope.mapVisible = true;
-	$rootScope.spreadMenu = false;
-	
-	// set map on screen
-	$rootScope.screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 15});
-	L.control.zoom({position: 'bottomleft'}).addTo($rootScope.screenMap);
-	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo($rootScope.screenMap);
+    // set visibility state for elements
+    $rootScope.loading = true;
+    $rootScope.messageVisible = false;
+    $rootScope.mapVisible = true;
+    $rootScope.spreadMenu = false;
+
+    // set map on screen
+    $rootScope.screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 15});
+    L.control.zoom({position: 'bottomleft'}).addTo($rootScope.screenMap);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo($rootScope.screenMap);
 
     // check if running as phonegap app
     var phonegapApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
@@ -30,14 +30,14 @@ vger.run(['$rootScope', function ($rootScope) {
 }]);
 
 vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
-	
-	var markIcon = L.icon({
-		iconUrl: 'icon.svg',
-		iconSize:     [32, 48], // size of the icon
-		shadowSize:   [40, 48], // size of the shadow
-		iconAnchor:   [16, 48], // point of the icon which will correspond to marker's location
-		popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
-	});
+
+    var markIcon = L.icon({
+        iconUrl: 'icon.svg',
+        iconSize:     [32, 48], // size of the icon
+        shadowSize:   [40, 48], // size of the shadow
+        iconAnchor:   [16, 48], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
+    });
     
     $scope.currentLocationMarkers = new Array();
 
