@@ -25,6 +25,7 @@ vger.run(['$rootScope', function ($rootScope) {
         
         function onMenuKeyDown() {
             $rootScope.$apply(function(){
+                !$rootScope.spreadMenu && window.scrollTo(0,0);
                 $rootScope.spreadMenu = !$rootScope.spreadMenu;
             });
         }
