@@ -24,7 +24,9 @@ vger.run(['$rootScope', function ($rootScope) {
         }
         
         function onMenuKeyDown() {
-            $rootScope.spreadMenu = !$rootScope.spreadMenu;
+            $rootScope.$apply(function(){
+                $rootScope.spreadMenu = !$rootScope.spreadMenu;
+            });
         }
     }
 }]);
