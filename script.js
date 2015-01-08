@@ -99,83 +99,83 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
         });
     };
 	
-	// load wikipedia entries for current location
-	$scope.reload = function() {
-		$rootScope.localization = $rootScope.screenMap.getCenter();
-		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
-	};
-	
-	// set map to current location
-	$scope.currentLocation = function() {
-		$rootScope.screenMap.locate({setView: true, zoom: 14, maxZoom: 15});
-	};
+    // load wikipedia entries for current location
+    $scope.reload = function() {
+        $rootScope.localization = $rootScope.screenMap.getCenter();
+        getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
+    };
 
-	// open pop-up of a selected entry
-	$scope.openPopUp = function(index) {
-		$scope.entries[index].marker.openPopup();
-		$scope.showMap();
-	};
+    // set map to current location
+    $scope.currentLocation = function() {
+        $rootScope.screenMap.locate({setView: true, zoom: 14, maxZoom: 15});
+    };
 
-	// locations to visit if current location not available
-	var visitLocations = [
-		{ name: 'La Habana', position: [23.13986, -82.38445] },
-		{ name: 'Pompeii', position: [40.7512, 14.4869] },
-		{ name: 'Tiananmen Square', position: [39.9021, 116.3917] },
-	];
-	
-	// set the map to any of the visitLocations
-	$scope.visitLocation = function() {
-		$scope.location = visitLocations[Math.floor(Math.random() * visitLocations.length)];
-		$scope.messages.redirect = true;
-		$rootScope.screenMap.setView($scope.location.position, 14);
-		$rootScope.localization = $rootScope.screenMap.getCenter();
-		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
-		$rootScope.messageVisible = true;
-	}
-	$rootScope.screenMap.on('locationerror', function() {
-		$scope.visitLocation();
-	});
+    // open pop-up of a selected entry
+    $scope.openPopUp = function(index) {
+        $scope.entries[index].marker.openPopup();
+        $scope.showMap();
+    };
 
-	// set the current location on the map
-	var personIcon = L.icon({
-		iconUrl: 'person.svg',
-		iconSize:     [32, 48], // size of the icon
-		iconAnchor:   [16, 48], // point of the icon which will correspond to marker's location
-		popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
-	});
-	$rootScope.screenMap.on('locationfound', function() {
-		$rootScope.localization = $rootScope.screenMap.getCenter();
-		// make the previous markers invisible
-		if ($scope.currentLocationMarkers.length > 0) {
-			$scope.currentLocationMarkers[$scope.currentLocationMarkers.length - 1].setOpacity(0);
-		}
-		var currentLocationMark = L.marker([$rootScope.localization.lat, $rootScope.localization.lng], {icon: personIcon});
-		currentLocationMark.addTo($rootScope.screenMap);
-		$scope.currentLocationMarkers.push(currentLocationMark);
-		getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
-	});
-	
-	$scope.showMap = function() {
-		window.scrollTo(0,0);
-		$rootScope.mapVisible = true;
-	}
-	
-	$scope.showList = function() {
-		window.scrollTo(0,0);
-		$rootScope.mapVisible = false;
-	}
-	
-	$scope.logo = function() {
+    // locations to visit if current location not available
+    var visitLocations = [
+        { name: 'La Habana', position: [23.13986, -82.38445] },
+        { name: 'Pompeii', position: [40.7512, 14.4869] },
+        { name: 'Tiananmen Square', position: [39.9021, 116.3917] },
+    ];
+
+    // set the map to any of the visitLocations
+    $scope.visitLocation = function() {
+        $scope.location = visitLocations[Math.floor(Math.random() * visitLocations.length)];
+        $scope.messages.redirect = true;
+        $rootScope.screenMap.setView($scope.location.position, 14);
+        $rootScope.localization = $rootScope.screenMap.getCenter();
+        getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
+        $rootScope.messageVisible = true;
+    }
+    $rootScope.screenMap.on('locationerror', function() {
+        $scope.visitLocation();
+    });
+
+    // set the current location on the map
+    var personIcon = L.icon({
+        iconUrl: 'person.svg',
+        iconSize:     [32, 48], // size of the icon
+        iconAnchor:   [16, 48], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, -52] // point from which the popup should open relative to the iconAnchor
+    });
+    $rootScope.screenMap.on('locationfound', function() {
+        $rootScope.localization = $rootScope.screenMap.getCenter();
+        // make the previous markers invisible
+        if ($scope.currentLocationMarkers.length > 0) {
+            $scope.currentLocationMarkers[$scope.currentLocationMarkers.length - 1].setOpacity(0);
+        }
+        var currentLocationMark = L.marker([$rootScope.localization.lat, $rootScope.localization.lng], {icon: personIcon});
+        currentLocationMark.addTo($rootScope.screenMap);
+        $scope.currentLocationMarkers.push(currentLocationMark);
+        getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
+    });
+
+    $scope.showMap = function() {
+        window.scrollTo(0,0);
+        $rootScope.mapVisible = true;
+    }
+
+    $scope.showList = function() {
+        window.scrollTo(0,0);
+        $rootScope.mapVisible = false;
+    }
+
+    $scope.logo = function() {
         $scope.messages.about = true;
-		$rootScope.messageVisible = true;
-	}
-    
+        $rootScope.messageVisible = true;
+    }
+
     // user facing messages
     $scope.messages = {
         redirect: false,
         about: false
     };
-    
+
     $scope.clearMessage = function() {
         $rootScope.messageVisible = false;
         angular.forEach($scope.messages, function(message){
