@@ -237,10 +237,11 @@ a {
 	bottom: 0;
 	left: 0;
 	right: 0;
+    overflow-x: hidden;
 }
 
 #container.map {
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 #map, #list {
@@ -464,7 +465,7 @@ div.entry div.entryTitle {
     #container {
         bottom: 0.5em;
         left: 0.5em;
-        right: 0.5em;;
+        right: 0.5em;
     }
     
 	#menu.spread {
