@@ -6,6 +6,11 @@ vger.run(['$rootScope', function ($rootScope) {
     $rootScope.messageVisible = false;
     $rootScope.mapVisible = true;
     $rootScope.spreadMenu = false;
+    
+    if(!navigator.onLine) {
+        $scope.messages.redirect = true;
+        $rootScope.messageVisible = true;
+    }
 
     // set map on screen
     $rootScope.screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 15});

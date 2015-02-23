@@ -79,6 +79,9 @@
 				</div>
 				
 				<div id="message" ng-class="{active: $root.messageVisible}">
+                    <div ng-show="messages.offline">
+                        <p>You seem to be offline at the moment, please check your connection and try again.</p>
+                    </div>
                     <div ng-show="messages.redirect">
                         <p>Sorry, Vger couldn't find the current location... You've been redirected to {{location.name}}.</p>
                     </div>
