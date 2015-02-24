@@ -23,7 +23,7 @@ vger.run(['$rootScope', function ($rootScope) {
             document.addEventListener("menubutton", onMenuKeyDown, false);
             
             // locate map only if online
-            if (navigator.connection.type == 0) {
+            if (navigator.connection.type == Connection.NONE) {
                 $rootScope.messageOffline = true;
                 $rootScope.messageVisible = true;
             } else {
