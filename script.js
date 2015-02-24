@@ -24,7 +24,7 @@ vger.run(['$rootScope', function ($rootScope) {
             
             // locate map only if online
             if (navigator.connection.type == 0) {
-                $scope.messages.offline = true;
+                $rootScope.messageOffline = true;
                 $rootScope.messageVisible = true;
             } else {
                 $rootScope.screenMap.locate({setView: true, maxZoom: 15});
