@@ -22,7 +22,7 @@ vger.run(['$rootScope', function ($rootScope) {
         function onDeviceReady() {
             document.addEventListener("menubutton", onMenuKeyDown, false);
             
-            if(navigator.connection.type === Connection.NONE) {
+            if (navigator.connection.type == 0) {
                 $scope.messages.offline = true;
                 $rootScope.messageVisible = true;
             }
