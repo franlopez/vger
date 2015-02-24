@@ -8,7 +8,7 @@ vger.run(['$rootScope', function ($rootScope) {
     $rootScope.spreadMenu = false;
 
     // set map on screen
-    $rootScope.screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 15});
+    $rootScope.screenMap = L.map('map', {zoomControl: false});
     L.control.zoom({position: 'bottomleft'}).addTo($rootScope.screenMap);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -22,9 +22,12 @@ vger.run(['$rootScope', function ($rootScope) {
         function onDeviceReady() {
             document.addEventListener("menubutton", onMenuKeyDown, false);
             
+            // locate map only if online
             if (navigator.connection.type == 0) {
                 $scope.messages.offline = true;
                 $rootScope.messageVisible = true;
+            } else {
+                $rootScope.screenMap.locate({setView: true, maxZoom: 15});
             }
         }
         
@@ -34,6 +37,8 @@ vger.run(['$rootScope', function ($rootScope) {
                 $rootScope.spreadMenu = !$rootScope.spreadMenu;
             });
         }
+    } else {
+        $rootScope.screenMap.locate({setView: true, maxZoom: 15});
     }
 }]);
 
