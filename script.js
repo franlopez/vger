@@ -6,11 +6,6 @@ vger.run(['$rootScope', function ($rootScope) {
     $rootScope.messageVisible = false;
     $rootScope.mapVisible = true;
     $rootScope.spreadMenu = false;
-    
-    if(!navigator.onLine) {
-        $scope.messages.redirect = true;
-        $rootScope.messageVisible = true;
-    }
 
     // set map on screen
     $rootScope.screenMap = L.map('map', {zoomControl: false}).locate({setView: true, maxZoom: 15});
@@ -26,6 +21,11 @@ vger.run(['$rootScope', function ($rootScope) {
 
         function onDeviceReady() {
             document.addEventListener("menubutton", onMenuKeyDown, false);
+            
+            if(navigator.connection.type === Connection.NONE) {
+                $scope.messages.offline = true;
+                $rootScope.messageVisible = true;
+            }
         }
         
         function onMenuKeyDown() {
