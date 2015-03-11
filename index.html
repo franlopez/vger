@@ -93,7 +93,7 @@
                         <h4><a href='http://www.franlopez.info/' target="_blank" class='loading'>http://www.franlopez.info/</a></h4>
                         <br>
                         <a class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">Install Android app on Google Play</a>
-                    <div>
+                    </div>
                     <div ng-show="$root.messageOffline">
                         <p>You seem to be offline at the moment, please check your connection and try again.</p>
                     </div>
@@ -102,7 +102,10 @@
                     </div>
                     <div ng-show="messages.about">
                         <p>Vger is being designed and developed as a weekend project by Fran López.</p>
-                        <p><a href='http://www.franlopez.info/' target="_blank" class='loading'><h4>http://www.franlopez.info/</h4></a></p>
+                        <br>
+                        <h4><a href='http://www.franlopez.info/' target="_blank" class='loading'>http://www.franlopez.info/</a></h4>
+                        <br>
+                        <a ng-hide="$root.phonegapApp" class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">Install Android app on Google Play</a>
                     </div>
 					<br/><br/><br/>
 					<div id="message-ok" class="button-link" ng-click="clearMessage()" ng-hide="$root.messageWelcome">Ok</div>

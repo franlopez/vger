@@ -16,8 +16,8 @@ vger.run(['$rootScope', function ($rootScope) {
     }).addTo($rootScope.screenMap);
 
     // check if running as phonegap app
-    var phonegapApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-    if (phonegapApp) {
+    $rootScope.phonegapApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+    if ($rootScope.phonegapApp) {
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
@@ -124,7 +124,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
     // set map to current location
     $scope.currentLocation = function() {
         $rootScope.screenMap.locate({setView: true, zoom: 14, maxZoom: 15});
-        $rootScope.messageVisible = false;
+        $scope.clearMessage();
     };
 
     // open pop-up of a selected entry
@@ -146,7 +146,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
         $rootScope.screenMap.setView($scope.location.position, 14);
         $rootScope.localization = $rootScope.screenMap.getCenter();
         getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
-        $rootScope.messageVisible = false;
+        $scope.clearMessage();
     }
     $rootScope.screenMap.on('locationerror', function() {
         $scope.visitLocation();
@@ -194,6 +194,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
 
     $scope.clearMessage = function() {
         $rootScope.messageVisible = false;
+        $rootScope.messageWelcome = false;
         angular.forEach($scope.messages, function(message){
             message = false;
         });
