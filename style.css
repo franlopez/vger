@@ -350,6 +350,16 @@ div.entry div.entryTitle {
 	background: #FFFFFF;
 }
 
+.button-link.centered {
+    float: initial;
+    margin: 0.5em 0;
+    display: inline-block;
+}
+
+.smaller-text {
+    font-size: 0.85em;
+    color: #4B4B4B;
+}
 
 #message {
 	position: absolute;

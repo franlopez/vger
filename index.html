@@ -79,6 +79,21 @@
 				</div>
 				
 				<div id="message" ng-class="{active: $root.messageVisible}">
+                    <div ng-show="$root.messageWelcome">
+                        <p>Vger loads a map with Wikepdia entries in the area.</p>
+                        <br>
+                        <div class="button-link centered" ng-click="currentLocation()">Try my current location</div>
+                        <p class="smaller-text">(Your browser may ask permission to share your current location.)</p>
+                        <br>
+                        <div class="button-link centered" ng-click="visitLocation()">Go to a random place</div>
+                        <br>
+                        <br>
+                        <p>Vger is being designed and developed as a weekend project by Fran López.</p>
+                        <br>
+                        <h4><a href='http://www.franlopez.info/' target="_blank" class='loading'>http://www.franlopez.info/</a></h4>
+                        <br>
+                        <a class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">Install Android app on Google Play</a>
+                    <div>
                     <div ng-show="$root.messageOffline">
                         <p>You seem to be offline at the moment, please check your connection and try again.</p>
                     </div>
@@ -90,7 +105,7 @@
                         <p><a href='http://www.franlopez.info/' target="_blank" class='loading'><h4>http://www.franlopez.info/</h4></a></p>
                     </div>
 					<br/><br/><br/>
-					<div id="message-ok" class="button-link" ng-click="clearMessage()">Ok</div>
+					<div id="message-ok" class="button-link" ng-click="clearMessage()" ng-hide="$root.messageWelcome">Ok</div>
 				</div>
 			</div>
 			

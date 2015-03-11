@@ -4,6 +4,7 @@ vger.run(['$rootScope', function ($rootScope) {
     // set visibility state for elements
     $rootScope.loading = true;
     $rootScope.messageVisible = false;
+    $rootScope.messageWelcome = false;
     $rootScope.mapVisible = true;
     $rootScope.spreadMenu = false;
 
@@ -38,7 +39,9 @@ vger.run(['$rootScope', function ($rootScope) {
             });
         }
     } else {
-        $rootScope.screenMap.locate({setView: true, maxZoom: 15});
+        $rootScope.messageVisible = true;
+        $rootScope.messageWelcome = true;
+        // $rootScope.screenMap.locate({setView: true, maxZoom: 15});
     }
 }]);
 
@@ -121,6 +124,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
     // set map to current location
     $scope.currentLocation = function() {
         $rootScope.screenMap.locate({setView: true, zoom: 14, maxZoom: 15});
+        $rootScope.messageVisible = false;
     };
 
     // open pop-up of a selected entry
@@ -139,11 +143,10 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
     // set the map to any of the visitLocations
     $scope.visitLocation = function() {
         $scope.location = visitLocations[Math.floor(Math.random() * visitLocations.length)];
-        $scope.messages.redirect = true;
         $rootScope.screenMap.setView($scope.location.position, 14);
         $rootScope.localization = $rootScope.screenMap.getCenter();
         getWikipediaEntries($rootScope.localization.lat, $rootScope.localization.lng);
-        $rootScope.messageVisible = true;
+        $rootScope.messageVisible = false;
     }
     $rootScope.screenMap.on('locationerror', function() {
         $scope.visitLocation();
