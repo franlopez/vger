@@ -415,6 +415,9 @@ div.entry div.entryTitle {
 .leaflet-container .leaflet-popup a {
     color: #FFFFFF;
 }
+.leaflet-container .leaflet-popup a:hover {
+    color: #000000;
+}
 
 @media screen and (min-height: 16em) {
 	body {
