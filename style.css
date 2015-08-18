@@ -98,36 +98,39 @@ a {
 }
 
 #menu {
-	-webkit-transition: height 0.35s linear;
-	-moz-transition: height 0.35s linear;
-	-o-transition: height 0.35s linear;
-	transition: height 0.35s linear;
+	-webkit-transition: transform 0.25s linear;
+	-moz-transition: transform 0.25s linear;
+	-o-transition: transform 0.25s linear;
+	transition: transform 0.25s linear;
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 11700;
-	height: 2.3em;
+	height: 10em;
 	background: #000000;
 	margin-top: 0.2em;
+    -webkit-transform: translate3d(0, -7.6em, 0);
+    -moz-transform: translate3d(0, -7.6em, 0);
+    -o-transform: translate3d(0, -7.6em, 0);
+    -ms-transform: translate3d(0, -7.6em, 0);
+    transform: translate3d(0, -7.6em, 0);
 }
 
 #menu span.option {
-	-webkit-transition: color 0.3s linear;
-	-moz-transition: color 0.3s linear;
-	-o-transition: color 0.3s linear;
-	transition: color 0.3s linear;
+	-webkit-transition: transform 0.25s linear;
+	-moz-transition: transform 0.25s linear;
+	-o-transition: transform 0.25s linear;
+	transition: transform 0.25s linear;
 	display: inline-block;
 	vertical-align: text-top;
 	height: 2.5em;
 	cursor: pointer;
-}
-
-#menu span.option:hover {
-	-webkit-animation: loading 2s linear infinite;
-	-moz-animation: loading 2s linear infinite;
-	-o-animation: loading 2s linear infinite;
-	animation: loading 2s linear infinite;
+    -webkit-transform: translate3d(0, 7.6em, 0);
+    -moz-transform: translate3d(0, 7.6em, 0);
+    -o-transform: translate3d(0, 7.6em, 0);
+    -ms-transform: translate3d(0, 7.6em, 0);
+    transform: translate3d(0, 7.6em, 0);
 }
 
 #menu span.option i {
@@ -136,75 +139,66 @@ a {
 }
 
 #menu span.option span.menu-title {
-	-webkit-transition: opacity 0.1s linear 0.45s;
-	-moz-transition: opacity 0.1s linear 0.45s;
-	-o-transition: opacity 0.1s linear 0.45s;
-	transition: opacity 0.1s linear 0.45s;
+	-webkit-transition: opacity 0.1s linear 0.3s;
+	-moz-transition: opacity 0.1s linear 0.3s;
+	-o-transition: opacity 0.1s linear 0.3s;
+	transition: opacity 0.1s linear 0.3s;
 	width: 0%;
 	opacity: 0;
 	display: inline-block;
 	position: absolute;
 	overflow: hidden;
+    margin: -1.7em 0 0 2.8em;
 }
 
 #menu.spread {
 	width: 100%;
-	height: 10em;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
-#menu #buttonCurrentLocation {
-	-webkit-transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
-	-moz-transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
-	-o-transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
-	transition: margin-top 0.15s linear, margin-left 0.15s linear, color 0.3s linear;
-	z-index: 10003;
+#menu.spread #buttonMenu {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
+
 #menu.spread #buttonCurrentLocation {
-	margin-top: 2.5em;
-	margin-left: -3em;
+    -webkit-transform: translate3d(-3em, 2.5em, 0);
+    -moz-transform: translate3d(-3em, 2.5em, 0);
+    -o-transform: translate3d(-3em, 2.5em, 0);
+    -ms-transform: translate3d(-3em, 2.5em, 0);
+    transform: translate3d(-3em, 2.5em, 0);
 }
 
-#menu #buttonReload {
-	-webkit-transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
-	-moz-transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
-	-o-transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
-	transition: margin-top 0.30s linear, margin-left 0.35s linear, color 0.3s linear;
-	z-index: 10002;
-}
 #menu.spread #buttonReload {
-	margin-top: 5em;
-	margin-left: -3em;
+    -webkit-transform: translate3d(-6em, 5em, 0);
+    -moz-transform: translate3d(-6em, 5em, 0);
+    -o-transform: translate3d(-6em, 5em, 0);
+    -ms-transform: translate3d(-6em, 5em, 0);
+    transform: translate3d(-6em, 5em, 0);
 }
 
-#menu #buttonMap, #menu #buttonList {
-	-webkit-transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
-	-moz-transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
-	-o-transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
-	transition: margin-top 0.35s linear, margin-left 0.45s linear, color 0.3s linear;
-	z-index: 10001;
+#menu.spread #buttonMap,
+#menu.spread #buttonList {
+    -webkit-transform: translate3d(-9em, 7.5em, 0);
+    -moz-transform: translate3d(-9em, 7.5em, 0);
+    -o-transform: translate3d(-9em, 7.5em, 0);
+    -ms-transform: translate3d(-9em, 7.5em, 0);
+    transform: translate3d(-9em, 7.5em, 0);
 }
-#menu.spread #buttonMap, #menu.spread #buttonList {
-	margin-top: 7.5em;
-	margin-left: -3em;
-}
+
 
 #menu.spread span.option span.menu-title {
-	display: inline-block;
-	opacity: 1.0;
 	width: 12em;
-	left: 3.5em;
+	opacity: 1;
 }
 
-#menu.spread #buttonCurrentLocation.option span.menu-title {
-	top: 3em;
-}
-#menu.spread #buttonReload.option span.menu-title {
-	top: 5.5em;
-}
-#menu.spread #buttonMap.option span.menu-title,
-#menu.spread #buttonList.option span.menu-title {
-	top: 8em;
-}
 
 
 #menu #buttonMap.option, #menu #buttonList.option {
@@ -226,6 +220,7 @@ a {
 	z-index: 11700;
 	cursor: pointer;
 }
+
 #logo i {
 	margin: 0.1em 0;
 	font-size: 2em;
@@ -540,7 +535,18 @@ div.entry div.entryTitle {
 	#menu.spread #buttonReload.option span.menu-title,
 	#menu.spread #buttonCurrentLocation.option span.menu-title {
 		top: 0.5em;
+        margin: 0;
 	}
+    
+    
+    #menu.spread #buttonReload,
+    #menu.spread #buttonCurrentLocation {
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
 
 	#map {
 		position: absolute;
