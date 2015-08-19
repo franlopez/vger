@@ -1,6 +1,14 @@
-var vger =  angular.module('vger', []);
+var vger =  angular.module('vger', ['pascalprecht.translate']);
 
-vger.run(['$rootScope', function ($rootScope) {
+vger.config(['$translateProvider', function($translateProvider) {
+    // load translations and set english as default
+    for(var lang in translations){
+		$translateProvider.translations(lang, translations[lang]);
+	}
+    $translateProvider.preferredLanguage('en');
+}]);
+
+vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
     // set visibility state for elements
     $rootScope.loading = true;
     $rootScope.messageVisible = false;
@@ -55,6 +63,7 @@ vger.run(['$rootScope', function ($rootScope) {
             }
             window.localStorage.setItem("vger-lang", $rootScope.lang);
         }
+        $translate.use($rootScope.lang);
     }
     
     $rootScope.apiUrl = 'http://' + $rootScope.lang + '.wikipedia.org/w/api.php';
@@ -116,7 +125,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
                     angular.forEach($scope.entries, function(entry, index) {
                         var content = '<h4>' + entry.title + '</h4>'
                                       + data.query.pages[entry.pageid].extract + '<br/>'
-                                      + '<a href="http://' + $rootScope.lang + '.m.wikipedia.org/w/index.php?title=' + entry.title + '" class="button-link" target="_blank">Read more</a>';
+                                      + '<a href="http://' + $rootScope.lang + '.m.wikipedia.org/w/index.php?title=' + entry.title + '" class="button-link" target="_blank">' + translations[$rootScope.lang]['Read more'] + '</a>';
                         if (entry.thumbnail) {
                             content = '<img src="' + entry.thumbnail.source + '" />' + content;
                         }

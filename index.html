@@ -11,6 +11,8 @@
 		<link rel="stylesheet" href="style.css" />
 		<script src="vendor/leaflet.js"></script>
 		<script src="vendor/angular.min.js"></script>
+		<script src="vendor/angular-translate.min.js"></script>
+		<script src="translations.js"></script>
  		<script src="script.js"></script>
         
         <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
@@ -45,19 +47,19 @@
 				</span>
 				<span id="buttonCurrentLocation" class="option" ng-click='currentLocation()'>
 					<i class="icon-mark"></i>
-					<span class="menu-title">My current location</span>
+					<span class="menu-title">{{ 'My current location' | translate }}</span>
 				</span>
 				<span id="buttonReload" class="option" ng-click='reload()'>
 					<i class="icon-reload"></i>
-					<span class="menu-title">Load Wikipedia entries</span>
+					<span class="menu-title">{{ 'Load Wikipedia entries' | translate }}</span>
 				</span>
 				<span id="buttonMap" class="option" ng-class="{active: !$root.mapVisible}" ng-click='showMap()'>
 					<i class="icon-map"></i>
-					<span class="menu-title">Map</span>
+					<span class="menu-title">{{ 'Map' | translate }}</span>
 				</span>
 				<span id="buttonList" class="option" ng-class="{active: $root.mapVisible}" ng-click='showList()'>
 					<i class="icon-list"></i>
-					<span class="menu-title">List of entries</span>
+					<span class="menu-title">{{ 'List of entries' | translate }}</span>
 				</span>
 				
 			</div>
@@ -81,35 +83,35 @@
 				
 				<div id="message" ng-class="{active: $root.messageVisible}">
                     <div ng-show="$root.messageWelcome">
-                        <p>Vger loads a map with Wikepdia entries in the area.</p>
+                        <p>{{ 'Intro' | translate }}</p>
                         <br>
-                        <div class="button-link centered" ng-click="currentLocation()">Try my current location</div>
-                        <p class="smaller-text">(Your browser may ask permission to share your current location.)</p>
+                        <div class="button-link centered" ng-click="currentLocation()">{{ 'Try my current location' | translate }}</div>
+                        <p class="smaller-text">{{ 'Browser permission' | translate }}</p>
                         <br>
-                        <div class="button-link centered" ng-click="visitLocation()">Go to a random place</div>
+                        <div class="button-link centered" ng-click="visitLocation()">{{ 'Random place' | translate }}</div>
                         <br>
                         <br>
-                        <p>Vger is being designed and developed as a weekend project by Fran López.</p>
+                        <p>{{ 'Self blurb' | translate }}</p>
                         <br>
                         <h4><a href='http://www.franlopez.info/' target="_blank" class='loading'>http://www.franlopez.info/</a></h4>
                         <br>
-                        <a class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">Install Android app on Google Play</a>
+                        <a class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">{{ 'Android' | translate }}</a>
                     </div>
                     <div ng-show="$root.messageOffline">
-                        <p>You seem to be offline at the moment, please check your connection and try again.</p>
+                        <p>{{ 'Offline' | translate }}</p>
                     </div>
                     <div ng-show="messages.redirect">
-                        <p>Sorry, Vger couldn't find the current location... You've been redirected to {{location.name}}.</p>
+                        <p>{{ 'No location' | translate }} {{location.name}}.</p>
                     </div>
                     <div ng-show="messages.about">
-                        <p>Vger is being designed and developed as a weekend project by Fran López.</p>
+                        <p>{{ 'Self blurb' | translate }}</p>
                         <br>
                         <h4><a href='http://www.franlopez.info/' target="_blank" class='loading'>http://www.franlopez.info/</a></h4>
                         <br>
-                        <div class="button-link centered" ng-click="visitLocation()">Go to a random place</div>
+                        <div class="button-link centered" ng-click="visitLocation()">{{ 'Random place' | translate }}</div>
                         <br>
                         <br>
-                        <a ng-hide="$root.phonegapApp" class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">Install Android app on Google Play</a>
+                        <a ng-hide="$root.phonegapApp" class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">{{ 'Android' | translate }}</a>
                     </div>
 					<br/><br/><br/>
 					<div id="message-ok" class="button-link" ng-click="clearMessage()" ng-hide="$root.messageWelcome">Ok</div>

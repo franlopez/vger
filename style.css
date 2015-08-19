@@ -195,7 +195,7 @@ a {
 
 
 #menu.spread span.option span.menu-title {
-	width: 12em;
+	width: 15em;
 	opacity: 1;
 }
 
@@ -527,7 +527,7 @@ div.entry div.entryTitle {
 	#menu.spread #buttonReload span.menu-title {
 		left: 17em;
 		opacity: 1.0;
-		width: 13em;
+		width: 15em;
 	}
 	
 	#menu #buttonReload.option span.menu-title,
