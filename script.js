@@ -58,9 +58,13 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
         if (!$rootScope.lang) {
             $rootScope.lang = navigator.language || navigator.userLanguage;
             $rootScope.lang = $rootScope.lang.substring(0, 2);
-            if ($rootScope.lang != 'es') {
-                $rootScope.lang = 'en';
-            }
+            
+            var passed = { lang: false};
+            angular.forEach(translations, function(values, key) {
+                this.lang = $rootScope.lang === key ? true : false;
+            }, passed);
+            
+            $rootScope.lang = passed.lang ? $rootScope.lang : 'en';
             window.localStorage.setItem("vger-lang", $rootScope.lang);
         }
         $translate.use($rootScope.lang);
