@@ -34,6 +34,18 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
         function onDeviceReady() {
             document.addEventListener("menubutton", onMenuKeyDown, false);
             
+            // detect language if not saved, default to english
+            if (!$rootScope.lang) {
+                navigator.globalization.getPreferredLanguage(
+                    function (language) {
+                        $rootScope.lang = language.value.substring(0, 2);;
+                        checkLang();
+                    }
+                );
+            } else {
+                $translate.use($rootScope.lang);
+            }
+            
             // locate map only if online
             if (navigator.connection.type == Connection.NONE) {
                 $rootScope.messageOffline = true;
@@ -54,20 +66,26 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
         $rootScope.messageWelcome = true;
         // $rootScope.screenMap.locate({setView: true, maxZoom: 15});
         
-        // detect language if not saved, default to english
+        // detect language if not saved, check and save
         if (!$rootScope.lang) {
             $rootScope.lang = navigator.language || navigator.userLanguage;
             $rootScope.lang = $rootScope.lang.substring(0, 2);
-            
-            var passed = { lang: false};
-            angular.forEach(translations, function(values, key) {
-                this.lang = $rootScope.lang === key ? true : false;
-            }, passed);
-            
-            $rootScope.lang = passed.lang ? $rootScope.lang : 'en';
-            window.localStorage.setItem("vger-lang", $rootScope.lang);
+            checkLang();
+        } else {
+            $translate.use($rootScope.lang);
         }
+    }
+    
+    // check, default and save the current language
+    function checkLang() {
+        var passed = { lang: false };
+        angular.forEach(translations, function(values, key) {
+            this.lang = $rootScope.lang === key ? true : false;
+        }, passed);
+
+        $rootScope.lang = passed.lang ? $rootScope.lang : 'en';
         $translate.use($rootScope.lang);
+        window.localStorage.setItem("vger-lang", $rootScope.lang);
     }
     
     $rootScope.apiUrl = 'http://' + $rootScope.lang + '.wikipedia.org/w/api.php';
