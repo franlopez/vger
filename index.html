@@ -61,6 +61,10 @@
 					<i class="icon-list"></i>
 					<span class="menu-title">{{ 'List of entries' | translate }}</span>
 				</span>
+                <span id="buttonLanguage" class="option" ng-click='selectLanguage()'>
+					<i class="icon-language"></i>
+					<span class="menu-title">{{ 'Language' | translate }}</span>
+				</span>
 				
 			</div>
             
@@ -113,8 +117,20 @@
                         <br>
                         <a ng-hide="$root.phonegapApp" class="button-link centered" href="https://play.google.com/store/apps/details?id=info.franlopez.vger" target="_blank">{{ 'Android' | translate }}</a>
                     </div>
+                    <div ng-show="messages.language">
+                        <h3>{{ 'Change language' | translate }}</h3>
+                        <br>
+                        <br>
+                        <select ng-model="$root.lang">
+                            <option ng-repeat="lang in languages" value="{{lang.code}}" ng-selected="$root.lang == lang.code">{{lang.name}}</option>
+                        </select>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="button-link centered" ng-click="saveLanguage()">Ok</div>
+                    </div>
 					<br/><br/><br/>
-					<div id="message-ok" class="button-link" ng-click="clearMessage()" ng-hide="$root.messageWelcome">Ok</div>
+					<div id="message-ok" class="button-link" ng-click="clearMessage()" ng-hide="$root.messageWelcome || messages.language">Ok</div>
 				</div>
 			</div>
 			

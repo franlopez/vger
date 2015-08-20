@@ -37,6 +37,7 @@
 .icon-mark:before { content: '\e803'; } /* '' */
 .icon-menu:before { content: '\e804'; } /* '' */
 .icon-reload:before { content: '\e805'; } /* '' */
+.icon-language:before { content: 'l'; } /* '' */
 
 @font-face {
     font-family: 'ubunfont';
@@ -107,14 +108,14 @@ a {
 	left: 0;
 	width: 100%;
 	z-index: 11700;
-	height: 10em;
+	height: 12.5em;
 	background: #000000;
 	margin-top: 0.2em;
-    -webkit-transform: translate3d(0, -7.6em, 0);
-    -moz-transform: translate3d(0, -7.6em, 0);
-    -o-transform: translate3d(0, -7.6em, 0);
-    -ms-transform: translate3d(0, -7.6em, 0);
-    transform: translate3d(0, -7.6em, 0);
+    -webkit-transform: translate3d(0, -10.1em, 0);
+    -moz-transform: translate3d(0, -10.1em, 0);
+    -o-transform: translate3d(0, -10.1em, 0);
+    -ms-transform: translate3d(0, -10.1em, 0);
+    transform: translate3d(0, -10.1em, 0);
 }
 
 #menu span.option {
@@ -126,11 +127,11 @@ a {
 	vertical-align: text-top;
 	height: 2.5em;
 	cursor: pointer;
-    -webkit-transform: translate3d(0, 7.6em, 0);
-    -moz-transform: translate3d(0, 7.6em, 0);
-    -o-transform: translate3d(0, 7.6em, 0);
-    -ms-transform: translate3d(0, 7.6em, 0);
-    transform: translate3d(0, 7.6em, 0);
+    -webkit-transform: translate3d(0, 10.1em, 0);
+    -moz-transform: translate3d(0, 10.1em, 0);
+    -o-transform: translate3d(0, 10.1em, 0);
+    -ms-transform: translate3d(0, 10.1em, 0);
+    transform: translate3d(0, 10.1em, 0);
 }
 
 #menu span.option i {
@@ -191,6 +192,14 @@ a {
     -o-transform: translate3d(-9em, 7.5em, 0);
     -ms-transform: translate3d(-9em, 7.5em, 0);
     transform: translate3d(-9em, 7.5em, 0);
+}
+
+#menu.spread #buttonLanguage {
+    -webkit-transform: translate3d(-12em, 10em, 0);
+    -moz-transform: translate3d(-12em, 10em, 0);
+    -o-transform: translate3d(-12em, 10em, 0);
+    -ms-transform: translate3d(-12em, 10em, 0);
+    transform: translate3d(-12em, 10em, 0);
 }
 
 
@@ -371,6 +380,11 @@ div.entry div.entryTitle {
 #message.active {
 	display: block;
 }
+#message select {
+    font-family: 'ubunfont', sans-serif;
+    font-size: 1em;
+    padding: 0.1em 1em;
+}
 
 
 .leaflet-bar a:first-child {
@@ -505,7 +519,7 @@ div.entry div.entryTitle {
 	}
 	#menu #buttonCurrentLocation span.menu-title,
 	#menu.spread #buttonCurrentLocation span.menu-title {
-		left: 3em;
+		left: 2.7em;
 		opacity: 1.0;
 		width: 13em;
 	}
@@ -521,26 +535,49 @@ div.entry div.entryTitle {
 	}
 	#menu #buttonReload i,
 	#menu.spread #buttonReload i {
-		left: 7em;
+		left: 6.1em;
 	}
 	#menu #buttonReload span.menu-title,
 	#menu.spread #buttonReload span.menu-title {
-		left: 17em;
+		left: 15em;
 		opacity: 1.0;
 		width: 15em;
+	}
+    
+    #menu #buttonLanguage,
+	#menu.spread #buttonLanguage,
+	#menu #buttonLanguage i,
+	#menu.spread #buttonLanguage i,
+	#menu #buttonLanguage span.menu-title,
+	#menu.spread #buttonLanguage span.menu-title {
+		position: fixed;
+		top: 0;
+	}
+	#menu #buttonLanguage i,
+	#menu.spread #buttonLanguage i {
+		left: 14.5em;
+	}
+	#menu #buttonLanguage span.menu-title,
+	#menu.spread #buttonLanguage span.menu-title {
+		left: 32em;
+		opacity: 1.0;
+		width: 10em;
 	}
 	
 	#menu #buttonReload.option span.menu-title,
 	#menu #buttonCurrentLocation.option span.menu-title,
+	#menu #buttonLanguage.option span.menu-title,
 	#menu.spread #buttonReload.option span.menu-title,
-	#menu.spread #buttonCurrentLocation.option span.menu-title {
+	#menu.spread #buttonCurrentLocation.option span.menu-title,
+	#menu.spread #buttonLanguage.option span.menu-title {
 		top: 0.5em;
         margin: 0;
 	}
     
     
     #menu.spread #buttonReload,
-    #menu.spread #buttonCurrentLocation {
+    #menu.spread #buttonCurrentLocation,
+    #menu.spread #buttonLanguage {
         -webkit-transform: translate3d(0, 0, 0);
         -moz-transform: translate3d(0, 0, 0);
         -o-transform: translate3d(0, 0, 0);

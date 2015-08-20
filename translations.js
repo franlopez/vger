@@ -1,9 +1,12 @@
 var translations = {
 	'en': {
+        'LanguageName': 'English',
 		'My current location': 'My current location',
         'Load Wikipedia entries': 'Load Wikipedia entries',
         'Map': 'Map',
         'List of entries': 'List of entries',
+        'Language': 'Language',
+        'Change language': 'Change language',
         'Intro': 'Vger loads a map with Wikepdia entries in the area.',
         'Try my current location': 'Try my current location',
         'Browser permission': '(Your browser may ask permission to share your current location.)',
@@ -15,10 +18,13 @@ var translations = {
         'Read more': 'Read more'
 	},
 	'es': {
+        'LanguageName': 'Español',
 		'My current location': 'Mi ubicación actual',
         'Load Wikipedia entries': 'Cargar entradas de Wikipedia',
         'Map': 'Mapa',
         'List of entries': 'Lista de entradas',
+        'Language': 'Idioma',
+        'Change language': 'Cambiar idioma',
         'Intro': 'Vger carga un mapa con entradas de Wikipedia en el área.',
         'Try my current location': 'Probar mi ubicación actual',
         'Browser permission': '(Su navegador tal vez le pida permiso para compartir su ubicación actual)',

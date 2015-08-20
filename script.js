@@ -91,7 +91,7 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
     $rootScope.apiUrl = 'http://' + $rootScope.lang + '.wikipedia.org/w/api.php';
 }]);
 
-vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', '$translate', function ($rootScope, $scope, $http, $translate) {
 
     var markIcon = L.icon({
         iconUrl: 'icon.svg',
@@ -231,11 +231,38 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', function ($rootSco
         $scope.messages.about = true;
         $rootScope.messageVisible = true;
     }
+    
+    // languages object for ui language selector
+    $scope.languages = [];
+    angular.forEach(translations, function(lang, key) {
+        $scope.languages.push({
+            code: key,
+            name: lang.LanguageName
+        });
+    });
+    
+    // show ui language selector
+    $scope.selectLanguage = function() {
+        $scope.messages.language = true;
+        $rootScope.messageVisible = true;
+    };
+    
+    // save user selected language
+    $scope.saveLanguage = function() {
+        if (window.localStorage.getItem("vger-lang") != $rootScope.lang ) {
+            $translate.use($rootScope.lang);
+            $rootScope.apiUrl = 'http://' + $rootScope.lang + '.wikipedia.org/w/api.php';
+            window.localStorage.setItem("vger-lang", $rootScope.lang);
+            $scope.reload();
+        }
+        $scope.clearMessage();
+    };
 
     // user facing messages
     $scope.messages = {
         redirect: false,
-        about: false
+        about: false,
+        language: false
     };
 
     $scope.clearMessage = function() {
