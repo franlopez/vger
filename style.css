@@ -99,10 +99,8 @@ a {
 }
 
 #menu {
-	-webkit-transition: transform 0.25s linear;
-	-moz-transition: transform 0.25s linear;
-	-o-transition: transform 0.25s linear;
-	transition: transform 0.25s linear;
+	-webkit-transition-duration: .25s;
+    transition-duration: .25s;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -119,10 +117,8 @@ a {
 }
 
 #menu span.option {
-	-webkit-transition: transform 0.25s linear;
-	-moz-transition: transform 0.25s linear;
-	-o-transition: transform 0.25s linear;
-	transition: transform 0.25s linear;
+	-webkit-transition-duration: .25s;
+    transition-duration: .25s;
 	display: inline-block;
 	vertical-align: text-top;
 	height: 2.5em;
@@ -300,10 +296,8 @@ a {
 }
 
 div.entry {
-	-webkit-transition: all 0.3s linear;
-	-moz-transition: all 0.3s linear;
-	-o-transition: all 0.3s linear;
-	transition: all 0.3s linear;
+	-webkit-transition-duration: .25s;
+    transition-duration: .25s;
 	background: #FFFFFF;
 	color: #000000;
 	padding: 0.8em 0;
