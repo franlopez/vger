@@ -150,6 +150,8 @@ a {
 	position: absolute;
 	overflow: hidden;
     margin: -1.7em 0 0 2.8em;
+    left: 0;
+    top: 2.1em;
 }
 
 #menu.spread {
@@ -169,7 +171,7 @@ a {
     transform: translate3d(0, 0, 0);
 }
 
-#menu.spread #buttonCurrentLocation {
+#menu.spread #buttonLanguage {
     -webkit-transform: translate3d(-3em, 2.5em, 0);
     -moz-transform: translate3d(-3em, 2.5em, 0);
     -o-transform: translate3d(-3em, 2.5em, 0);
@@ -177,7 +179,7 @@ a {
     transform: translate3d(-3em, 2.5em, 0);
 }
 
-#menu.spread #buttonReload {
+#menu.spread #buttonCurrentLocation {
     -webkit-transform: translate3d(-6em, 5em, 0);
     -moz-transform: translate3d(-6em, 5em, 0);
     -o-transform: translate3d(-6em, 5em, 0);
@@ -185,8 +187,7 @@ a {
     transform: translate3d(-6em, 5em, 0);
 }
 
-#menu.spread #buttonMap,
-#menu.spread #buttonList {
+#menu.spread #buttonReload {
     -webkit-transform: translate3d(-9em, 7.5em, 0);
     -moz-transform: translate3d(-9em, 7.5em, 0);
     -o-transform: translate3d(-9em, 7.5em, 0);
@@ -194,7 +195,8 @@ a {
     transform: translate3d(-9em, 7.5em, 0);
 }
 
-#menu.spread #buttonLanguage {
+#menu.spread #buttonMap,
+#menu.spread #buttonList {
     -webkit-transform: translate3d(-12em, 10em, 0);
     -moz-transform: translate3d(-12em, 10em, 0);
     -o-transform: translate3d(-12em, 10em, 0);
@@ -504,6 +506,26 @@ div.entry div.entryTitle {
 		display: none;
 	}
 	
+	#menu #buttonLanguage,
+	#menu.spread #buttonLanguage,
+	#menu #buttonLanguage i,
+	#menu.spread #buttonLanguage i,
+	#menu #buttonLanguage span.menu-title,
+	#menu.spread #buttonLanguage span.menu-title {
+		position: fixed;
+		top: 0;
+	}
+	#menu #buttonLanguage i,
+	#menu.spread #buttonLanguage i {
+		left: 0em;
+	}
+	#menu #buttonLanguage span.menu-title,
+	#menu.spread #buttonLanguage span.menu-title {
+		left: 2.7em;
+		opacity: 1.0;
+		width: 6.5em;
+	}
+
 	#menu #buttonCurrentLocation,
 	#menu.spread #buttonCurrentLocation,
 	#menu #buttonCurrentLocation i,
@@ -515,16 +537,16 @@ div.entry div.entryTitle {
 	}
 	#menu #buttonCurrentLocation i,
 	#menu.spread #buttonCurrentLocation i {
-		left: 0em;
+		left: 4.4em;
 	}
 	#menu #buttonCurrentLocation span.menu-title,
 	#menu.spread #buttonCurrentLocation span.menu-title {
-		left: 2.7em;
+		left: 11.4em;
 		opacity: 1.0;
-		width: 13em;
+		width: 11em;
 	}
-
-	#menu #buttonReload,
+    
+    #menu #buttonReload,
 	#menu.spread #buttonReload,
 	#menu #buttonReload i,
 	#menu.spread #buttonReload i,
@@ -535,33 +557,13 @@ div.entry div.entryTitle {
 	}
 	#menu #buttonReload i,
 	#menu.spread #buttonReload i {
-		left: 6.1em;
+		left: 11.3em;
 	}
 	#menu #buttonReload span.menu-title,
 	#menu.spread #buttonReload span.menu-title {
-		left: 15em;
+		left: 25.2em;
 		opacity: 1.0;
-		width: 15em;
-	}
-    
-    #menu #buttonLanguage,
-	#menu.spread #buttonLanguage,
-	#menu #buttonLanguage i,
-	#menu.spread #buttonLanguage i,
-	#menu #buttonLanguage span.menu-title,
-	#menu.spread #buttonLanguage span.menu-title {
-		position: fixed;
-		top: 0;
-	}
-	#menu #buttonLanguage i,
-	#menu.spread #buttonLanguage i {
-		left: 14.5em;
-	}
-	#menu #buttonLanguage span.menu-title,
-	#menu.spread #buttonLanguage span.menu-title {
-		left: 32em;
-		opacity: 1.0;
-		width: 10em;
+		width: 14em;
 	}
 	
 	#menu #buttonReload.option span.menu-title,

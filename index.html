@@ -45,6 +45,10 @@
 				<span id="buttonMenu" class="option" ng-click='$root.spreadMenu = !$root.spreadMenu'>
 					<i class="icon-menu"></i>
 				</span>
+                <span id="buttonLanguage" class="option" ng-click='selectLanguage()'>
+					<i class="icon-language"></i>
+					<span class="menu-title">{{ 'Language' | translate }}</span>
+				</span>
 				<span id="buttonCurrentLocation" class="option" ng-click='currentLocation()'>
 					<i class="icon-mark"></i>
 					<span class="menu-title">{{ 'My current location' | translate }}</span>
@@ -61,11 +65,6 @@
 					<i class="icon-list"></i>
 					<span class="menu-title">{{ 'List of entries' | translate }}</span>
 				</span>
-                <span id="buttonLanguage" class="option" ng-click='selectLanguage()'>
-					<i class="icon-language"></i>
-					<span class="menu-title">{{ 'Language' | translate }}</span>
-				</span>
-				
 			</div>
             
             <div id="logo" ng-class="{loading: $root.loading}" ng-click='logo()'>
