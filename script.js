@@ -88,7 +88,11 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
         window.localStorage.setItem("vger-lang", $rootScope.lang);
     }
     
-    $rootScope.apiUrl = 'http://' + $rootScope.lang + '.wikipedia.org/w/api.php';
+    // get api url with current language, default to english
+    $rootScope.apiUrl = function() {
+        var langCode = $rootScope.lang ? $rootScope.lang : 'en';
+        return 'http://' + $rootScope.lang + '.wikipedia.org/w/api.php';
+    };
 }]);
 
 vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', '$translate', function ($rootScope, $scope, $http, $translate) {
@@ -115,7 +119,7 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', '$translate', func
         });
         $scope.entries = [];
         //get list of closer entries
-        $http.jsonp($rootScope.apiUrl + '?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + lat + '|' + lng + '&gslimit=20&callback=JSON_CALLBACK').success(function(data) {
+        $http.jsonp($rootScope.apiUrl() + '?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + lat + '|' + lng + '&gslimit=20&callback=JSON_CALLBACK').success(function(data) {
             $scope.entries = data.query.geosearch;
             var ids = "";
             angular.forEach($scope.entries, function(value, index) {
@@ -138,12 +142,12 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', '$translate', func
             });
             ids = ids.slice(0, - 1);
             // get thumbnails
-            $http.jsonp($rootScope.apiUrl + '?action=query&prop=pageimages&format=json&piprop=thumbnail&pithumbsize=60&pilimit=20&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
+            $http.jsonp($rootScope.apiUrl() + '?action=query&prop=pageimages&format=json&piprop=thumbnail&pithumbsize=60&pilimit=20&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
                 angular.forEach($scope.entries, function(value, index) {
                     value.thumbnail = data.query.pages[value.pageid].thumbnail;
                 });
                 //get excerpts
-                $http.jsonp($rootScope.apiUrl + '?action=query&prop=extracts&format=json&exchars=250&exlimit=20&exintro=&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
+                $http.jsonp($rootScope.apiUrl() + '?action=query&prop=extracts&format=json&exchars=250&exlimit=20&exintro=&pageids=' + ids + '&callback=JSON_CALLBACK').success(function(data) {
                     angular.forEach($scope.entries, function(entry, index) {
                         var content = '<h4>' + entry.title + '</h4>'
                                       + data.query.pages[entry.pageid].extract + '<br/>'
@@ -251,7 +255,6 @@ vger.controller('ListCtrl', ['$rootScope', '$scope', '$http', '$translate', func
     $scope.saveLanguage = function() {
         if (window.localStorage.getItem("vger-lang") != $rootScope.lang ) {
             $translate.use($rootScope.lang);
-            $rootScope.apiUrl = 'http://' + $rootScope.lang + '.wikipedia.org/w/api.php';
             window.localStorage.setItem("vger-lang", $rootScope.lang);
             $scope.reload();
         }
