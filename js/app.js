@@ -34,18 +34,6 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
         function onDeviceReady() {
             document.addEventListener("menubutton", onMenuKeyDown, false);
             
-            // detect language if not saved, default to english
-            if (!$rootScope.lang) {
-                navigator.globalization.getPreferredLanguage(
-                    function (language) {
-                        $rootScope.lang = language.value.substring(0, 2);;
-                        checkLang();
-                    }
-                );
-            } else {
-                $translate.use($rootScope.lang);
-            }
-            
             // locate map only if online
             if (navigator.connection.type == Connection.NONE) {
                 $rootScope.messageOffline = true;
@@ -53,6 +41,8 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
             } else {
                 $rootScope.screenMap.locate({setView: true, maxZoom: 15});
             }
+            
+            setLang();
         }
         
         function onMenuKeyDown() {
@@ -64,12 +54,22 @@ vger.run(['$rootScope', '$translate', function ($rootScope, $translate) {
     } else {
         $rootScope.messageVisible = true;
         $rootScope.messageWelcome = true;
-        // $rootScope.screenMap.locate({setView: true, maxZoom: 15});
-        
-        // detect language if not saved, check and save
+        setLang();
+    }
+    
+    // detect language if not saved, check and save
+    function setLang(){
         if (!$rootScope.lang) {
-            $rootScope.lang = navigator.language || navigator.userLanguage;
-            $rootScope.lang = $rootScope.lang.substring(0, 2);
+            if ($rootScope.phonegapApp) {
+                navigator.globalization.getPreferredLanguage(
+                    function (language) {
+                        $rootScope.lang = language.value.substring(0, 2);
+                    }
+                );
+            } else {
+                $rootScope.lang = navigator.language || navigator.userLanguage;
+                $rootScope.lang = $rootScope.lang.substring(0, 2);
+            }
             checkLang();
         } else {
             $translate.use($rootScope.lang);
