@@ -9,4 +9,4 @@ You can install an Android Phonegap build on [Google Play](https://play.google.c
 
 Info
 ----
-Vger is developed as a weekend project by [Fran López](http://www.franlopez.info/) ( fran@franlopez.info ). It uses [AngularJS](https://angularjs.org/) and [Leaflet](http://leafletjs.com/), consuming the [WikiMedia API](http://www.mediawiki.org/wiki/API:Main_page) from the [Wikipedia](http://www.wikipedia.org/) and also [OpenStreetMap](http://www.openstreetmap.org).
+Vger is developed as a weekend project by [Fran López](http://www.franlopez.info/) ( fran@franlopez.info ). It uses [React](https://facebook.github.io/react/) and [Leaflet](http://leafletjs.com/), consuming the [WikiMedia API](http://www.mediawiki.org/wiki/API:Main_page) from the [Wikipedia](http://www.wikipedia.org/) and also [OpenStreetMap](http://www.openstreetmap.org).
