@@ -1,12 +1,18 @@
 import React from 'react';
+import Menu from './Menu.jsx';
 import Vmap from './Vmap.jsx';
-
-const position = [51.505, -0.09];
+import List from './List.jsx';
 
 var Vger = React.createClass({
     render: function(){
         return(
-            <Vmap />
+            <div id="container">
+                <Menu />
+                <div id="main">
+                    <Vmap />
+                    <List />
+                </div>
+            </div>
         )
     }
 });
