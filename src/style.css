@@ -20,7 +20,7 @@
 
 body {
     font-family: 'pt-sans', sans-serif;
-    color: #8c8c8c;
+    color: #000000;
     overflow: hidden;
 }
 
@@ -38,7 +38,28 @@ p {
     top: 0;
     left: 0;
     right: 0;
-    height: 3em;
+    background: #009ffd;
+    color: #ffffff;
+    -webkit-box-shadow: 0 0 5px 1px #000000;
+    box-shadow: 0 0 5px 1px #000000;
+    z-index: 100;
+}
+
+#inline-items {
+    white-space: nowrap;
+    overflow-x: auto;
+    margin: 0.7em 0.6em;
+}
+
+#menu .btn {
+    display: inline-block;
+    margin-right: 1.6em;
+    font-size: 140%;
+    cursor: pointer;
+}
+
+#menu .btn.last {
+    margin-right: 0;
 }
 
 #main {
@@ -47,6 +68,7 @@ p {
     bottom: 0;
     left: 0;
     right: -100%;
+    z-index: 50;
 }
 
 #vmap,
