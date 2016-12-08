@@ -44,8 +44,10 @@ var Vger = React.createClass({
             });
         }
     },
-    render: function(){
+    componentDidMount: function() {
         this.getUserLocation();
+    },
+    render: function(){
         return(
             <div id="container">
                 <Menu toggleVisible={this.toggleVisible}
