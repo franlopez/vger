@@ -2,17 +2,21 @@ import React from 'react';
 import Menu from './Menu.jsx';
 import Vmap from './Vmap.jsx';
 import List from './List.jsx';
+import reqwest from 'reqwest';
 
 const defaultLocation = {
     latitude: 51.505,
     longitude: -0.09
 }
 
+const wikiBaseUrl = 'http://en.wikipedia.org/w/api.php';
+
 var Vger = React.createClass({
     getInitialState: function() {
         return {
             mapVisible: true, // on small screens, either map or list is showing
-            userLocation: defaultLocation
+            userLocation: defaultLocation,
+            articles: []
         }
     },
     toggleVisible: function() {
@@ -32,6 +36,7 @@ var Vger = React.createClass({
                         longitude: position.coords.longitude
                     }
                 });
+                that.getArticles(position.coords.latitude, position.coords.longitude);
             }, function() {
                 error = true;
             });
@@ -44,6 +49,22 @@ var Vger = React.createClass({
             });
         }
     },
+    getArticles: function(latitude, longitude) {
+        const articlesUrl = wikiBaseUrl + '?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + latitude + '|' + longitude + '&gslimit=20&callback=JSON_CALLBACK';
+        const that = this;
+        reqwest({
+            url: articlesUrl,
+            type: 'jsonp',
+            success: function (resp) {
+                that.setState({
+                    articles: resp.query.geosearch
+                });
+            },
+            error: function (err) {
+                // couldn't load articles
+            }
+        })
+    },
     componentDidMount: function() {
         this.getUserLocation();
     },
@@ -54,7 +75,8 @@ var Vger = React.createClass({
                       mapVisible={this.state.mapVisible} />
                 <div id="main"
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
-                    <Vmap userLocation={this.state.userLocation} />
+                    <Vmap userLocation={this.state.userLocation}
+                          articles={this.state.articles}/>
                     <List />
                 </div>
             </div>
