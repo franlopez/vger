@@ -16,41 +16,47 @@ var Vmap = React.createClass({
         }
     },
     render: function(){
-        // area that the map should contain, these are just starter values
-        var southWestBound = [47.59, -122.32],
-            northEastBound = [47.6, -122.3];
-        var markers = this.props.articles.map(function(article, index) {
-            if (index == 0) {
-                southWestBound = [article.lat, article.lon];
-                northEastBound = [article.lat, article.lon];
-            } else {
-                southWestBound[0] = article.lat < southWestBound[0] ? article.lat : southWestBound[0];
-                southWestBound[1] = article.lon < southWestBound[1] ? article.lon : southWestBound[1];
-                northEastBound[0] = article.lat > northEastBound[0] ? article.lat : northEastBound[0];
-                northEastBound[1] = article.lon > northEastBound[1] ? article.lon : northEastBound[1];
-            }
-            return (
-                <Marker key={index}
-                        position={[article.lat, article.lon]}
-                        icon={markIcon} >
-                    <Popup>
-                        <h4>{article.title}</h4>
-                    </Popup>
-                </Marker>
+        if (this.props.userLocation) {
+            // area that the map should contain, these are just starter values
+            var southWestBound = [this.props.userLocation.latitude - 0.01, this.props.userLocation.longitude - 0.01],
+                northEastBound = [this.props.userLocation.latitude + 0.01, this.props.userLocation.longitude + 0.01];
+            var markers = this.props.articles.map(function(article, index) {
+                if (index == 0) {
+                    southWestBound = [article.lat, article.lon];
+                    northEastBound = [article.lat, article.lon];
+                } else {
+                    southWestBound[0] = article.lat < southWestBound[0] ? article.lat : southWestBound[0];
+                    southWestBound[1] = article.lon < southWestBound[1] ? article.lon : southWestBound[1];
+                    northEastBound[0] = article.lat > northEastBound[0] ? article.lat : northEastBound[0];
+                    northEastBound[1] = article.lon > northEastBound[1] ? article.lon : northEastBound[1];
+                }
+                return (
+                    <Marker key={index}
+                            position={[article.lat, article.lon]}
+                            icon={markIcon} >
+                        <Popup>
+                            <h4>{article.title}</h4>
+                        </Popup>
+                    </Marker>
+                );
+            });
+            return(
+                <Map id='vmap'
+                     ref='vmap'
+                     center={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
+                     bounds={[southWestBound, northEastBound]}
+                     onMoveend={this.handleMoveend}>
+                    <TileLayer
+                        url='http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png'
+                        attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.' />
+                    {markers}
+                </Map>
             );
-        });
-        return(
-            <Map id='vmap'
-                 ref='vmap'
-                 center={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
-                 bounds={[southWestBound, northEastBound]}
-                 onMoveend={this.handleMoveend}>
-                <TileLayer
-                    url='http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png'
-                    attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.' />
-                {markers}
-            </Map>
-        )
+        } else {
+            return(
+                <div id='vmap'></div>
+            );
+        }
     }
 });
 

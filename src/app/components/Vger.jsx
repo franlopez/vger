@@ -4,19 +4,14 @@ import Vmap from './Vmap.jsx';
 import List from './List.jsx';
 import reqwest from 'reqwest';
 
-const defaultLocation = {
-    latitude: 47.6044923,
-    longitude: -122.3099762
-}
-
 const wikiBaseUrl = 'http://en.wikipedia.org/w/api.php';
 
 var Vger = React.createClass({
     getInitialState: function() {
         return {
             mapVisible: true, // on small screens, either map or list is showing
-            userLocation: defaultLocation,
-            mapCenter: defaultLocation,
+            userLocation: null, // this is an object with 'latitude' and 'longitude'
+            mapCenter: null, // this is an object with 'latitude' and 'longitude'
             articles: []
         }
     },
@@ -46,7 +41,7 @@ var Vger = React.createClass({
         }
         if (error) {
             this.setState({
-                userLocation: defaultLocation
+                userLocation: null
             });
         }
     },
