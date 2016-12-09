@@ -12,7 +12,7 @@ var Vger = React.createClass({
             mapVisible: true, // on small screens, either map or list is showing
             userLocation: null, // this is an object with 'latitude' and 'longitude'
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
-            articles: []
+            articles: {}
         }
     },
     toggleVisible: function() {
@@ -50,14 +50,14 @@ var Vger = React.createClass({
         if (!pos.latitude) {
             pos = this.state.mapCenter;
         }
-        const articlesUrl = wikiBaseUrl + '?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + pos.latitude + '|' + pos.longitude + '&gslimit=20&callback=JSON_CALLBACK';
+        const articlesUrl = wikiBaseUrl + '?format=json&formatversion=2&action=query&prop=coordinates|pageimages|pageterms&colimit=20&piprop=thumbnail&pithumbsize=144&pilimit=20&wbptterms=description&generator=geosearch&ggscoord=' + pos.latitude + '|' + pos.longitude + '&ggsradius=10000&ggslimit=20&callback=JSON_CALLBACK';
         const that = this;
         reqwest({
             url: articlesUrl,
             type: 'jsonp',
             success: function (resp) {
                 that.setState({
-                    articles: resp.query.geosearch
+                    articles: resp.query.pages
                 });
             },
             error: function (err) {
