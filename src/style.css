@@ -66,6 +66,17 @@ p {
     display: none;
 }
 
+#menu .btn .icon {
+    height: 1.1em;
+    width: auto;
+    margin-right: 0.5em;
+}
+
+#menu .btn .text {
+    display: inline-block;
+    vertical-align: top;
+}
+
 #main {
     position: absolute;
     top: 3em;

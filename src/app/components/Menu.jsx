@@ -6,12 +6,28 @@ var Menu = React.createClass({
             <div id='menu'>
                 <div id="inline-items">
                     <span className="btn"
-                          onClick={this.props.getArticles}>Load articles</span>
+                          onClick={this.props.getArticles}>
+                        <img className='icon'
+                             src='img/reload.svg'/>
+                         <span className="text">Load articles</span>
+                    </span>
                     <span className={this.props.mapVisible ? 'btn hideable hide' : 'btn hideable'}
-                          onClick={this.props.toggleVisible}>Map</span>
+                          onClick={this.props.toggleVisible}>
+                          <img className='icon'
+                               src='img/map.svg'/>
+                           <span className="text">Map</span>
+                      </span>
                       <span className={this.props.mapVisible ? 'btn hideable' : 'btn hideable hide'}
-                          onClick={this.props.toggleVisible}>List</span>
-                    <span className="btn last">Setings</span>
+                          onClick={this.props.toggleVisible}>
+                          <img className='icon'
+                               src='img/list.svg'/>
+                          <span className="text">List</span>
+                      </span>
+                    <span className="btn last">
+                        <img className='icon'
+                             src='img/settings.svg'/>
+                        <span className="text">Setings</span>
+                    </span>
                 </div>
             </div>
         )

@@ -1,6 +1,13 @@
 import React from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
+const markIcon = L.icon({
+    iconUrl: 'img/mark.svg',
+    iconSize: [24, 35], // size of the icon
+    iconAnchor: [12, 35], // point of the icon which will correspond to marker's location
+    popupAnchor: [0, -39] // point from which the popup should open relative to the iconAnchor
+});
+
 var Vmap = React.createClass({
     handleMoveend: function(event) {
         if (event.target.dragging._positions.length) {
@@ -23,7 +30,9 @@ var Vmap = React.createClass({
                 northEastBound[1] = article.lon > northEastBound[1] ? article.lon : northEastBound[1];
             }
             return (
-                <Marker key={index} position={[article.lat, article.lon]}>
+                <Marker key={index}
+                        position={[article.lat, article.lon]}
+                        icon={markIcon} >
                     <Popup>
                         <h4>{article.title}</h4>
                     </Popup>
