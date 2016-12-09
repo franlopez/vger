@@ -5,7 +5,8 @@ var Menu = React.createClass({
         return(
             <div id='menu'>
                 <div id="inline-items">
-                    <span className="btn">Load articles</span>
+                    <span className="btn"
+                          onClick={this.props.getArticles}>Load articles</span>
                     <span className={this.props.mapVisible ? 'btn hideable hide' : 'btn hideable'}
                           onClick={this.props.toggleVisible}>Map</span>
                       <span className={this.props.mapVisible ? 'btn hideable' : 'btn hideable hide'}

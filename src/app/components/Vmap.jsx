@@ -1,13 +1,29 @@
 import React from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
-const position = [51.505, -0.09];
-
 var Vmap = React.createClass({
+    handleMoveend: function(event) {
+        if (event.target.dragging._positions.length) {
+            var currentCenter = this.refs.vmap.leafletElement.getCenter();
+            this.props.updateMapCenter(currentCenter.lat, currentCenter.lng);
+        }
+    },
     render: function(){
-        var markers = this.props.articles.map(function(article) {
+        // area that the map should contain, these are just starter values
+        var southWestBound = [47.59, -122.32],
+            northEastBound = [47.6, -122.3];
+        var markers = this.props.articles.map(function(article, index) {
+            if (index == 0) {
+                southWestBound = [article.lat, article.lon];
+                northEastBound = [article.lat, article.lon];
+            } else {
+                southWestBound[0] = article.lat < southWestBound[0] ? article.lat : southWestBound[0];
+                southWestBound[1] = article.lon < southWestBound[1] ? article.lon : southWestBound[1];
+                northEastBound[0] = article.lat > northEastBound[0] ? article.lat : northEastBound[0];
+                northEastBound[1] = article.lon > northEastBound[1] ? article.lon : northEastBound[1];
+            }
             return (
-                <Marker position={[article.lat, article.lon]}>
+                <Marker key={index} position={[article.lat, article.lon]}>
                     <Popup>
                         <h4>{article.title}</h4>
                     </Popup>
@@ -16,8 +32,10 @@ var Vmap = React.createClass({
         });
         return(
             <Map id='vmap'
+                 ref='vmap'
                  center={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
-                 zoom={16}>
+                 bounds={[southWestBound, northEastBound]}
+                 onMoveend={this.handleMoveend}>
                 <TileLayer
                     url='http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png'
                     attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.' />

@@ -5,8 +5,8 @@ import List from './List.jsx';
 import reqwest from 'reqwest';
 
 const defaultLocation = {
-    latitude: 51.505,
-    longitude: -0.09
+    latitude: 47.6044923,
+    longitude: -122.3099762
 }
 
 const wikiBaseUrl = 'http://en.wikipedia.org/w/api.php';
@@ -16,6 +16,7 @@ var Vger = React.createClass({
         return {
             mapVisible: true, // on small screens, either map or list is showing
             userLocation: defaultLocation,
+            mapCenter: defaultLocation,
             articles: []
         }
     },
@@ -36,7 +37,7 @@ var Vger = React.createClass({
                         longitude: position.coords.longitude
                     }
                 });
-                that.getArticles(position.coords.latitude, position.coords.longitude);
+                that.getArticles({latitude: position.coords.latitude, longitude: position.coords.longitude});
             }, function() {
                 error = true;
             });
@@ -49,8 +50,12 @@ var Vger = React.createClass({
             });
         }
     },
-    getArticles: function(latitude, longitude) {
-        const articlesUrl = wikiBaseUrl + '?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + latitude + '|' + longitude + '&gslimit=20&callback=JSON_CALLBACK';
+    getArticles: function(pos) {
+        // default to mapcenter
+        if (!pos.latitude) {
+            pos = this.state.mapCenter;
+        }
+        const articlesUrl = wikiBaseUrl + '?format=json&action=query&list=geosearch&gsradius=10000&gscoord=' + pos.latitude + '|' + pos.longitude + '&gslimit=20&callback=JSON_CALLBACK';
         const that = this;
         reqwest({
             url: articlesUrl,
@@ -65,6 +70,14 @@ var Vger = React.createClass({
             }
         })
     },
+    updateMapCenter: function(latitude, longitude) {
+        this.setState({
+            mapCenter: {
+                latitude: latitude,
+                longitude: longitude
+            }
+        });
+    },
     componentDidMount: function() {
         this.getUserLocation();
     },
@@ -72,11 +85,13 @@ var Vger = React.createClass({
         return(
             <div id="container">
                 <Menu toggleVisible={this.toggleVisible}
-                      mapVisible={this.state.mapVisible} />
+                      mapVisible={this.state.mapVisible}
+                      getArticles={this.getArticles} />
                 <div id="main"
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
                     <Vmap userLocation={this.state.userLocation}
-                          articles={this.state.articles}/>
+                          articles={this.state.articles}
+                          updateMapCenter={this.updateMapCenter} />
                     <List />
                 </div>
             </div>
