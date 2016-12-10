@@ -157,6 +157,19 @@ h3 {
     width: 20%;
 }
 
+#getUserLocation {
+    position: absolute;
+    bottom: 2em;
+    right: 50%;
+    margin-right: 0.6em;
+    width: 2.9em;
+    z-index: 1000;
+    cursor: pointer;
+    border-radius: 100%;
+    -webkit-box-shadow: 1px 2px 4px 0 #000000;
+    box-shadow: 1px 2px 4px 0 #000000;
+}
+
 @media screen and (min-width: 28em) {
     .leaflet-popup-content {
         max-width: none;
@@ -186,6 +199,10 @@ h3 {
     #list {
         width: 40%;
     }
+
+    #getUserLocation {
+        right: 40%;
+    }
 }
 
 @media screen and (min-width: 75em) {
@@ -195,5 +212,9 @@ h3 {
 
     #list {
         width: 25%;
+    }
+
+    #getUserLocation {
+        right: 25%;
     }
 }

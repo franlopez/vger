@@ -30,6 +30,10 @@ var Vger = React.createClass({
                     userLocation: {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
+                    },
+                    mapCenter: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
                     }
                 });
                 that.getArticles({latitude: position.coords.latitude, longitude: position.coords.longitude});
@@ -85,8 +89,10 @@ var Vger = React.createClass({
                 <div id="main"
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
                     <Vmap userLocation={this.state.userLocation}
+                          getUserLocation={this.getUserLocation}
                           articles={this.state.articles}
-                          updateMapCenter={this.updateMapCenter} />
+                          updateMapCenter={this.updateMapCenter}
+                          mapCenter={this.state.mapCenter} />
                     <List articles={this.state.articles} />
                 </div>
             </div>

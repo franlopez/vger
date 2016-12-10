@@ -23,6 +23,7 @@ var Vmap = React.createClass({
         }
     },
     render: function(){
+        var renderedMap = <div id='vmap'></div>;
         if (this.props.userLocation) {
             // area that the map should contain, these are just starter values
             var southWestBound = [this.props.userLocation.latitude - 0.01, this.props.userLocation.longitude - 0.01],
@@ -55,10 +56,11 @@ var Vmap = React.createClass({
                 <Marker position={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
                         icon={userIcon} >
                 </Marker>);
-            return(
+
+            renderedMap = (
                 <Map id='vmap'
                      ref='vmap'
-                     center={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
+                     center={[this.props.mapCenter.latitude, this.props.mapCenter.longitude]}
                      bounds={[southWestBound, northEastBound]}
                      onMoveend={this.handleMoveend}>
                     <TileLayer
@@ -67,11 +69,16 @@ var Vmap = React.createClass({
                     {markers}
                 </Map>
             );
-        } else {
-            return(
-                <div id='vmap'></div>
-            );
         }
+
+        return (
+            <div>
+                {renderedMap}
+                <img id="getUserLocation"
+                     src='img/target.svg'
+                     onClick={this.props.getUserLocation} />
+            </div>
+        );
     }
 });
 
