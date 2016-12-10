@@ -28,6 +28,10 @@ p {
     font-size: 120%;
 }
 
+h3 {
+    font-size: 140%;
+}
+
 #container {
     width: 100%;
     height: 100%;
@@ -116,6 +120,47 @@ p {
 
 #vmap {
     background: #d9d9d9;
+}
+
+.leaflet-popup-content {
+    max-width: 21em;
+}
+
+#list {
+    overflow: auto;
+}
+
+#list .article {
+    padding: 1.6em 0.8em;
+    border-bottom: 1px solid black;
+}
+
+#list .article:last-child {
+    border-bottom: 0;
+}
+
+#list .article:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.article.with-image img {
+    width: 25%;
+    max-width: 90px;
+    height: auto;
+    margin: 0 1em 0.5em 0;
+    float: left;
+}
+
+#list .article.with-image img {
+    width: 20%;
+}
+
+@media screen and (min-width: 28em) {
+    .leaflet-popup-content {
+        max-width: none;
+    }
 }
 
 @media screen and (min-width: 50em) {

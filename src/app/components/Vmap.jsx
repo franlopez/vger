@@ -1,4 +1,5 @@
 import React from 'react';
+import Article from './Article.jsx';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
 const markIcon = L.icon({
@@ -38,7 +39,7 @@ var Vmap = React.createClass({
                                 position={[article.coordinates[0].lat, article.coordinates[0].lon]}
                                 icon={markIcon} >
                             <Popup>
-                                <h4>{article.title}</h4>
+                                <Article article={article} excerpt={true} />
                             </Popup>
                         </Marker>
                     ));

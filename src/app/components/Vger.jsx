@@ -50,7 +50,7 @@ var Vger = React.createClass({
         if (!pos.latitude) {
             pos = this.state.mapCenter;
         }
-        const articlesUrl = wikiBaseUrl + '?format=json&formatversion=2&action=query&prop=coordinates|pageimages|pageterms&colimit=20&piprop=thumbnail&pithumbsize=144&pilimit=20&wbptterms=description&generator=geosearch&ggscoord=' + pos.latitude + '|' + pos.longitude + '&ggsradius=10000&ggslimit=20&callback=JSON_CALLBACK';
+        const articlesUrl = wikiBaseUrl + '?format=json&formatversion=2&action=query&prop=coordinates|pageimages|extracts&colimit=20&piprop=thumbnail&pithumbsize=144&pilimit=20&exchars=250&exlimit=20&exintro=&generator=geosearch&ggscoord=' + pos.latitude + '|' + pos.longitude + '&ggsradius=10000&ggslimit=20&callback=JSON_CALLBACK';
         const that = this;
         reqwest({
             url: articlesUrl,
@@ -87,7 +87,7 @@ var Vger = React.createClass({
                     <Vmap userLocation={this.state.userLocation}
                           articles={this.state.articles}
                           updateMapCenter={this.updateMapCenter} />
-                    <List />
+                    <List articles={this.state.articles} />
                 </div>
             </div>
         )
