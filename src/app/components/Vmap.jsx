@@ -9,6 +9,12 @@ const markIcon = L.icon({
     popupAnchor: [0, -39] // point from which the popup should open relative to the iconAnchor
 });
 
+const userIcon = L.icon({
+    iconUrl: 'img/user.svg',
+    iconSize: [20, 20],
+    iconAnchor: [10, 10]
+});
+
 var Vmap = React.createClass({
     handleMoveend: function(event) {
         if (event.target.dragging._positions.length) {
@@ -45,6 +51,10 @@ var Vmap = React.createClass({
                     ));
                 }
             }
+            markers.push(
+                <Marker position={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
+                        icon={userIcon} >
+                </Marker>);
             return(
                 <Map id='vmap'
                      ref='vmap'
