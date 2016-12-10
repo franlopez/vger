@@ -12,7 +12,8 @@ var Vger = React.createClass({
             mapVisible: true, // on small screens, either map or list is showing
             userLocation: null, // this is an object with 'latitude' and 'longitude'
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
-            articles: {}
+            articles: {},
+            openArticle: null // set the currently opened article
         }
     },
     toggleVisible: function() {
@@ -77,6 +78,11 @@ var Vger = React.createClass({
             }
         });
     },
+    setOpenArticle: function(id) {
+        this.setState({
+            openArticle: id
+        });
+    },
     componentDidMount: function() {
         this.getUserLocation();
     },
@@ -92,8 +98,10 @@ var Vger = React.createClass({
                           getUserLocation={this.getUserLocation}
                           articles={this.state.articles}
                           updateMapCenter={this.updateMapCenter}
-                          mapCenter={this.state.mapCenter} />
-                    <List articles={this.state.articles} />
+                          mapCenter={this.state.mapCenter}
+                          openArticle={this.state.openArticle} />
+                    <List articles={this.state.articles}
+                          setOpenArticle={this.setOpenArticle} />
                 </div>
             </div>
         )

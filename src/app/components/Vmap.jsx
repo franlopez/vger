@@ -6,7 +6,7 @@ const markIcon = L.icon({
     iconUrl: 'img/mark.svg',
     iconSize: [24, 35], // size of the icon
     iconAnchor: [12, 35], // point of the icon which will correspond to marker's location
-    popupAnchor: [0, -39] // point from which the popup should open relative to the iconAnchor
+    popupAnchor: [0, -37] // point from which the popup should open relative to the iconAnchor
 });
 
 const userIcon = L.icon({
@@ -16,6 +16,11 @@ const userIcon = L.icon({
 });
 
 var Vmap = React.createClass({
+    componentDidUpdate: function(prevProps) {
+        if (prevProps.openArticle !== this.props.openArticle) {
+            this.refs[this.props.openArticle].leafletElement.openPopup();
+        }
+    },
     handleMoveend: function(event) {
         if (event.target.dragging._positions.length) {
             var currentCenter = this.refs.vmap.leafletElement.getCenter();
@@ -42,7 +47,8 @@ var Vmap = React.createClass({
                         northEastBound[1] = article.coordinates[0].lon > northEastBound[1] ? article.coordinates[0].lon : northEastBound[1];
                     }
                     markers.push((
-                        <Marker key={index}
+                        <Marker key={article.pageid}
+                                ref={article.pageid}
                                 position={[article.coordinates[0].lat, article.coordinates[0].lon]}
                                 icon={markIcon} >
                             <Popup>
@@ -53,7 +59,8 @@ var Vmap = React.createClass({
                 }
             }
             markers.push(
-                <Marker position={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
+                <Marker key='userposition'
+                        position={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
                         icon={userIcon} >
                 </Marker>);
 
