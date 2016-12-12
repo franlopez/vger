@@ -1,9 +1,20 @@
 import React from 'react';
 
 var Article = React.createClass({
+    propTypes: {
+        article: React.PropTypes.object.isRequired,
+        setOpenArticle: React.PropTypes.func,
+        excerpt: React.PropTypes.bool // conditionally render the excerpt
+    },
+
+    defaultProps: {
+        excerpt: false
+    },
+
     setOpenArticle: function() {
         this.props.setOpenArticle(this.props.article.pageid);
     },
+
     render: function(){
         var thumbnail = this.props.article.thumbnail
                             ? <img src={this.props.article.thumbnail.source} width={this.props.article.thumbnail.width} height={this.props.article.thumbnail.height} />

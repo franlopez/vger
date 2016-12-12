@@ -1,6 +1,12 @@
 import React from 'react';
 
 var Menu = React.createClass({
+    propTypes: {
+        getArticles: React.PropTypes.func.isRequired,
+        toggleVisible: React.PropTypes.func.isRequired,
+        mapVisible: React.PropTypes.bool.isRequired
+    },
+
     render: function(){
         return(
             <div id='menu'>

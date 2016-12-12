@@ -16,17 +16,27 @@ const userIcon = L.icon({
 });
 
 var Vmap = React.createClass({
+    propTypes: {
+        updateMapCenter: React.PropTypes.func.isRequired,
+        getUserLocation: React.PropTypes.func.isRequired,
+        articles: React.PropTypes.object.isRequired,
+        openArticle: React.PropTypes.number,
+        userLocation: React.PropTypes.object // can be null
+    },
+
     componentDidUpdate: function(prevProps) {
         if (prevProps.openArticle !== this.props.openArticle) {
             this.refs[this.props.openArticle].leafletElement.openPopup();
         }
     },
+
     handleMoveend: function(event) {
         if (event.target.dragging._positions.length) {
             var currentCenter = this.refs.vmap.leafletElement.getCenter();
             this.props.updateMapCenter(currentCenter.lat, currentCenter.lng);
         }
     },
+
     render: function(){
         var renderedMap = <div id='vmap'></div>;
         if (this.props.userLocation) {

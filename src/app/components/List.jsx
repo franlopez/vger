@@ -2,6 +2,11 @@ import React from 'react';
 import Article from './Article.jsx';
 
 var List = React.createClass({
+    propTypes: {
+        articles: React.PropTypes.object.isRequired,
+        setOpenArticle: React.PropTypes.func.isRequired
+    },
+
     render: function(){
         var articles = [];
         for (var index in this.props.articles) {
