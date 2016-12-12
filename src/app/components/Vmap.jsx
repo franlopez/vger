@@ -9,10 +9,10 @@ const markIcon = L.icon({
     popupAnchor: [0, -37] // point from which the popup should open relative to the iconAnchor
 });
 
-const userIcon = L.icon({
-    iconUrl: 'img/user.svg',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10]
+const userIcon = L.divIcon({
+    html: '<img src="img/user.svg"/>',
+    iconAnchor: [10, 10],
+    className: 'user-position'
 });
 
 var Vmap = React.createClass({
@@ -78,7 +78,8 @@ var Vmap = React.createClass({
                 <Marker key='userposition'
                         position={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
                         icon={userIcon} >
-                </Marker>);
+                </Marker>
+            );
 
             renderedMap = (
                 <Map id='vmap'
