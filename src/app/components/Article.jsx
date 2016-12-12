@@ -21,9 +21,15 @@ var Article = React.createClass({
         var thumbnail = this.props.article.thumbnail
                             ? <img src={this.props.article.thumbnail.source} width={this.props.article.thumbnail.width} height={this.props.article.thumbnail.height} />
                             : null;
-        var excerpt = this.props.excerpt
-                          ? <div dangerouslySetInnerHTML={{__html: this.props.article.extract}} />
-                      : null;
+        var excerpt = null;
+        if (this.props.excerpt) {
+            excerpt =
+                <div>
+                    <div dangerouslySetInnerHTML={{__html: this.props.article.extract}} />
+                    <a className='btn' href={this.props.article.fullurl} target='_blank'>Read more</a>
+                </div>;
+        }
+
         return(
             <div className={thumbnail ? 'article with-image' : 'article no-image'}
                  onClick={this.setOpenArticle} >
