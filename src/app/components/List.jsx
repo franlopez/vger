@@ -4,7 +4,8 @@ import Article from './Article.jsx';
 var List = React.createClass({
     propTypes: {
         articles: React.PropTypes.object.isRequired,
-        setOpenArticle: React.PropTypes.func.isRequired
+        setOpenArticle: React.PropTypes.func.isRequired,
+        openArticle: React.PropTypes.number
     },
 
     render: function(){
@@ -15,7 +16,8 @@ var List = React.createClass({
                     <Article key={this.props.articles[index].pageid}
                              article={this.props.articles[index]}
                              excerpt={false}
-                             setOpenArticle={this.props.setOpenArticle} />);
+                             setOpenArticle={this.props.setOpenArticle}
+                             openArticle={this.props.openArticle} />);
             }
         }
         return(

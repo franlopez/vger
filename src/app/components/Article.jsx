@@ -4,6 +4,7 @@ var Article = React.createClass({
     propTypes: {
         article: React.PropTypes.object.isRequired,
         setOpenArticle: React.PropTypes.func,
+        openArticle: React.PropTypes.number,
         excerpt: React.PropTypes.bool // conditionally render the excerpt
     },
 
@@ -21,6 +22,10 @@ var Article = React.createClass({
         var thumbnail = this.props.article.thumbnail
                             ? <img src={this.props.article.thumbnail.source} width={this.props.article.thumbnail.width} height={this.props.article.thumbnail.height} />
                             : null;
+
+        var classNames = thumbnail ? 'article with-image' : 'article no-image';
+        if (this.props.article.pageid == this.props.openArticle) classNames += ' opened';
+
         var excerpt = null;
         if (this.props.excerpt) {
             excerpt =
@@ -31,7 +36,7 @@ var Article = React.createClass({
         }
 
         return(
-            <div className={thumbnail ? 'article with-image' : 'article no-image'}
+            <div className={classNames}
                  onClick={this.setOpenArticle} >
                 {thumbnail}
                 <h3>{this.props.article.title}</h3>
