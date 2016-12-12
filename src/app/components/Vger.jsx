@@ -99,6 +99,7 @@ var Vger = React.createClass({
                           articles={this.state.articles}
                           updateMapCenter={this.updateMapCenter}
                           mapCenter={this.state.mapCenter}
+                          setOpenArticle={this.setOpenArticle}
                           openArticle={this.state.openArticle} />
                     <List articles={this.state.articles}
                           setOpenArticle={this.setOpenArticle}

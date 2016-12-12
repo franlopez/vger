@@ -21,6 +21,7 @@ var Vmap = React.createClass({
         getUserLocation: React.PropTypes.func.isRequired,
         articles: React.PropTypes.object.isRequired,
         openArticle: React.PropTypes.number,
+        setOpenArticle: React.PropTypes.func.isRequired,
         userLocation: React.PropTypes.object // can be null
     },
 
@@ -35,6 +36,10 @@ var Vmap = React.createClass({
             var currentCenter = this.refs.vmap.leafletElement.getCenter();
             this.props.updateMapCenter(currentCenter.lat, currentCenter.lng);
         }
+    },
+
+    openArticle: function(pageId, event) {
+        this.props.setOpenArticle(pageId);
     },
 
     render: function(){
@@ -60,7 +65,8 @@ var Vmap = React.createClass({
                         <Marker key={article.pageid}
                                 ref={article.pageid}
                                 position={[article.coordinates[0].lat, article.coordinates[0].lon]}
-                                icon={markIcon} >
+                                icon={markIcon}
+                                onClick={this.openArticle.bind(null, article.pageid)} >
                             <Popup>
                                 <Article article={article} excerpt={true} />
                             </Popup>
