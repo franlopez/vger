@@ -123,9 +123,26 @@ h3 {
 
 }
 
-.leaflet-popup-content {
-    max-width: 21em;
+#vmap .leaflet-popup-content-wrapper {
+    border-radius: 0;
+    background: #d5ffeb;
+    font-size: 85%;
+}
+
+#vmap .leaflet-popup-tip {
+    background: #d5ffeb;
+}
+
+#vmap .leaflet-popup-content {
+    max-width: 20em;
     margin: 0.7em 1em !important;
+}
+
+#vmap.leaflet-container a.leaflet-popup-close-button {
+    color: #000;
+    padding: 0.5em 0.5em 0 0;
+    font: inherit;
+    font-weight: bold;
 }
 
 #vmap .article .btn {
@@ -135,13 +152,13 @@ h3 {
     text-decoration: none;
     color: #fff;
     background: #009ffd;
-    border: 1px solid #009ffd;
+    border: 2px solid #009ffd;
     padding: 0.3em 0.5em;
 }
 
 #vmap .article .btn:hover {
     color: #009ffd;
-    background: #fff;
+    background: #d5ffeb;
 }
 
 #list {
@@ -226,6 +243,10 @@ h3 {
 
     #getUserLocation {
         right: 40%;
+    }
+
+    #vmap .leaflet-popup-content-wrapper {
+        font-size: 100%;
     }
 }
 
