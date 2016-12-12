@@ -12,7 +12,9 @@ var Article = React.createClass({
     },
 
     setOpenArticle: function() {
-        this.props.setOpenArticle(this.props.article.pageid);
+        if (this.props.setOpenArticle) {
+            this.props.setOpenArticle(this.props.article.pageid);
+        }
     },
 
     render: function(){
