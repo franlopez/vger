@@ -130,12 +130,14 @@ h3 {
 
 #vmap .leaflet-popup-content-wrapper {
     border-radius: 0;
-    background: #d5ffeb;
+    background: #fff;
     font-size: 85%;
+    -webkit-box-shadow: 0 1px 4px 0 #000000;
+    box-shadow: 0 1px 4px 0 #000000;
 }
 
 #vmap .leaflet-popup-tip {
-    background: #d5ffeb;
+    background: #fff;
 }
 
 #vmap .leaflet-popup-content {
@@ -163,7 +165,7 @@ h3 {
 
 #vmap .article .btn:hover {
     color: #009ffd;
-    background: #d5ffeb;
+    background: #fff;
 }
 
 #list {
@@ -178,7 +180,7 @@ h3 {
 
 #list .article:hover,
 #list .article.opened {
-    background: #d5ffeb;
+    background: #6bffb8;
 }
 
 #list .article:last-child {
