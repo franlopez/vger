@@ -2,6 +2,7 @@ import React from 'react';
 import Menu from './Menu.jsx';
 import Vmap from './Vmap.jsx';
 import List from './List.jsx';
+import Settings from './Settings.jsx';
 import reqwest from 'reqwest';
 
 const wikiBaseUrl = 'http://en.wikipedia.org/w/api.php';
@@ -13,13 +14,27 @@ var Vger = React.createClass({
             userLocation: null, // this is an object with 'latitude' and 'longitude'
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
             articles: {},
-            openArticle: null // set the currently opened article
+            openArticle: null, // set the currently opened article
+            displaySettings: false,
+            language: 'en'
         }
     },
     toggleVisible: function() {
         var newMapVisible = !this.state.mapVisible;
         this.setState({
             mapVisible: newMapVisible
+        });
+    },
+    toggleSettings: function() {
+        var newDisplaySettings = !this.state.displaySettings;
+        this.setState({
+            displaySettings: newDisplaySettings
+        });
+    },
+    setLanguage: function(newLanguage) {
+        // newLanguage should be alanguage code
+        this.setState({
+            language: newLanguage
         });
     },
     getUserLocation: function() {
@@ -91,6 +106,7 @@ var Vger = React.createClass({
             <div id="container">
                 <Menu toggleVisible={this.toggleVisible}
                       mapVisible={this.state.mapVisible}
+                      toggleSettings={this.toggleSettings}
                       getArticles={this.getArticles} />
                 <div id="main"
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
@@ -104,6 +120,10 @@ var Vger = React.createClass({
                     <List articles={this.state.articles}
                           setOpenArticle={this.setOpenArticle}
                           openArticle={this.state.openArticle} />
+                    <Settings display={this.state.displaySettings}
+                              toggleSettings={this.toggleSettings}
+                              language={this.state.language}
+                              setLanguage={this.setLanguage} />
                 </div>
             </div>
         )

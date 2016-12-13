@@ -4,6 +4,7 @@ var Menu = React.createClass({
     propTypes: {
         getArticles: React.PropTypes.func.isRequired,
         toggleVisible: React.PropTypes.func.isRequired,
+        toggleSettings: React.PropTypes.func.isRequired,
         mapVisible: React.PropTypes.bool.isRequired
     },
 
@@ -24,12 +25,13 @@ var Menu = React.createClass({
                            <span className="text">Map</span>
                       </span>
                       <span className={this.props.mapVisible ? 'btn hideable' : 'btn hideable hide'}
-                          onClick={this.props.toggleVisible}>
+                            onClick={this.props.toggleVisible}>
                           <img className='icon'
                                src='img/list.svg'/>
                           <span className="text">List</span>
                       </span>
-                    <span className="btn last">
+                    <span className="btn last"
+                          onClick={this.props.toggleSettings}>
                         <img className='icon'
                              src='img/settings.svg'/>
                         <span className="text">Setings</span>
