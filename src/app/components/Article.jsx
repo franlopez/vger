@@ -1,15 +1,28 @@
 import React from 'react';
 
+const texts = {
+    en: {
+        'Read more': 'Read more'
+    },
+    es: {
+        'Read more': 'Leer más'
+    }
+};
+
 var Article = React.createClass({
     propTypes: {
         article: React.PropTypes.object.isRequired,
         setOpenArticle: React.PropTypes.func,
         openArticle: React.PropTypes.number,
-        excerpt: React.PropTypes.bool // conditionally render the excerpt
+        excerpt: React.PropTypes.bool, // conditionally render the excerpt
+        language: React.PropTypes.string
     },
 
-    defaultProps: {
-        excerpt: false
+    getDefaultProps() {
+        return {
+            excerpt: false,
+            language: 'en'
+        };
     },
 
     setOpenArticle: function() {
@@ -19,6 +32,8 @@ var Article = React.createClass({
     },
 
     render: function(){
+        var text = texts[this.props.language];
+        
         var thumbnail = this.props.article.thumbnail
                             ? <img src={this.props.article.thumbnail.source} width={this.props.article.thumbnail.width} height={this.props.article.thumbnail.height} />
                             : null;
@@ -31,7 +46,7 @@ var Article = React.createClass({
             excerpt =
                 <div>
                     <div dangerouslySetInnerHTML={{__html: this.props.article.extract}} />
-                    <a className='btn' href={this.props.article.fullurl} target='_blank'>Read more</a>
+                    <a className='btn' href={this.props.article.fullurl} target='_blank'>{text['Read more']}</a>
                 </div>;
         }
 

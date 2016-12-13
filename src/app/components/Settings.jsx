@@ -1,11 +1,29 @@
 import React from 'react';
 
+const texts = {
+    en: {
+        'Settings': 'Settings',
+        'Language': 'Language'
+    },
+    es: {
+        'Settings': 'Configuración',
+        'Language': 'Idioma'
+    }
+};
+
 var Settings = React.createClass({
     propTypes: {
         display: React.PropTypes.bool.isRequired,
         toggleSettings: React.PropTypes.func.isRequired,
         language: React.PropTypes.string.isRequired,
-        setLanguage: React.PropTypes.func.isRequired
+        setLanguage: React.PropTypes.func.isRequired,
+        language: React.PropTypes.string
+    },
+
+    getDefaultProps() {
+        return {
+            language: 'en'
+        };
     },
 
     setLanguage(event) {
@@ -15,13 +33,15 @@ var Settings = React.createClass({
     },
 
     render: function(){
+        var text = texts[this.props.language];
+
         return(
             <div id='settings'
                  className={this.props.display ? 'visible' : 'hide'}>
                  <div id="close"
                       onClick={this.props.toggleSettings}>x</div>
-                 <h2>Settings</h2>
-                 <h3>Language</h3>
+                  <h2>{text['Settings']}</h2>
+                 <h3>{text['Language']}</h3>
                  <br />
                  <input type="radio"
                        name="en"

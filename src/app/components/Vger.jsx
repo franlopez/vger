@@ -5,8 +5,6 @@ import List from './List.jsx';
 import Settings from './Settings.jsx';
 import reqwest from 'reqwest';
 
-const wikiBaseUrl = 'http://en.wikipedia.org/w/api.php';
-
 var Vger = React.createClass({
     getInitialState: function() {
         return {
@@ -70,7 +68,7 @@ var Vger = React.createClass({
         if (!pos.latitude) {
             pos = this.state.mapCenter;
         }
-        const articlesUrl = wikiBaseUrl + '?format=json&formatversion=2&action=query&prop=coordinates|pageimages|extracts|info&inprop=url&colimit=20&piprop=thumbnail&pithumbsize=144&pilimit=20&exchars=250&exlimit=20&exintro=&generator=geosearch&ggscoord=' + pos.latitude + '|' + pos.longitude + '&ggsradius=10000&ggslimit=20&callback=JSON_CALLBACK';
+        const articlesUrl = 'http://' + this.state.language + '.wikipedia.org/w/api.php' + '?format=json&formatversion=2&action=query&prop=coordinates|pageimages|extracts|info&inprop=url&colimit=20&piprop=thumbnail&pithumbsize=144&pilimit=20&exchars=250&exlimit=20&exintro=&generator=geosearch&ggscoord=' + pos.latitude + '|' + pos.longitude + '&ggsradius=10000&ggslimit=20&callback=JSON_CALLBACK';
         const that = this;
         reqwest({
             url: articlesUrl,
@@ -107,6 +105,7 @@ var Vger = React.createClass({
                 <Menu toggleVisible={this.toggleVisible}
                       mapVisible={this.state.mapVisible}
                       toggleSettings={this.toggleSettings}
+                      language={this.state.language}
                       getArticles={this.getArticles} />
                 <div id="main"
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
@@ -116,7 +115,8 @@ var Vger = React.createClass({
                           updateMapCenter={this.updateMapCenter}
                           mapCenter={this.state.mapCenter}
                           setOpenArticle={this.setOpenArticle}
-                          openArticle={this.state.openArticle} />
+                          openArticle={this.state.openArticle}
+                          language={this.state.language} />
                     <List articles={this.state.articles}
                           setOpenArticle={this.setOpenArticle}
                           openArticle={this.state.openArticle} />

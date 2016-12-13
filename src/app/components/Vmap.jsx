@@ -22,7 +22,8 @@ var Vmap = React.createClass({
         articles: React.PropTypes.object.isRequired,
         openArticle: React.PropTypes.number,
         setOpenArticle: React.PropTypes.func.isRequired,
-        userLocation: React.PropTypes.object // can be null
+        userLocation: React.PropTypes.object, // can be null
+        language: React.PropTypes.string
     },
 
     componentDidUpdate: function(prevProps) {
@@ -68,7 +69,9 @@ var Vmap = React.createClass({
                                 icon={markIcon}
                                 onClick={this.openArticle.bind(null, article.pageid)} >
                             <Popup>
-                                <Article article={article} excerpt={true} />
+                                <Article article={article}
+                                         excerpt={true}
+                                         language={this.props.language} />
                             </Popup>
                         </Marker>
                     ));
