@@ -120,11 +120,11 @@ var Vger = React.createClass({
                     <List articles={this.state.articles}
                           setOpenArticle={this.setOpenArticle}
                           openArticle={this.state.openArticle} />
-                    <Settings display={this.state.displaySettings}
-                              toggleSettings={this.toggleSettings}
-                              language={this.state.language}
-                              setLanguage={this.setLanguage} />
                 </div>
+                <Settings display={this.state.displaySettings}
+                          toggleSettings={this.toggleSettings}
+                          language={this.state.language}
+                          setLanguage={this.setLanguage} />
             </div>
         )
     }
