@@ -7,6 +7,7 @@ import reqwest from 'reqwest';
 
 var Vger = React.createClass({
     getInitialState: function() {
+        var language = localStorage.getItem('vgerLanguage') || 'en';
         return {
             mapVisible: true, // on small screens, either map or list is showing
             userLocation: null, // this is an object with 'latitude' and 'longitude'
@@ -14,7 +15,7 @@ var Vger = React.createClass({
             articles: {},
             openArticle: null, // set the currently opened article
             displaySettings: false,
-            language: 'en'
+            language: language
         }
     },
     toggleVisible: function() {
@@ -31,6 +32,7 @@ var Vger = React.createClass({
     },
     setLanguage: function(newLanguage) {
         // newLanguage should be alanguage code
+        localStorage.setItem('vgerLanguage', newLanguage);
         this.setState({
             language: newLanguage
         });
