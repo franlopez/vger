@@ -34,6 +34,10 @@ var Menu = React.createClass({
         this.props.setModal('settings');
     },
 
+    openAbout: function() {
+        this.props.setModal('about');
+    },
+
     render: function(){
         var text = texts[this.props.language];
 
@@ -65,6 +69,9 @@ var Menu = React.createClass({
                          <span className="text">{text['Settings']}</span>
                     </span>
                 </div>
+                <img id='logo'
+                     src='img/logo.svg'
+                     onClick={this.openAbout} />
             </div>
         )
     }

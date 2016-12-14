@@ -4,6 +4,7 @@ import Vmap from './Vmap.jsx';
 import List from './List.jsx';
 import Modal from './Modal.jsx';
 import Settings from './Settings.jsx';
+import About from './About.jsx';
 import reqwest from 'reqwest';
 
 var Vger = React.createClass({
@@ -131,7 +132,10 @@ var Vger = React.createClass({
                 <Modal modal={this.state.modal}
                        closeModal={this.closeModal}>
                     <Settings language={this.state.language}
-                              setLanguage={this.setLanguage} />
+                              setLanguage={this.setLanguage}
+                              modal={this.state.modal} />
+                    <About language={this.state.language}
+                           modal={this.state.modal} />
                 </Modal>
             </div>
         )
