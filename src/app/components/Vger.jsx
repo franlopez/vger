@@ -2,6 +2,7 @@ import React from 'react';
 import Menu from './Menu.jsx';
 import Vmap from './Vmap.jsx';
 import List from './List.jsx';
+import Modal from './Modal.jsx';
 import Settings from './Settings.jsx';
 import reqwest from 'reqwest';
 
@@ -14,7 +15,7 @@ var Vger = React.createClass({
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
             articles: {},
             openArticle: null, // set the currently opened article
-            displaySettings: false,
+            modal: null, // string, which modal to show, null to hide
             language: language
         }
     },
@@ -24,10 +25,14 @@ var Vger = React.createClass({
             mapVisible: newMapVisible
         });
     },
-    toggleSettings: function() {
-        var newDisplaySettings = !this.state.displaySettings;
+    closeModal: function() {
         this.setState({
-            displaySettings: newDisplaySettings
+            modal: null
+        });
+    },
+    setModal: function(modal) {
+        this.setState({
+            modal: modal
         });
     },
     setLanguage: function(newLanguage) {
@@ -106,7 +111,7 @@ var Vger = React.createClass({
             <div id="container">
                 <Menu toggleVisible={this.toggleVisible}
                       mapVisible={this.state.mapVisible}
-                      toggleSettings={this.toggleSettings}
+                      setModal={this.setModal}
                       language={this.state.language}
                       getArticles={this.getArticles} />
                 <div id="main"
@@ -123,10 +128,11 @@ var Vger = React.createClass({
                           setOpenArticle={this.setOpenArticle}
                           openArticle={this.state.openArticle} />
                 </div>
-                <Settings display={this.state.displaySettings}
-                          toggleSettings={this.toggleSettings}
-                          language={this.state.language}
-                          setLanguage={this.setLanguage} />
+                <Modal modal={this.state.modal}
+                       closeModal={this.closeModal}>
+                    <Settings language={this.state.language}
+                              setLanguage={this.setLanguage} />
+                </Modal>
             </div>
         )
     }

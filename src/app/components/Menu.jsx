@@ -19,7 +19,7 @@ var Menu = React.createClass({
     propTypes: {
         getArticles: React.PropTypes.func.isRequired,
         toggleVisible: React.PropTypes.func.isRequired,
-        toggleSettings: React.PropTypes.func.isRequired,
+        setModal: React.PropTypes.func.isRequired,
         mapVisible: React.PropTypes.bool.isRequired,
         language: React.PropTypes.string
     },
@@ -28,6 +28,10 @@ var Menu = React.createClass({
         return {
             language: 'en'
         };
+    },
+
+    openSettings: function() {
+        this.props.setModal('settings');
     },
 
     render: function(){
@@ -55,7 +59,7 @@ var Menu = React.createClass({
                            <span className="text">{text['List']}</span>
                       </span>
                     <span className="btn last"
-                          onClick={this.props.toggleSettings}>
+                          onClick={this.openSettings}>
                         <img className='icon'
                              src='img/settings.svg'/>
                          <span className="text">{text['Settings']}</span>

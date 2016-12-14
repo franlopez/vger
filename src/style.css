@@ -259,7 +259,7 @@ h3 {
     -o-animation: pulse 2.5s linear infinite;
 }
 
-#settings {
+#modal {
     position: absolute;
     z-index: 1000;
     background: #fff;
@@ -277,7 +277,7 @@ h3 {
     transition: transform 200ms ease-out;
 }
 
-#settings.visible {
+#modal.visible {
     -moz-transform: translateY(0);
     -webkit-transform: translateY(0);
     -o-transform: translateY(0);
@@ -285,7 +285,7 @@ h3 {
     transform: translateY(0);
 }
 
-#settings.hide {
+#modal.hide {
     -moz-transform: translateY(-200%);
     -webkit-transform: translateY(-200%);
     -o-transform: translateY(-200%);
