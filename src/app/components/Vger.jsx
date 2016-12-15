@@ -101,7 +101,8 @@ var Vger = React.createClass({
     },
     setOpenArticle: function(id) {
         this.setState({
-            openArticle: id
+            openArticle: id,
+            mapVisible: true
         });
     },
     componentDidMount: function() {
