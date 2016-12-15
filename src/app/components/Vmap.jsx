@@ -91,7 +91,7 @@ var Vmap = React.createClass({
                      bounds={[southWestBound, northEastBound]}
                      onMoveend={this.handleMoveend}>
                     <TileLayer
-                        url='http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png'
+                        url='https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
                         attribution='App by <a href="http://franlopez.info">Fran López</a>. Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.' />
                     {markers}
                 </Map>
