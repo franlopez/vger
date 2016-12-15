@@ -174,9 +174,13 @@ a:hover {
 
 #vmap.leaflet-container a.leaflet-popup-close-button {
     color: #000;
-    padding: 0.5em 0.5em 0 0;
     font: inherit;
+    font-family: 'pt_sans';
     font-weight: bold;
+    font-size: 160%;
+    width: initial;
+    height: initial;
+    padding: 0.3em 0.4em;
 }
 
 #vmap .article .btn {
@@ -325,9 +329,11 @@ a:hover {
 
 #close {
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: 0;
+    right: 0;
     font-weight: bold;
+    font-size: 140%;
+    padding: 0.3em 0.6em;
     cursor: pointer;
 }
 
