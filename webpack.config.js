@@ -5,6 +5,13 @@ var BUILD_DIR = path.resolve(__dirname, 'src/dist');
 var APP_DIR = path.resolve(__dirname, 'src/app');
 
 var config = {
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        })
+    ],
     entry: APP_DIR + '/index.jsx',
     output: {
         path: BUILD_DIR,
