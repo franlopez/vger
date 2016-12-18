@@ -44,6 +44,7 @@ a:hover {
 #container {
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 #menu {
@@ -181,6 +182,10 @@ a:hover {
     width: initial;
     height: initial;
     padding: 0.3em 0.4em;
+}
+
+#vmap .leaflet-popup-content h3 {
+    margin-right: 0.6em;
 }
 
 #vmap .article .btn {
