@@ -102,9 +102,9 @@ a:hover {
 }
 
 #menu #logo {
-    height: 1.5em;
+    height: 1.4em;
     position: absolute;
-    top: 0.3em;
+    top: 0.4em;
     right: 0.5em;
     font-size: 140%;
     cursor: pointer;
