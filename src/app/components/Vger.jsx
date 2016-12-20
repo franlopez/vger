@@ -5,6 +5,7 @@ import List from './List.jsx';
 import Modal from './Modal.jsx';
 import Settings from './Settings.jsx';
 import About from './About.jsx';
+import ErrorMsg from './ErrorMsg.jsx';
 import reqwest from 'reqwest';
 
 var Vger = React.createClass({
@@ -56,18 +57,21 @@ var Vger = React.createClass({
                     mapCenter: {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
-                    }
+                    },
+                    modal: null
                 });
                 that.getArticles({latitude: position.coords.latitude, longitude: position.coords.longitude});
             }, function() {
                 error = true;
-            });
+            },
+            {timeout: 5000});
         } else {
             error = true;
         }
         if (error) {
             this.setState({
-                userLocation: null
+                userLocation: null,
+                modal: 'error-location'
             });
         }
     },
@@ -87,7 +91,9 @@ var Vger = React.createClass({
                 });
             },
             error: function (err) {
-                // couldn't load articles
+                this.setState({
+                    modal: 'error-articles'
+                });
             }
         })
     },
@@ -137,6 +143,10 @@ var Vger = React.createClass({
                               modal={this.state.modal} />
                     <About language={this.state.language}
                            modal={this.state.modal} />
+                    <ErrorMsg language={this.state.language}
+                              modal={this.state.modal}
+                              getUserLocation={this.getUserLocation}
+                              getArticles={this.getArticles} />
                 </Modal>
             </div>
         )
