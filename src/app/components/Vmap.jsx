@@ -19,6 +19,7 @@ var Vmap = React.createClass({
     propTypes: {
         updateMapCenter: React.PropTypes.func.isRequired,
         getUserLocation: React.PropTypes.func.isRequired,
+        gettingUserLocation: React.PropTypes.bool.isRequired,
         articles: React.PropTypes.object.isRequired,
         openArticle: React.PropTypes.number,
         setOpenArticle: React.PropTypes.func.isRequired,
@@ -94,8 +95,8 @@ var Vmap = React.createClass({
                      bounds={[southWestBound, northEastBound]}
                      onMouseup={this.handleMoveend}>
                     <TileLayer
-                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.' />
+                        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                        attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.' />
                     {markers}
                 </Map>
             );
@@ -106,7 +107,8 @@ var Vmap = React.createClass({
                 {renderedMap}
                 <img id="getUserLocation"
                      src='img/target.svg'
-                     onClick={this.props.getUserLocation} />
+                     onClick={this.props.getUserLocation}
+                     className={this.props.gettingUserLocation ? 'loading' : null} />
             </div>
         );
     }

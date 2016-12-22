@@ -18,6 +18,7 @@ const texts = {
 var Menu = React.createClass({
     propTypes: {
         getArticles: React.PropTypes.func.isRequired,
+        gettingArticles: React.PropTypes.bool.isRequired,
         toggleVisible: React.PropTypes.func.isRequired,
         setModal: React.PropTypes.func.isRequired,
         mapVisible: React.PropTypes.bool.isRequired,
@@ -46,8 +47,9 @@ var Menu = React.createClass({
                 <div id="inline-items">
                     <span className="btn"
                           onClick={this.props.getArticles}>
-                        <img className='icon'
-                             src='img/reload.svg'/>
+                        <img className={'icon ' + (this.props.gettingArticles ? 'loading' : '')}
+                             id='loadArticles'
+                             src='img/reload.svg' />
                          <span className="text">{text['Load articles']}</span>
                     </span>
                     <span className={this.props.mapVisible ? 'btn hideable hide' : 'btn hideable'}

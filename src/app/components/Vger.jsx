@@ -14,8 +14,10 @@ var Vger = React.createClass({
         return {
             mapVisible: true, // on small screens, either map or list is showing
             userLocation: null, // this is an object with 'latitude' and 'longitude'
+            gettingUserLocation: false,
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
             articles: {},
+            gettingArticles: false,
             openArticle: null, // set the currently opened article
             modal: null, // string, which modal to show, null to hide
             language: language
@@ -46,6 +48,9 @@ var Vger = React.createClass({
     },
     getUserLocation: function() {
         var error = false;
+        this.setState({
+            gettingUserLocation: true
+        });
         if (navigator.geolocation) {
             var that = this;
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -58,7 +63,8 @@ var Vger = React.createClass({
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     },
-                    modal: null
+                    modal: null,
+                    gettingUserLocation: false
                 });
                 that.getArticles({latitude: position.coords.latitude, longitude: position.coords.longitude});
             }, function() {
@@ -71,11 +77,16 @@ var Vger = React.createClass({
         if (error) {
             this.setState({
                 userLocation: null,
-                modal: 'error-location'
+                modal: 'error-location',
+                gettingUserLocation: false
             });
         }
     },
     getArticles: function(pos) {
+        this.setState({
+            gettingArticles: true
+        });
+
         // default to mapcenter
         if (!pos.latitude) {
             pos = this.state.mapCenter;
@@ -85,14 +96,21 @@ var Vger = React.createClass({
         reqwest({
             url: articlesUrl,
             type: 'jsonp',
+            timeout: 12000,
             success: function (resp) {
                 that.setState({
-                    articles: resp.query.pages
+                    articles: resp.query.pages,
+                    modal: null
                 });
             },
             error: function (err) {
-                this.setState({
+                that.setState({
                     modal: 'error-articles'
+                });
+            },
+            complete: function() {
+                that.setState({
+                    gettingArticles: false
                 });
             }
         })
@@ -121,11 +139,13 @@ var Vger = React.createClass({
                       mapVisible={this.state.mapVisible}
                       setModal={this.setModal}
                       language={this.state.language}
-                      getArticles={this.getArticles} />
+                      getArticles={this.getArticles}
+                      gettingArticles={this.state.gettingArticles} />
                 <div id="main"
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
                     <Vmap userLocation={this.state.userLocation}
                           getUserLocation={this.getUserLocation}
+                          gettingUserLocation={this.state.gettingUserLocation}
                           articles={this.state.articles}
                           updateMapCenter={this.updateMapCenter}
                           mapCenter={this.state.mapCenter}
