@@ -32,6 +32,8 @@ var Vmap = React.createClass({
         }
     },
 
+    // this is being called onMouseup, but it should be called onMoveend
+    // investigate why onMoveend is fired constantly on mobile
     handleMoveend: function(event) {
         if (event.target.dragging._positions.length) {
             var currentCenter = this.refs.vmap.leafletElement.getCenter();
@@ -84,12 +86,13 @@ var Vmap = React.createClass({
                 </Marker>
             );
 
+
             renderedMap = (
                 <Map id='vmap'
                      ref='vmap'
                      center={[this.props.mapCenter.latitude, this.props.mapCenter.longitude]}
                      bounds={[southWestBound, northEastBound]}
-                     onMoveend={this.handleMoveend}>
+                     onMouseup={this.handleMoveend}>
                     <TileLayer
                         url='https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
                         attribution='App by <a href="http://franlopez.info">Fran López</a>. Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.' />
