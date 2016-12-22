@@ -14,6 +14,7 @@ var Vger = React.createClass({
         return {
             mapVisible: true, // on small screens, either map or list is showing
             userLocation: null, // this is an object with 'latitude' and 'longitude'
+            gettingUserLocation: false,
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
             articles: {},
             openArticle: null, // set the currently opened article
@@ -46,6 +47,9 @@ var Vger = React.createClass({
     },
     getUserLocation: function() {
         var error = false;
+        this.setState({
+            gettingUserLocation: true
+        });
         if (navigator.geolocation) {
             var that = this;
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -58,7 +62,8 @@ var Vger = React.createClass({
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     },
-                    modal: null
+                    modal: null,
+                    gettingUserLocation: false
                 });
                 that.getArticles({latitude: position.coords.latitude, longitude: position.coords.longitude});
             }, function() {
@@ -71,7 +76,8 @@ var Vger = React.createClass({
         if (error) {
             this.setState({
                 userLocation: null,
-                modal: 'error-location'
+                modal: 'error-location',
+                gettingUserLocation: false
             });
         }
     },
@@ -126,6 +132,7 @@ var Vger = React.createClass({
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
                     <Vmap userLocation={this.state.userLocation}
                           getUserLocation={this.getUserLocation}
+                          gettingUserLocation={this.state.gettingUserLocation}
                           articles={this.state.articles}
                           updateMapCenter={this.updateMapCenter}
                           mapCenter={this.state.mapCenter}

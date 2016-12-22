@@ -19,6 +19,7 @@ var Vmap = React.createClass({
     propTypes: {
         updateMapCenter: React.PropTypes.func.isRequired,
         getUserLocation: React.PropTypes.func.isRequired,
+        gettingUserLocation: React.PropTypes.bool.isRequired,
         articles: React.PropTypes.object.isRequired,
         openArticle: React.PropTypes.number,
         setOpenArticle: React.PropTypes.func.isRequired,
@@ -106,7 +107,8 @@ var Vmap = React.createClass({
                 {renderedMap}
                 <img id="getUserLocation"
                      src='img/target.svg'
-                     onClick={this.props.getUserLocation} />
+                     onClick={this.props.getUserLocation}
+                     className={this.props.gettingUserLocation ? 'loading' : null} />
             </div>
         );
     }
