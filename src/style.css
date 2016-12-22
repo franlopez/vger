@@ -295,6 +295,11 @@ a:hover {
     -o-animation: pulse 2.5s linear infinite;
 }
 
+.leaflet-tile-pane {
+    -webkit-filter: grayscale(80%);
+    filter: grayscale(80%);
+}
+
 #modal {
     position: absolute;
     z-index: 1000;
