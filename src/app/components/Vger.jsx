@@ -17,6 +17,7 @@ var Vger = React.createClass({
             gettingUserLocation: false,
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
             articles: {},
+            gettingArticles: false,
             openArticle: null, // set the currently opened article
             modal: null, // string, which modal to show, null to hide
             language: language
@@ -82,6 +83,10 @@ var Vger = React.createClass({
         }
     },
     getArticles: function(pos) {
+        this.setState({
+            gettingArticles: true
+        });
+
         // default to mapcenter
         if (!pos.latitude) {
             pos = this.state.mapCenter;
@@ -97,8 +102,13 @@ var Vger = React.createClass({
                 });
             },
             error: function (err) {
-                this.setState({
+                that.setState({
                     modal: 'error-articles'
+                });
+            },
+            complete: function() {
+                that.setState({
+                    gettingArticles: false
                 });
             }
         })
@@ -127,7 +137,8 @@ var Vger = React.createClass({
                       mapVisible={this.state.mapVisible}
                       setModal={this.setModal}
                       language={this.state.language}
-                      getArticles={this.getArticles} />
+                      getArticles={this.getArticles}
+                      gettingArticles={this.state.gettingArticles} />
                 <div id="main"
                      className={this.state.mapVisible ? 'map-visible' : 'list-visible'}>
                     <Vmap userLocation={this.state.userLocation}

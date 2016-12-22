@@ -257,6 +257,10 @@ a:hover {
     border-radius: 100%;
     -webkit-box-shadow: 0 1px 4px 0 #000000;
     box-shadow: 0 1px 4px 0 #000000;
+}
+
+#loadArticles,
+#getUserLocation {
     -moz-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     -o-transform: rotate(0deg);
@@ -264,6 +268,7 @@ a:hover {
     transform: rotate(0deg);
 }
 
+#loadArticles.loading,
 #getUserLocation.loading {
     animation: rotate 0.7s linear infinite;
     -moz-animation: rotate 0.7s linear infinite;
