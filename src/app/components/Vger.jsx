@@ -96,9 +96,11 @@ var Vger = React.createClass({
         reqwest({
             url: articlesUrl,
             type: 'jsonp',
+            timeout: 12000,
             success: function (resp) {
                 that.setState({
-                    articles: resp.query.pages
+                    articles: resp.query.pages,
+                    modal: null
                 });
             },
             error: function (err) {
