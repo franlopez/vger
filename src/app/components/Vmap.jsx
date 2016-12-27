@@ -96,7 +96,8 @@ var Vmap = React.createClass({
                      onMouseup={this.handleMoveend}>
                     <TileLayer
                         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                        attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.' />
+                        attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.'
+                        detectRetina={true} />
                     {markers}
                 </Map>
             );
