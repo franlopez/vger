@@ -20,7 +20,7 @@ var Vmap = React.createClass({
         updateMapCenter: React.PropTypes.func.isRequired,
         getUserLocation: React.PropTypes.func.isRequired,
         gettingUserLocation: React.PropTypes.bool.isRequired,
-        articles: React.PropTypes.object.isRequired,
+        articles: React.PropTypes.array.isRequired,
         openArticle: React.PropTypes.number,
         setOpenArticle: React.PropTypes.func.isRequired,
         userLocation: React.PropTypes.object, // can be null
@@ -96,7 +96,8 @@ var Vmap = React.createClass({
                      onMouseup={this.handleMoveend}>
                     <TileLayer
                         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                        attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.' />
+                        attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.'
+                        detectRetina={true} />
                     {markers}
                 </Map>
             );
@@ -105,10 +106,11 @@ var Vmap = React.createClass({
         return (
             <div>
                 {renderedMap}
-                <img id="getUserLocation"
-                     src='img/target.svg'
+                <div id="getUserLocation"
                      onClick={this.props.getUserLocation}
-                     className={this.props.gettingUserLocation ? 'loading' : null} />
+                     className={this.props.gettingUserLocation ? 'loading' : null} >
+                    <img src='img/target.svg' />
+                </div>
             </div>
         );
     }

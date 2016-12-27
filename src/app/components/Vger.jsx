@@ -16,7 +16,7 @@ var Vger = React.createClass({
             userLocation: null, // this is an object with 'latitude' and 'longitude'
             gettingUserLocation: false,
             mapCenter: null, // this is an object with 'latitude' and 'longitude'
-            articles: {},
+            articles: [],
             gettingArticles: false,
             openArticle: null, // set the currently opened article
             modal: null, // string, which modal to show, null to hide
@@ -98,8 +98,20 @@ var Vger = React.createClass({
             type: 'jsonp',
             timeout: 12000,
             success: function (resp) {
+                var articles = resp.query.pages.sort(function(a, b) {
+                    // sort articles by title
+                    var titleA = a.title.toLowerCase(),
+                        titleB=b.title.toLowerCase();
+                    if (titleA < titleB) {
+                        return -1;
+                    }
+                    if (titleA > titleB) {
+                        return 1;
+                    }
+                    return 0;
+                });
                 that.setState({
-                    articles: resp.query.pages,
+                    articles: articles,
                     modal: null
                 });
             },
