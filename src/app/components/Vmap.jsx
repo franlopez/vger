@@ -20,7 +20,7 @@ var Vmap = React.createClass({
         updateMapCenter: React.PropTypes.func.isRequired,
         getUserLocation: React.PropTypes.func.isRequired,
         gettingUserLocation: React.PropTypes.bool.isRequired,
-        articles: React.PropTypes.object.isRequired,
+        articles: React.PropTypes.array.isRequired,
         openArticle: React.PropTypes.number,
         setOpenArticle: React.PropTypes.func.isRequired,
         userLocation: React.PropTypes.object, // can be null
