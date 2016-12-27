@@ -106,10 +106,11 @@ var Vmap = React.createClass({
         return (
             <div>
                 {renderedMap}
-                <img id="getUserLocation"
-                     src='img/target.svg'
+                <div id="getUserLocation"
                      onClick={this.props.getUserLocation}
-                     className={this.props.gettingUserLocation ? 'loading' : null} />
+                     className={this.props.gettingUserLocation ? 'loading' : null} >
+                    <img src='img/target.svg' />
+                </div>
             </div>
         );
     }
