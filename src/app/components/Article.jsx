@@ -33,12 +33,12 @@ var Article = React.createClass({
 
     render: function(){
         var text = texts[this.props.language];
-        
+
         var thumbnail = this.props.article.thumbnail
                             ? <img src={this.props.article.thumbnail.source} width={this.props.article.thumbnail.width} height={this.props.article.thumbnail.height} />
                             : null;
 
-        var classNames = thumbnail ? 'article with-image' : 'article no-image';
+        var classNames = 'article';
         if (this.props.article.pageid == this.props.openArticle) classNames += ' opened';
 
         var excerpt = null;

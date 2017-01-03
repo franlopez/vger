@@ -191,7 +191,7 @@ a:hover {
 }
 
 #vmap .leaflet-popup-content h3 {
-    margin-right: 0.6em;
+    margin-right: 0.8em;
 }
 
 #vmap .article .btn {
@@ -235,7 +235,7 @@ a:hover {
     display: block;
 }
 
-.article.with-image img {
+.article img {
     width: 25%;
     max-width: 90px;
     height: auto;
@@ -243,8 +243,10 @@ a:hover {
     float: left;
 }
 
-#list .article.with-image img {
+#list .article img {
     width: 20%;
+    height: 5%;
+    object-fit: none;
 }
 
 #getUserLocation {
