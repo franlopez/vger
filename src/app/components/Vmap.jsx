@@ -36,10 +36,8 @@ var Vmap = React.createClass({
     // this is being called onMouseup, but it should be called onMoveend
     // investigate why onMoveend is fired constantly on mobile
     handleMoveend: function(event) {
-        console.log("handleMoveend");
         if (event.target.dragging._positions.length) {
             var currentCenter = this.refs.vmap.leafletElement.getCenter();
-            console.log("currentCenter", currentCenter);
             this.props.updateMapCenter(currentCenter.lat, currentCenter.lng);
         }
     },
