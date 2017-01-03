@@ -45,30 +45,30 @@ var Menu = React.createClass({
         return(
             <div id='menu'>
                 <div id="inline-items">
+                    <span className={this.props.mapVisible ? 'btn hideable hide' : 'btn hideable'}
+                          onClick={this.props.toggleVisible}>
+                        <img className='icon'
+                             src='img/map.svg'/>
+                        <span className="text">{text['Map']}</span>
+                    </span>
+                    <span className={this.props.mapVisible ? 'btn hideable' : 'btn hideable hide'}
+                          onClick={this.props.toggleVisible}>
+                        <img className='icon'
+                             src='img/list.svg'/>
+                        <span className="text">{text['List']}</span>
+                    </span>
                     <span className="btn"
                           onClick={this.props.getArticles}>
                         <img className={'icon ' + (this.props.gettingArticles ? 'loading' : '')}
                              id='loadArticles'
                              src='img/reload.svg' />
-                         <span className="text">{text['Load articles']}</span>
+                        <span className="text">{text['Load articles']}</span>
                     </span>
-                    <span className={this.props.mapVisible ? 'btn hideable hide' : 'btn hideable'}
-                          onClick={this.props.toggleVisible}>
-                          <img className='icon'
-                               src='img/map.svg'/>
-                           <span className="text">{text['Map']}</span>
-                      </span>
-                      <span className={this.props.mapVisible ? 'btn hideable' : 'btn hideable hide'}
-                            onClick={this.props.toggleVisible}>
-                          <img className='icon'
-                               src='img/list.svg'/>
-                           <span className="text">{text['List']}</span>
-                      </span>
                     <span className="btn last"
                           onClick={this.openSettings}>
                         <img className='icon'
                              src='img/settings.svg'/>
-                         <span className="text">{text['Settings']}</span>
+                        <span className="text">{text['Settings']}</span>
                     </span>
                 </div>
                 <img id='logo'
