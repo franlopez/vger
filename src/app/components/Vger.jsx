@@ -47,12 +47,16 @@ var Vger = React.createClass({
         });
     },
     getUserLocation: function() {
-        var error = false;
-        this.setState({
-            gettingUserLocation: true
-        });
+        const errorState = {
+            userLocation: null,
+            modal: 'error-location',
+            gettingUserLocation: false
+        };
         if (navigator.geolocation) {
             var that = this;
+            that.setState({
+                gettingUserLocation: true
+            });
             navigator.geolocation.getCurrentPosition(function(position) {
                 that.setState({
                     userLocation: {
@@ -68,18 +72,11 @@ var Vger = React.createClass({
                 });
                 that.getArticles({latitude: position.coords.latitude, longitude: position.coords.longitude});
             }, function() {
-                error = true;
+                that.setState(errorState);
             },
             {timeout: 5000});
         } else {
-            error = true;
-        }
-        if (error) {
-            this.setState({
-                userLocation: null,
-                modal: 'error-location',
-                gettingUserLocation: false
-            });
+            that.setState(errorState);
         }
     },
     getArticles: function(pos) {
