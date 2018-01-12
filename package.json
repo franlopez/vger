@@ -23,9 +23,10 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.16.0",
     "leaflet": "^1.2.0",
+    "prop-types": "^15.5.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "react-leaflet": "^1.0.1",
+    "react-leaflet": "^1.7.8",
     "reqwest": "^2.0.5",
     "webpack": "^1.13.3"
   }
