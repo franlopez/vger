@@ -16,31 +16,33 @@ const texts = {
   }
 };
 
-var Menu = React.createClass({
-  propTypes: {
-    getArticles: PropTypes.func.isRequired,
-    gettingArticles: PropTypes.bool.isRequired,
-    toggleVisible: PropTypes.func.isRequired,
-    setModal: PropTypes.func.isRequired,
-    mapVisible: PropTypes.bool.isRequired,
-    language: PropTypes.string
-  },
+class Menu extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  getDefaultProps() {
-    return {
+    this.propTypes = {
+      getArticles: PropTypes.func.isRequired,
+      gettingArticles: PropTypes.bool.isRequired,
+      toggleVisible: PropTypes.func.isRequired,
+      setModal: PropTypes.func.isRequired,
+      mapVisible: PropTypes.bool.isRequired,
+      language: PropTypes.string
+    };
+
+    this.defaultProps = {
       language: 'en'
     };
-  },
+  }
 
-  openSettings: function() {
+  openSettings = () => {
     this.props.setModal('settings');
-  },
+  }
 
-  openAbout: function() {
+  openAbout = () => {
     this.props.setModal('about');
-  },
+  }
 
-  render: function(){
+  render() {
     var text = texts[this.props.language];
 
     return(
@@ -76,8 +78,8 @@ var Menu = React.createClass({
            src='img/logo.svg'
            onClick={this.openAbout} />
       </div>
-    )
+    );
   }
-});
+}
 
 export default Menu;

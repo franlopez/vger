@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-var About = React.createClass({
-  propTypes: {
-    language: PropTypes.string,
-    modal: PropTypes.string
-  },
+class About extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  getDefaultProps() {
-    return {
+    this.propTypes = {
+      language: PropTypes.string,
+      modal: PropTypes.string
+    };
+
+    this.defaultProps = {
       language: 'en',
       modal: 'about'
     };
-  },
+  }
 
-  render: function(){
+  render() {
     if (this.props.modal === 'about') {
       return(
         <div id="about">
@@ -30,6 +32,6 @@ var About = React.createClass({
       return null;
     }
   }
-});
+}
 
 export default About;

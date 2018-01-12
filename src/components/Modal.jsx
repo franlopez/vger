@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-var Modal = React.createClass({
-  propTypes: {
-    modal: PropTypes.string,
-    closeModal: PropTypes.func.isRequired
-  },
+class Modal extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  render: function(){
+    this.propTypes = {
+      modal: PropTypes.string,
+      closeModal: PropTypes.func.isRequired
+    };
+  }
+
+  render() {
     return(
       <div id='modal'
          className={this.props.modal ? 'visible' : 'hide'}>
@@ -17,6 +21,6 @@ var Modal = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default Modal;

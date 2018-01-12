@@ -8,10 +8,12 @@ import About from './About.jsx';
 import ErrorMsg from './ErrorMsg.jsx';
 import reqwest from 'reqwest';
 
-var Vger = React.createClass({
-  getInitialState: function() {
+class Vger extends React.Component {
+  constructor(...args) {
+    super(...args);
+
     var language = localStorage.getItem('vgerLanguage') || 'en';
-    return {
+    this.state = {
       mapVisible: true, // on small screens, either map or list is showing
       userLocation: null, // this is an object with 'latitude' and 'longitude'
       gettingUserLocation: false,
@@ -21,37 +23,43 @@ var Vger = React.createClass({
       openArticle: null, // set the currently opened article
       modal: null, // string, which modal to show, null to hide
       language: language
-    }
-  },
-  toggleVisible: function() {
+    };
+  }
+
+  toggleVisible = () => {
     var newMapVisible = !this.state.mapVisible;
     this.setState({
       mapVisible: newMapVisible
     });
-  },
-  closeModal: function() {
+  }
+
+  closeModal = () => {
     this.setState({
       modal: null
     });
-  },
-  setModal: function(modal) {
+  }
+
+  setModal = (modal) => {
     this.setState({
       modal: modal
     });
-  },
-  setLanguage: function(newLanguage) {
+  }
+
+  setLanguage = (newLanguage) => {
     // newLanguage should be alanguage code
     localStorage.setItem('vgerLanguage', newLanguage);
     this.setState({
       language: newLanguage
     });
-  },
-  getUserLocation: function() {
+  }
+
+  getUserLocation = () => {
     const errorState = {
       userLocation: null,
       modal: 'error-location',
       gettingUserLocation: false
     };
+
     if (navigator.geolocation) {
       var that = this;
       that.setState({
@@ -78,8 +86,9 @@ var Vger = React.createClass({
     } else {
       that.setState(errorState);
     }
-  },
-  getArticles: function(pos) {
+  }
+
+  getArticles = (pos) => {
     this.setState({
       gettingArticles: true
     });
@@ -123,25 +132,29 @@ var Vger = React.createClass({
         });
       }
     })
-  },
-  updateMapCenter: function(latitude, longitude) {
+  }
+
+  updateMapCenter = (latitude, longitude) => {
     this.setState({
       mapCenter: {
         latitude: latitude,
         longitude: longitude
       }
     });
-  },
-  setOpenArticle: function(id) {
+  }
+
+  setOpenArticle = (id) => {
     this.setState({
       openArticle: id,
       mapVisible: true
     });
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     this.getUserLocation();
-  },
-  render: function(){
+  }
+
+  render() {
     return(
       <div id="container">
         <Menu toggleVisible={this.toggleVisible}
@@ -180,6 +193,6 @@ var Vger = React.createClass({
       </div>
     )
   }
-});
+}
 
 export default Vger;

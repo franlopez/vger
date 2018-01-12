@@ -16,38 +16,42 @@ const userIcon = L.divIcon({
   className: 'user-position'
 });
 
-var Vmap = React.createClass({
-  propTypes: {
-    updateMapCenter: PropTypes.func.isRequired,
-    getUserLocation: PropTypes.func.isRequired,
-    gettingUserLocation: PropTypes.bool.isRequired,
-    articles: PropTypes.array.isRequired,
-    openArticle: PropTypes.number,
-    setOpenArticle: PropTypes.func.isRequired,
-    userLocation: PropTypes.object, // can be null
-    language: PropTypes.string
-  },
+class Vmap extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  componentDidUpdate: function(prevProps) {
+    this.propTypes = {
+      updateMapCenter: PropTypes.func.isRequired,
+      getUserLocation: PropTypes.func.isRequired,
+      gettingUserLocation: PropTypes.bool.isRequired,
+      articles: PropTypes.array.isRequired,
+      openArticle: PropTypes.number,
+      setOpenArticle: PropTypes.func.isRequired,
+      userLocation: PropTypes.object, // can be null
+      language: PropTypes.string
+    };
+  }
+
+  componentDidUpdate(prevProps) {
     if (prevProps.openArticle !== this.props.openArticle) {
       this.refs[this.props.openArticle].leafletElement.openPopup();
     }
-  },
+  }
 
   // this is being called onMouseup, but it should be called onMoveend
   // investigate why onMoveend is fired constantly on mobile
-  handleMoveend: function(event) {
+  handleMoveend(event) {
     if (event.target.dragging._positions.length) {
       var currentCenter = this.refs.vmap.leafletElement.getCenter();
       this.props.updateMapCenter(currentCenter.lat, currentCenter.lng);
     }
-  },
+  }
 
-  openArticle: function(pageId, event) {
+  openArticle(pageId, event) {
     this.props.setOpenArticle(pageId);
-  },
+  }
 
-  render: function(){
+  render() {
     var renderedMap = <div id='vmap'></div>;
     if (this.props.userLocation) {
       // area that the map should contain, these are just starter values
@@ -88,7 +92,6 @@ var Vmap = React.createClass({
         </Marker>
       );
 
-
       renderedMap = (
         <Map id='vmap'
            ref='vmap'
@@ -115,6 +118,6 @@ var Vmap = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default Vmap;
