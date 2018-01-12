@@ -29,7 +29,6 @@ class Article extends React.Component {
   }
 
   setOpenArticle = () => {
-    console.log('capo open article', this);
     if (this.props.setOpenArticle) {
       this.props.setOpenArticle(this.props.article.pageid);
     }
