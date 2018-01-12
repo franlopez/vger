@@ -28,6 +28,6 @@
     "react-dom": "^15.4.1",
     "react-leaflet": "^1.7.8",
     "reqwest": "^2.0.5",
-    "webpack": "^1.13.3"
+    "webpack": "^3.10.0"
   }
 }
