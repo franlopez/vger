@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const texts = {
   en: {
@@ -13,9 +14,9 @@ const texts = {
 
 var Settings = React.createClass({
   propTypes: {
-    setLanguage: React.PropTypes.func.isRequired,
-    language: React.PropTypes.string,
-    modal: React.PropTypes.string
+    setLanguage: PropTypes.func.isRequired,
+    language: PropTypes.string,
+    modal: PropTypes.string
   },
 
   getDefaultProps() {

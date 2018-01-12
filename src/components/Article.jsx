@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const texts = {
   en: {
@@ -11,11 +12,11 @@ const texts = {
 
 var Article = React.createClass({
   propTypes: {
-    article: React.PropTypes.object.isRequired,
-    setOpenArticle: React.PropTypes.func,
-    openArticle: React.PropTypes.number,
-    excerpt: React.PropTypes.bool, // conditionally render the excerpt
-    language: React.PropTypes.string
+    article: PropTypes.object.isRequired,
+    setOpenArticle: PropTypes.func,
+    openArticle: PropTypes.number,
+    excerpt: PropTypes.bool, // conditionally render the excerpt
+    language: PropTypes.string
   },
 
   getDefaultProps() {

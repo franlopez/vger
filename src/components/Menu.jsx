@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const texts = {
   en: {
@@ -17,12 +18,12 @@ const texts = {
 
 var Menu = React.createClass({
   propTypes: {
-    getArticles: React.PropTypes.func.isRequired,
-    gettingArticles: React.PropTypes.bool.isRequired,
-    toggleVisible: React.PropTypes.func.isRequired,
-    setModal: React.PropTypes.func.isRequired,
-    mapVisible: React.PropTypes.bool.isRequired,
-    language: React.PropTypes.string
+    getArticles: PropTypes.func.isRequired,
+    gettingArticles: PropTypes.bool.isRequired,
+    toggleVisible: PropTypes.func.isRequired,
+    setModal: PropTypes.func.isRequired,
+    mapVisible: PropTypes.bool.isRequired,
+    language: PropTypes.string
   },
 
   getDefaultProps() {

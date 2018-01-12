@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 var Modal = React.createClass({
   propTypes: {
-    modal: React.PropTypes.string,
-    closeModal: React.PropTypes.func.isRequired
+    modal: PropTypes.string,
+    closeModal: PropTypes.func.isRequired
   },
 
   render: function(){

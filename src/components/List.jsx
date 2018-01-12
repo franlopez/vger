@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Article from './Article.jsx';
 
 var List = React.createClass({
   propTypes: {
-    articles: React.PropTypes.array.isRequired,
-    setOpenArticle: React.PropTypes.func.isRequired,
-    openArticle: React.PropTypes.number
+    articles: PropTypes.array.isRequired,
+    setOpenArticle: PropTypes.func.isRequired,
+    openArticle: PropTypes.number
   },
 
   render: function(){

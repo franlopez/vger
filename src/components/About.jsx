@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 var About = React.createClass({
   propTypes: {
-    language: React.PropTypes.string,
-    modal: React.PropTypes.string
+    language: PropTypes.string,
+    modal: PropTypes.string
   },
 
   getDefaultProps() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Article from './Article.jsx';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
@@ -17,14 +18,14 @@ const userIcon = L.divIcon({
 
 var Vmap = React.createClass({
   propTypes: {
-    updateMapCenter: React.PropTypes.func.isRequired,
-    getUserLocation: React.PropTypes.func.isRequired,
-    gettingUserLocation: React.PropTypes.bool.isRequired,
-    articles: React.PropTypes.array.isRequired,
-    openArticle: React.PropTypes.number,
-    setOpenArticle: React.PropTypes.func.isRequired,
-    userLocation: React.PropTypes.object, // can be null
-    language: React.PropTypes.string
+    updateMapCenter: PropTypes.func.isRequired,
+    getUserLocation: PropTypes.func.isRequired,
+    gettingUserLocation: PropTypes.bool.isRequired,
+    articles: PropTypes.array.isRequired,
+    openArticle: PropTypes.number,
+    setOpenArticle: PropTypes.func.isRequired,
+    userLocation: PropTypes.object, // can be null
+    language: PropTypes.string
   },
 
   componentDidUpdate: function(prevProps) {

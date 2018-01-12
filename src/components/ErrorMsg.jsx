@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 var ErrorMsg = React.createClass({
   propTypes: {
-    language: React.PropTypes.string,
-    modal: React.PropTypes.string,
-    getUserLocation: React.PropTypes.func.isRequired,
-    getArticles: React.PropTypes.func.isRequired
+    language: PropTypes.string,
+    modal: PropTypes.string,
+    getUserLocation: PropTypes.func.isRequired,
+    getArticles: PropTypes.func.isRequired
   },
 
   getDefaultProps() {
