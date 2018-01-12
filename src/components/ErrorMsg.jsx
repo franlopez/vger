@@ -1,20 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-var ErrorMsg = React.createClass({
-  propTypes: {
-    language: React.PropTypes.string,
-    modal: React.PropTypes.string,
-    getUserLocation: React.PropTypes.func.isRequired,
-    getArticles: React.PropTypes.func.isRequired
-  },
+class ErrorMsg extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  getDefaultProps() {
-    return {
+    this.propTypes = {
+      language: PropTypes.string,
+      modal: PropTypes.string,
+      getUserLocation: PropTypes.func.isRequired,
+      getArticles: PropTypes.func.isRequired
+    };
+
+    this.defaultProps = {
       language: 'en'
     };
-  },
+  }
 
-  render: function(){
+  render() {
     var displayErrorMsg = null;
 
     const errorLocationEn =
@@ -69,6 +72,6 @@ var ErrorMsg = React.createClass({
       return null;
     }
   }
-});
+};
 
 export default ErrorMsg;

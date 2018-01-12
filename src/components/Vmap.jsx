@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Article from './Article.jsx';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
@@ -15,38 +16,37 @@ const userIcon = L.divIcon({
   className: 'user-position'
 });
 
-var Vmap = React.createClass({
-  propTypes: {
-    updateMapCenter: React.PropTypes.func.isRequired,
-    getUserLocation: React.PropTypes.func.isRequired,
-    gettingUserLocation: React.PropTypes.bool.isRequired,
-    articles: React.PropTypes.array.isRequired,
-    openArticle: React.PropTypes.number,
-    setOpenArticle: React.PropTypes.func.isRequired,
-    userLocation: React.PropTypes.object, // can be null
-    language: React.PropTypes.string
-  },
+class Vmap extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  componentDidUpdate: function(prevProps) {
+    this.propTypes = {
+      updateMapCenter: PropTypes.func.isRequired,
+      getUserLocation: PropTypes.func.isRequired,
+      gettingUserLocation: PropTypes.bool.isRequired,
+      articles: PropTypes.array.isRequired,
+      openArticle: PropTypes.number,
+      setOpenArticle: PropTypes.func.isRequired,
+      userLocation: PropTypes.object, // can be null
+      language: PropTypes.string
+    };
+  }
+
+  componentDidUpdate(prevProps) {
     if (prevProps.openArticle !== this.props.openArticle) {
       this.refs[this.props.openArticle].leafletElement.openPopup();
     }
-  },
+  }
 
-  // this is being called onMouseup, but it should be called onMoveend
-  // investigate why onMoveend is fired constantly on mobile
-  handleMoveend: function(event) {
-    if (event.target.dragging._positions.length) {
-      var currentCenter = this.refs.vmap.leafletElement.getCenter();
-      this.props.updateMapCenter(currentCenter.lat, currentCenter.lng);
-    }
-  },
+  handleViewportChanged = ({ center }) => {
+    this.props.updateMapCenter(center[0], center[1]);
+  }
 
-  openArticle: function(pageId, event) {
+  openArticle = (pageId, event) => {
     this.props.setOpenArticle(pageId);
-  },
+  }
 
-  render: function(){
+  render() {
     var renderedMap = <div id='vmap'></div>;
     if (this.props.userLocation) {
       // area that the map should contain, these are just starter values
@@ -87,13 +87,12 @@ var Vmap = React.createClass({
         </Marker>
       );
 
-
       renderedMap = (
         <Map id='vmap'
-           ref='vmap'
+           ref={(vmapRef) => { this.vmapRef = vmapRef; }}
            center={[this.props.mapCenter.latitude, this.props.mapCenter.longitude]}
            bounds={[southWestBound, northEastBound]}
-           onDragend={this.handleMoveend}>
+           onViewportChanged={this.handleViewportChanged}>
           <TileLayer
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.'
@@ -114,6 +113,6 @@ var Vmap = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default Vmap;

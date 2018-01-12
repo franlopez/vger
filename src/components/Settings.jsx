@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const texts = {
   en: {
@@ -11,27 +12,29 @@ const texts = {
   }
 };
 
-var Settings = React.createClass({
-  propTypes: {
-    setLanguage: React.PropTypes.func.isRequired,
-    language: React.PropTypes.string,
-    modal: React.PropTypes.string
-  },
+class Settings extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  getDefaultProps() {
-    return {
+    this.propTypes = {
+      setLanguage: PropTypes.func.isRequired,
+      language: PropTypes.string,
+      modal: PropTypes.string
+    };
+
+    this.defaultProps = {
       language: 'en',
       modal: 'settings'
     };
-  },
+  }
 
-  setLanguage(event) {
+  setLanguage = (event) => {
     if (event.currentTarget.value !== this.props.language) {
       this.props.setLanguage(event.currentTarget.value);
     }
-  },
+  }
 
-  render: function(){
+  render() {
     var text = texts[this.props.language];
 
     if (this.props.modal === 'settings') {
@@ -57,6 +60,6 @@ var Settings = React.createClass({
       return null;
     }
   }
-});
+}
 
 export default Settings;

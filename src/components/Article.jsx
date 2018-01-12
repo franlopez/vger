@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const texts = {
   en: {
@@ -9,29 +10,31 @@ const texts = {
   }
 };
 
-var Article = React.createClass({
-  propTypes: {
-    article: React.PropTypes.object.isRequired,
-    setOpenArticle: React.PropTypes.func,
-    openArticle: React.PropTypes.number,
-    excerpt: React.PropTypes.bool, // conditionally render the excerpt
-    language: React.PropTypes.string
-  },
+class Article extends React.Component {
+  constructor(...args) {
+    super(...args);
 
-  getDefaultProps() {
-    return {
+    this.propTypes = {
+      article: PropTypes.object.isRequired,
+      setOpenArticle: PropTypes.func,
+      openArticle: PropTypes.number,
+      excerpt: PropTypes.bool, // conditionally render the excerpt
+      language: PropTypes.string
+    };
+
+    this.defaultProps = {
       excerpt: false,
       language: 'en'
     };
-  },
+  }
 
-  setOpenArticle: function() {
+  setOpenArticle = () => {
     if (this.props.setOpenArticle) {
       this.props.setOpenArticle(this.props.article.pageid);
     }
-  },
+  }
 
-  render: function(){
+  render() {
     var text = texts[this.props.language];
 
     var thumbnail = this.props.article.thumbnail
@@ -57,8 +60,8 @@ var Article = React.createClass({
         <h3>{this.props.article.title}</h3>
         {excerpt}
       </div>
-    )
+    );
   }
-});
+};
 
 export default Article;
