@@ -7,8 +7,8 @@ function start() {
   render(<Vger/>, document.getElementById('app'));
 }
 
-var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-if ( app ) {
+var isApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+if ( isApp ) {
   // Running on PhoneGap
   document.addEventListener("deviceready", start, false);
 } else {
