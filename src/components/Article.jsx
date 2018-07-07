@@ -23,39 +23,37 @@ class Article extends React.Component {
     };
 
     this.defaultProps = {
+      setOpenArticle: () => { },
+      openArticle: null,
       excerpt: false,
       language: 'en'
     };
   }
 
   setOpenArticle = () => {
-    if (this.props.setOpenArticle) {
-      this.props.setOpenArticle(this.props.article.pageid);
-    }
+    this.props.setOpenArticle(this.props.article.pageid);
   }
 
   render() {
-    var text = texts[this.props.language];
-
-    var thumbnail = this.props.article.thumbnail
-              ? <img src={this.props.article.thumbnail.source} width={this.props.article.thumbnail.width} height={this.props.article.thumbnail.height} />
-              : null;
-
-    var classNames = 'article';
+    const text = texts[this.props.language];
+    const thumbnail = this.props.article.thumbnail
+      ? <img src={this.props.article.thumbnail.source} width={this.props.article.thumbnail.width} height={this.props.article.thumbnail.height} />
+      : null;
+    let classNames = 'article';
     if (this.props.article.pageid == this.props.openArticle) classNames += ' opened';
 
-    var excerpt = null;
-    if (this.props.excerpt) {
-      excerpt =
-        <div>
+    const excerpt = this.props.excerpt
+      ? <div>
           <div dangerouslySetInnerHTML={{__html: this.props.article.extract}} />
           <a className='btn' href={this.props.article.fullurl} target='_blank'>{text['Read more']}</a>
-        </div>;
-    }
+        </div>
+      : null;
 
     return(
-      <div className={classNames}
-         onClick={this.setOpenArticle} >
+      <div
+        className={classNames}
+        onClick={this.setOpenArticle}
+      >
         {thumbnail}
         <h3>{this.props.article.title}</h3>
         {excerpt}
