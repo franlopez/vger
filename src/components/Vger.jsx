@@ -57,7 +57,7 @@ class Vger extends React.Component {
   getUserLocation = () => {
     const errorState = {
       userLocation: null,
-      modal: 'error-location',
+      modal: 'errorLocation',
       gettingUserLocation: false
     };
 
@@ -122,7 +122,7 @@ class Vger extends React.Component {
       },
       error: (err) => {
         this.setState({
-          modal: 'error-articles'
+          modal: 'errorArticles'
         });
       },
       complete: () => {

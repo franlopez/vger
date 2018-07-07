@@ -13,11 +13,9 @@ class Modal extends React.Component {
 
   render() {
     return(
-      <div id='modal'
-         className={this.props.modal ? 'visible' : 'hide'}>
-         <div id="close"
-            onClick={this.props.closeModal}>x</div>
-          {this.props.children}
+      <div id='modal' className={this.props.modal ? 'visible' : 'hide'}>
+        <div id="close" onClick={this.props.closeModal}>x</div>
+        {this.props.children}
       </div>
     );
   }

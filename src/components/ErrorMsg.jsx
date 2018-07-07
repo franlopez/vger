@@ -13,57 +13,45 @@ class ErrorMsg extends React.Component {
     };
 
     this.defaultProps = {
-      language: 'en'
+      language: 'en',
+      modal: null
     };
   }
 
   render() {
-    var displayErrorMsg = null;
-
-    const errorLocationEn =
-      <div>
-        <p>Sorry, <strong>Vger</strong> couldn't find your current loctaion.</p>
-        <div className="btn" onClick={this.props.getUserLocation}>Try again</div>
-      </div>;
-
-    const errorLocationEs =
-      <div>
-        <p>Perdón, <strong>Vger</strong> no pudo encontrar su posición.</p>
-        <div className="btn" onClick={this.props.getUserLocation}>Probar de nuevo</div>
-      </div>;
-
-    const errorArticlesEn =
-      <div>
-        <p>Sorry, <strong>Vger</strong> couldn't load the Wikipedia articles.</p>
-        <div className="btn" onClick={this.props.getArticles}>Try again</div>
-      </div>;
-
-    const errorArticlesEs =
-      <div>
-        <p>Perdón, <strong>Vger</strong> no pudo cargar los artículos de Wikipedia.</p>
-        <div className="btn" onClick={this.props.getArticles}>Probar de nuevo</div>
-      </div>;
-
-    if (this.props.language === 'en') {
-      if (this.props.modal === 'error-location') {
-        displayErrorMsg = errorLocationEn;
-      } else if (this.props.modal === 'error-articles') {
-        displayErrorMsg = errorArticlesEn;
+    const errorMessages = {
+      en: {
+        errorLocation:
+          <div>
+            <p>Sorry, <strong>Vger</strong> couldn't find your current loctaion.</p>
+            <div className="btn" onClick={this.props.getUserLocation}>Try again</div>
+          </div>,
+        errorArticles:
+          <div>
+            <p>Sorry, <strong>Vger</strong> couldn't load the Wikipedia articles.</p>
+            <div className="btn" onClick={this.props.getArticles}>Try again</div>
+          </div>
+      },
+      es: {
+        errorLocation: 
+          <div>
+            <p>Perdón, <strong>Vger</strong> no pudo encontrar su posición.</p>
+            <div className="btn" onClick={this.props.getUserLocation}>Probar de nuevo</div>
+          </div>,
+        errorArticles:
+          <div>
+            <p>Perdón, <strong>Vger</strong> no pudo cargar los artículos de Wikipedia.</p>
+            <div className="btn" onClick={this.props.getArticles}>Probar de nuevo</div>
+          </div>
       }
-    } else if (this.props.language === 'es') {
-      if (this.props.modal === 'error-location') {
-        displayErrorMsg = errorLocationEs;
-      } else if (this.props.modal === 'error-articles') {
-        displayErrorMsg = errorArticlesEs;
-      }
-    }
+    };
 
-    if (displayErrorMsg) {
+    if (this.props.modal) {
       return(
         <div id="error">
           <div>
             <h2>Error</h2>
-            {displayErrorMsg}
+            {errorMessages[this.props.language][this.props.modal]}
           </div>
         </div>
       );
