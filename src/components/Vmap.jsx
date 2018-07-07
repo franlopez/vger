@@ -30,11 +30,18 @@ class Vmap extends React.Component {
       userLocation: PropTypes.object, // can be null
       language: PropTypes.string
     };
+
+    this.defaultProps = {
+      userLocation: null,
+      language: 'en'
+    };
+
+    this.articleRefs = {};
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.openArticle !== this.props.openArticle) {
-      this.refs[this.props.openArticle].leafletElement.openPopup();
+      this.articleRefs[this.props.openArticle] && this.articleRefs[this.props.openArticle].leafletElement.openPopup();
     }
   }
 
@@ -42,72 +49,76 @@ class Vmap extends React.Component {
     this.props.updateMapCenter(center[0], center[1]);
   }
 
-  openArticle = (pageId, event) => {
-    this.props.setOpenArticle(pageId);
+  renderMap = () => {
+    // area that the map should contain, these are just starter values
+    var southWestBound = [this.props.userLocation.latitude - 0.01, this.props.userLocation.longitude - 0.01],
+        northEastBound = [this.props.userLocation.latitude + 0.01, this.props.userLocation.longitude + 0.01];
+    
+    var markers = this.props.articles.map((article, index) => {
+      if (index == 0) {
+        southWestBound = [article.coordinates[0].lat, article.coordinates[0].lon];
+        northEastBound = [article.coordinates[0].lat, article.coordinates[0].lon];
+      } else {
+        southWestBound[0] = article.coordinates[0].lat < southWestBound[0] ? article.coordinates[0].lat : southWestBound[0];
+        southWestBound[1] = article.coordinates[0].lon < southWestBound[1] ? article.coordinates[0].lon : southWestBound[1];
+        northEastBound[0] = article.coordinates[0].lat > northEastBound[0] ? article.coordinates[0].lat : northEastBound[0];
+        northEastBound[1] = article.coordinates[0].lon > northEastBound[1] ? article.coordinates[0].lon : northEastBound[1];
+      }
+
+      return (
+        <Marker
+          key={article.pageid}
+          ref={(articleRef) => { this.articleRefs[article.pageid] = articleRef; }}
+          position={[article.coordinates[0].lat, article.coordinates[0].lon]}
+          icon={markIcon}
+          onClick={() => { this.props.setOpenArticle(article.pageid); }}
+        >
+          <Popup>
+            <Article
+              article={article}
+              excerpt={true}
+              language={this.props.language}
+            />
+          </Popup>
+        </Marker>
+      );
+    });
+
+    markers.push(
+      <Marker
+        key='userposition'
+        position={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
+        icon={userIcon}
+      />
+    );
+
+    return (
+      <Map
+        id='vmap'
+        center={[this.props.mapCenter.latitude, this.props.mapCenter.longitude]}
+        bounds={[southWestBound, northEastBound]}
+        onViewportChanged={this.handleViewportChanged}
+      >
+        <TileLayer
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.'
+          detectRetina={true}
+        />
+        {markers}
+      </Map>
+    );
   }
 
   render() {
-    var renderedMap = <div id='vmap'></div>;
-    if (this.props.userLocation) {
-      // area that the map should contain, these are just starter values
-      var southWestBound = [this.props.userLocation.latitude - 0.01, this.props.userLocation.longitude - 0.01],
-        northEastBound = [this.props.userLocation.latitude + 0.01, this.props.userLocation.longitude + 0.01];
-      var markers = [];
-      for (var index in this.props.articles) {
-        if (this.props.articles.hasOwnProperty(index)) {
-          var article = this.props.articles[index];
-          if (index == 0) {
-            southWestBound = [article.coordinates[0].lat, article.coordinates[0].lon];
-            northEastBound = [article.coordinates[0].lat, article.coordinates[0].lon];
-          } else {
-            southWestBound[0] = article.coordinates[0].lat < southWestBound[0] ? article.coordinates[0].lat : southWestBound[0];
-            southWestBound[1] = article.coordinates[0].lon < southWestBound[1] ? article.coordinates[0].lon : southWestBound[1];
-            northEastBound[0] = article.coordinates[0].lat > northEastBound[0] ? article.coordinates[0].lat : northEastBound[0];
-            northEastBound[1] = article.coordinates[0].lon > northEastBound[1] ? article.coordinates[0].lon : northEastBound[1];
-          }
-          markers.push((
-            <Marker key={article.pageid}
-                ref={article.pageid}
-                position={[article.coordinates[0].lat, article.coordinates[0].lon]}
-                icon={markIcon}
-                onClick={this.openArticle.bind(null, article.pageid)} >
-              <Popup>
-                <Article article={article}
-                     excerpt={true}
-                     language={this.props.language} />
-              </Popup>
-            </Marker>
-          ));
-        }
-      }
-      markers.push(
-        <Marker key='userposition'
-            position={[this.props.userLocation.latitude, this.props.userLocation.longitude]}
-            icon={userIcon} >
-        </Marker>
-      );
-
-      renderedMap = (
-        <Map id='vmap'
-           ref={(vmapRef) => { this.vmapRef = vmapRef; }}
-           center={[this.props.mapCenter.latitude, this.props.mapCenter.longitude]}
-           bounds={[southWestBound, northEastBound]}
-           onViewportChanged={this.handleViewportChanged}>
-          <TileLayer
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-            attribution='Map &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors. App by <a href="http://franlopez.info">Fran López</a>.'
-            detectRetina={true} />
-          {markers}
-        </Map>
-      );
-    }
+    var renderedMap = this.renderMap(); 
 
     return (
       <div>
         {renderedMap}
-        <div id="getUserLocation"
-           onClick={this.props.getUserLocation}
-           className={this.props.gettingUserLocation ? 'loading' : null} >
+        <div
+          id="getUserLocation"
+          onClick={this.props.getUserLocation}
+          className={this.props.gettingUserLocation ? 'loading' : null} >
           <img src='img/target.svg' />
         </div>
       </div>
