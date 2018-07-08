@@ -14,15 +14,17 @@ class List extends React.Component {
 
   render() {
     const articles = this.props.articles.map((article, index) => {
-      <Article
-        key={this.props.articles[index].pageid}
-        article={this.props.articles[index]}
-        excerpt={false}
-        setOpenArticle={this.props.setOpenArticle}
-        openArticle={this.props.openArticle}
-      />
+      return (
+        <Article
+          key={this.props.articles[index].pageid}
+          article={this.props.articles[index]}
+          excerpt={false}
+          setOpenArticle={this.props.setOpenArticle}
+          openArticle={this.props.openArticle}
+        />
+      );
     });
-    
+
     return(
       <div id='list'>
         {articles}
