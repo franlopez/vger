@@ -14,7 +14,7 @@ class ErrorMsg extends React.Component {
 
     this.defaultProps = {
       language: 'en',
-      modal: null
+      modal: ''
     };
   }
 
@@ -46,7 +46,7 @@ class ErrorMsg extends React.Component {
       }
     };
 
-    if (this.props.modal) {
+    if (this.props.modal && this.props.modal.substring(0, 5) === 'error') {
       return(
         <div id="error">
           <div>
