@@ -66,19 +66,18 @@ class Vger extends React.Component {
         gettingUserLocation: true
       });
       navigator.geolocation.getCurrentPosition((position) => {
+        const userLocation = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
+
         this.setState({
-          userLocation: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          },
-          mapCenter: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          },
+          userLocation: userLocation,
+          mapCenter: userLocation,
           modal: null,
           gettingUserLocation: false
         });
-        this.getArticles({latitude: position.coords.latitude, longitude: position.coords.longitude});
+        this.getArticles(userLocation);
       }, () => {
         this.setState(errorState);
       },
