@@ -18,3 +18,10 @@ body {
   font-family: 'pt-sans', sans-serif;
   color: #000000;
 }
+
+button {
+  background: none;
+	color: inherit;
+  border: none;
+  cursor: pointer;
+}
