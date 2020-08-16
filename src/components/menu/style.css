@@ -2,10 +2,23 @@
   color: #ffffff;
   background: #009ffd;
   flex-grow: 1;
+  display: flex;
 }
 
-.menu .logo {
+.menu img {
   width: auto;
   height: 1.6rem;
-  padding: 0.4rem;
+  padding: 0.6rem;
+}
+
+.menu button span {
+  display: inline-block;
+  font-size: 1.6rem;
+  vertical-align: top;
+  margin-top: 0.6rem;
+}
+
+.menu .logoContainer {
+  flex-grow: 100;
+  text-align: right;
 }
