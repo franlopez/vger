@@ -1,0 +1,11 @@
+.menu {
+  color: #ffffff;
+  background: #009ffd;
+  flex-grow: 1;
+}
+
+.menu .logo {
+  width: auto;
+  height: 1.6rem;
+  padding: 0.4rem;
+}
