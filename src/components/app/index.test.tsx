@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import App, { breakpoint } from './index';
 import Map from '../map';
 import List from '../list';
-import { ViewElement } from '../../types';
 
 // set up global.navigator.geolocation mock
 const getCurrentPosition = jest.fn();
@@ -79,16 +78,6 @@ describe('main app', () => {
         expect(wrapper.exists(List)).toBe(false);
       });
     
-      it('can change to list when rendered below breakpoint', () => {
-        const wrapper = shallow(<App />);
-        const instance = wrapper.instance() as App;
-    
-        instance.updateShowing(ViewElement.List);
-    
-        expect(wrapper.exists(Map)).toBe(false);
-        expect(wrapper.exists(List)).toBe(true);
-      });
-  
       it('renders both when resized above breakpoint', () => {
         const wrapper = shallow(<App />);
         // resize above breakpoint

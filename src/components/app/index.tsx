@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ViewElement, Position } from '../../types';
+import { Position } from '../../types';
 import Menu from '../menu';
 import Map from '../map';
 import List from '../list';
@@ -10,37 +10,34 @@ import './style.css';
 export const breakpoint = 900;
 
 interface AppState {
-  showing: ViewElement,
+  showList: boolean,
   userLocation: Position | null ;
   mapCenter: Position | null;
 }
 
 class App extends Component<{}, AppState> {
   state: AppState = {
-    showing: ViewElement.Map,
+    showList: false,
     userLocation: null,
     mapCenter: null,
   };
 
   componentDidMount(){
-    this.calculateShowing();
-    window.addEventListener("resize", this.calculateShowing);
+    this.updateShowList();
+    window.addEventListener("resize", this.updateShowList);
 
     this.getUserLocation();
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.calculateShowing);
+    window.removeEventListener("resize", this.updateShowList);
   }
 
   // figure out if showing map, list or both according to window size
-  calculateShowing = () => {
-    const { showing } = this.state;
-    const newShowing = window.innerWidth >= breakpoint ? ViewElement.Both : ViewElement.Map;
+  updateShowList = () => {
+    const showList = window.innerWidth >= breakpoint ? true : false;
 
-    if (showing !== newShowing) {
-      this.setState({ showing: newShowing });
-    }
+    this.setState({ showList });
   }
 
   getUserLocation = () => {
@@ -54,19 +51,15 @@ class App extends Component<{}, AppState> {
     });
   };
 
-  updateShowing = (showing: ViewElement) => this.setState({ showing });
-
   render() {
-    const { showing, mapCenter } = this.state;
-    const showingMap = showing === ViewElement.Map || showing === ViewElement.Both;
-    const showingList = showing === ViewElement.List || showing === ViewElement.Both;
+    const { showList, mapCenter } = this.state;
 
     return (
       <div className="app">
-        <Menu showing={showing} updateShowing={this.updateShowing} />
+        <Menu />
         <div className="container">
-          { showingMap && mapCenter && <Map mapCenter={mapCenter}/> }
-          { showingList && <List /> }
+          { mapCenter && <Map mapCenter={mapCenter}/> }
+          { showList && <List /> }
         </div>
       </div>
     );
