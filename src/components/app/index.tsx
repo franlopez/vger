@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ViewElement } from '../../types';
+import { ViewElement, Position } from '../../types';
 import Menu from '../menu';
 import Map from '../map';
 import List from '../list';
@@ -11,16 +11,22 @@ export const breakpoint = 900;
 
 interface AppState {
   showing: ViewElement,
+  userLocation: Position | null ;
+  mapCenter: Position | null;
 }
 
 class App extends Component<{}, AppState> {
   state: AppState = {
     showing: ViewElement.Map,
+    userLocation: null,
+    mapCenter: null,
   };
 
-  componentDidMount() {
+  componentDidMount(){
     this.calculateShowing();
     window.addEventListener("resize", this.calculateShowing);
+
+    this.getUserLocation();
   }
 
   componentWillUnmount() {
@@ -37,10 +43,21 @@ class App extends Component<{}, AppState> {
     }
   }
 
-  public updateShowing = (showing: ViewElement) => this.setState({ showing });
+  getUserLocation = () => {
+    navigator.geolocation?.getCurrentPosition(geoPosition => {
+      const userLocation: Position = { lat: geoPosition.coords.latitude, lng: geoPosition.coords.longitude };
+
+      this.setState({
+        mapCenter: userLocation,
+        userLocation,
+      });
+    });
+  };
+
+  updateShowing = (showing: ViewElement) => this.setState({ showing });
 
   render() {
-    const { showing } = this.state;
+    const { showing, mapCenter } = this.state;
     const showingMap = showing === ViewElement.Map || showing === ViewElement.Both;
     const showingList = showing === ViewElement.List || showing === ViewElement.Both;
 
@@ -48,7 +65,7 @@ class App extends Component<{}, AppState> {
       <div className="app">
         <Menu showing={showing} updateShowing={this.updateShowing} />
         <div className="container">
-          { showingMap && <Map /> }
+          { showingMap && mapCenter && <Map mapCenter={mapCenter}/> }
           { showingList && <List /> }
         </div>
       </div>

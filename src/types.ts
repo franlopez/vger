@@ -3,3 +3,8 @@ export enum ViewElement {
   List,
   Both
 }
+
+export interface Position {
+  lat: number,
+  lng: number,
+}
