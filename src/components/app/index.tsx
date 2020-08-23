@@ -12,14 +12,12 @@ export const breakpoint = 900;
 interface AppState {
   showList: boolean,
   userLocation: Position | null ;
-  mapCenter: Position | null;
 }
 
 class App extends Component<{}, AppState> {
   state: AppState = {
     showList: false,
     userLocation: null,
-    mapCenter: null,
   };
 
   componentDidMount(){
@@ -45,20 +43,19 @@ class App extends Component<{}, AppState> {
       const userLocation: Position = { lat: geoPosition.coords.latitude, lng: geoPosition.coords.longitude };
 
       this.setState({
-        mapCenter: userLocation,
         userLocation,
       });
     });
   };
 
   render() {
-    const { showList, mapCenter } = this.state;
+    const { showList, userLocation } = this.state;
 
     return (
       <div className="app">
         <Menu />
         <div className="container">
-          { mapCenter && <Map mapCenter={mapCenter}/> }
+          { userLocation && <Map userLocation={userLocation} /> }
           { showList && <List /> }
         </div>
       </div>
