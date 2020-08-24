@@ -1,14 +1,15 @@
-import React from 'react';
-import { Map as LeafletMap, TileLayer, Marker } from 'react-leaflet';
+import React, { useMemo } from 'react';
+import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 
 import targetIcon from '../target.svg';
+import { Position, Article } from '../../types';
 
-import { Position } from '../../types';
 import './style.css';
 
 interface MapProps {
   userLocation: Position,
+  articles: Article[],
 }
 
 const userIcon = new Icon({
@@ -16,7 +17,19 @@ const userIcon = new Icon({
   iconSize: [28, 28]
 });
 
-function Map({ userLocation }: MapProps) {
+function Map({ userLocation, articles }: MapProps) {
+  const articleMarkers = useMemo(() => articles.map(article => (
+      <Marker
+        key={article.pageid}
+        className="articleMarker"
+        position={[article.coordinates[0].lat, article.coordinates[0].lon]}
+      >
+        <Popup>
+          {article.title}
+        </Popup>
+      </Marker>
+    )
+  ), [articles]);
 
   return (
     <LeafletMap className="map" center={userLocation} zoom={13}>
@@ -31,6 +44,8 @@ function Map({ userLocation }: MapProps) {
         position={userLocation}
         icon={userIcon}
       />
+
+      {articleMarkers}
     </LeafletMap>
   );
 }
