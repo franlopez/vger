@@ -3,6 +3,7 @@ import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 
 import targetIcon from '../target.svg';
+import mark from './mark.svg';
 import { Position, Article } from '../../types';
 
 import './style.css';
@@ -17,14 +18,22 @@ const userIcon = new Icon({
   iconSize: [28, 28]
 });
 
+const markIcon =  new Icon({
+  iconUrl: mark,
+  iconSize: [24, 35],
+  iconAnchor: [12, 35],
+  popupAnchor: [0, -37],
+});
+
 function Map({ userLocation, articles }: MapProps) {
   const articleMarkers = useMemo(() => articles.map(article => (
       <Marker
         key={article.pageid}
         className="articleMarker"
         position={[article.coordinates[0].lat, article.coordinates[0].lon]}
+        icon={markIcon}
       >
-        <Popup>
+        <Popup className="articlePopup">
           {article.title}
         </Popup>
       </Marker>
