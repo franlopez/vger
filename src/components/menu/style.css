@@ -3,6 +3,7 @@
   background: #009ffd;
   flex-grow: 1;
   display: flex;
+  height: 3rem;
 }
 
 .menu img {

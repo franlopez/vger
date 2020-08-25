@@ -78,7 +78,7 @@ class App extends Component<{}, AppState> {
         <Menu />
         <div className="container">
           { userLocation && <Map userLocation={userLocation} articles={articles} /> }
-          { showList && <List /> }
+          { showList && <List articles={articles} /> }
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 .map {
   background: lightblue;
-  flex-grow: 3;
+  flex-basis: 70%;
+  flex-grow: 2;
 }
 
 .tiles {
