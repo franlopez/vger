@@ -8,11 +8,11 @@ export interface Article {
   title: string,
   extract: string,
   fullUrl: string,
-  thumbnail: {
-    source: string,
-  },
   coordinates: {
     lat: number,
     lon: number,
   }[],
+  thumbnail?: {
+    source: string,
+  },
 }

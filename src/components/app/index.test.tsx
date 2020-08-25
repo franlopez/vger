@@ -118,8 +118,9 @@ describe('main app', () => {
       const sortedArticles = wrapper.find(Map).props().articles;
   
       expect(sortedArticles[0].title).toBe('Amazing, Frannnn!');
-      expect(sortedArticles[1].title).toBe('Yes! Yes!');
-      expect(sortedArticles[2].title).toBe('Zonalized Fransterdom');
+      expect(sortedArticles[1].title).toBe('This is an Article');
+      expect(sortedArticles[2].title).toBe('Yes! Yes!');
+      expect(sortedArticles[3].title).toBe('Zonalized Fransterdom');
     });
 
     it('does nothing for now when fetch fails', () => {

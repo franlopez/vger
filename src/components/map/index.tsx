@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from 'leaflet';
+import { Icon, LatLngBoundsLiteral } from 'leaflet';
 
 import targetIcon from '../target.svg';
 import mark from './mark.svg';
@@ -11,6 +11,12 @@ import './style.css';
 interface MapProps {
   userLocation: Position,
   articles: Article[],
+}
+
+interface ArticleMarkersAndBounds {
+  markers: React.ReactNode[], // renderd article markers for the map
+  southWestBound: Position, // farthest southwest visible position to include in the map
+  northEastBound: Position, // farthest visible position to include in the map
 }
 
 const userIcon = new Icon({
@@ -25,8 +31,19 @@ const markIcon =  new Icon({
   popupAnchor: [0, -37],
 });
 
-function Map({ userLocation, articles }: MapProps) {
-  const articleMarkers = useMemo(() => articles.map(article => (
+const generateArticleMarkers = (articles: Article[]): ArticleMarkersAndBounds => articles.reduce<ArticleMarkersAndBounds>(
+  (result, article, index) => {
+    if (index === 0) {
+      result.southWestBound = { lat: article.coordinates[0].lat, lng: article.coordinates[0].lon };
+      result.northEastBound = { lat: article.coordinates[0].lat, lng: article.coordinates[0].lon };
+    } else {
+      result.southWestBound.lat = article.coordinates[0].lat < result.southWestBound.lat ? article.coordinates[0].lat : result.southWestBound.lat;
+      result.southWestBound.lng = article.coordinates[0].lon < result.southWestBound.lng ? article.coordinates[0].lon : result.southWestBound.lng;
+      result.northEastBound.lat = article.coordinates[0].lat > result.northEastBound.lat ? article.coordinates[0].lat : result.northEastBound.lat;
+      result.northEastBound.lng = article.coordinates[0].lon > result.northEastBound.lng ? article.coordinates[0].lon : result.northEastBound.lng;
+    }
+
+    result.markers.push(
       <Marker
         key={article.pageid}
         className="articleMarker"
@@ -37,11 +54,25 @@ function Map({ userLocation, articles }: MapProps) {
           {article.title}
         </Popup>
       </Marker>
-    )
-  ), [articles]);
+      );
+
+    return result;
+
+  },
+  { markers: [], southWestBound: { lat: 0, lng: 0 }, northEastBound: { lat: 0, lng: 0 } });
+
+function Map({ userLocation, articles }: MapProps) {
+  const placedMarkers = useMemo(() => generateArticleMarkers(articles), [articles]);
+  const mapBounds:LatLngBoundsLiteral = useMemo(() =>
+    [
+      [placedMarkers.southWestBound.lat, placedMarkers.southWestBound.lng],
+      [placedMarkers.northEastBound.lat, placedMarkers.northEastBound.lng],
+    ],
+    [placedMarkers.southWestBound, placedMarkers.northEastBound]
+  );
 
   return (
-    <LeafletMap className="map" center={userLocation} zoom={13}>
+    <LeafletMap className="map" center={userLocation} bounds={mapBounds}>
       <TileLayer
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -54,7 +85,7 @@ function Map({ userLocation, articles }: MapProps) {
         icon={userIcon}
       />
 
-      {articleMarkers}
+      {placedMarkers.markers}
     </LeafletMap>
   );
 }
